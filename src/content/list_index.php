@@ -107,7 +107,6 @@
         <input type='button' class="button" id='preview_button_refresh' value='Actualiser'>
 
                 <div class='polaroid' id='container_memory_preview'>
-                    <div><img class="polaroid_pin" src="https://www.freepnglogos.com/uploads/pin-png/pin-pins-png-clipart-best-4.png" alt="pin"></div>
                     <img class='memory_photo' id='photo_memory_preview' src='https://fneto-prod.fr/slovenia/img/muffin-profile.png' alt='Preview memory'>
                     <div class='text_memory'>
                         <h2 id="title_memory_preview">Titre test</h2>
