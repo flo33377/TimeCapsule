@@ -20,7 +20,7 @@ define("FOCUS_EVENT_URL", __DIR__ . "/content/list_show.php");
 // Variables de pages
 $method = $_SERVER['REQUEST_METHOD'];
     // bellow, set all parameters by default
-$page = "get_all_lists"; // Valeur par défaut
+$page = "get_all_events"; // Valeur par défaut
 $content = LIST_INDEX_URL; // Par défaut, afficher la liste des listes
 $list = null; // créé la variable en prévision
 $lists = null; // créé la variable en prévision
@@ -30,7 +30,7 @@ $lists = null; // créé la variable en prévision
 switch ($method) {
     case "POST":
         if (!empty($_POST)) {
-            if (isset($_POST["post_create_event"])) $page = "post_create_event"; // basé sur l'input nom de liste
+            if (isset($_POST["post_create_event"])) $page = "post_create_event"; // basé sur l'input caché post_create_event
             if (isset($_POST["post_authenticate"])) $page = "post_authenticate"; // basé sur le champ caché sous le mdp
             if (isset($_POST["post_erase_event"])) $page = "post_erase_event"; // basé sur l'input caché suppr liste
             if (isset($_POST["post_change_info_event"])) $page = "post_change_info_event"; // basé sur l'input caché change nom liste
@@ -45,14 +45,14 @@ switch ($method) {
 // Pages
 // Logique à appliquer selon la page
 switch ($page) {
-    case "get_all_lists": // afficher toutes les listes
-        $lists = getAllLists();
+    case "get_all_events": // afficher toutes les listes
+        $lists = getAllEvents();
         $content = LIST_INDEX_URL;
         break;
 
     case "post_create_event": // création de liste
-        createNewList($_POST);
-        $lists = getAllLists(); // execute la requête SQL et return les listes
+        createNewEvent($_POST);
+        $lists = getAllEvents(); // execute la requête SQL et return les listes
         $content = LIST_INDEX_URL;
         break;
 
@@ -62,7 +62,7 @@ switch ($page) {
 
         if ($userPswd && $targetList) {
             $content = FOCUS_EVENT_URL;
-            $list = getListByName($targetList);
+            $list = getEventByName($targetList);
 
             if ($list && isset($list["list_password"]) && $userPswd === $list["list_password"]) {
                 $_SESSION["auth"] = $targetList;
@@ -74,24 +74,24 @@ switch ($page) {
     case "get_show_event": // afficher une liste et enregistre list_id dans SESSION
         $content = FOCUS_EVENT_URL;
         $listName = $_GET["list"] ?? null;
-        if ($listName) $list = getListByName($listName);
+        if ($listName) $list = getEventByName($listName);
         $_SESSION['list_id'] = $list['list_id'] ?? null;
         $_SESSION['periodicity'] = $list['periodicity'] ?? null;
-        $objectivesList = getObjectivesByListId($list['list_id']); // get all obj
+        $objectivesList = getMemoriesByEventId($list['list_id']); // get all obj
         break;
     
     case "post_erase_event": // supprime une liste
         // ATTENTION /!\: ajouter la verif par mot de passe pour ça /!\
         $content = LIST_INDEX_URL;
-        if ($_SESSION['list_id']) deleteList($_SESSION['list_id']);
-        $lists = getAllLists();
+        if ($_SESSION['list_id']) deleteEvent($_SESSION['list_id']);
+        $lists = getAllEvents();
         break;
     
     case "post_change_info_event": // change le nom d'une liste
         // ATTENTION /!\: Modifier pour ne pas update que le nom /!\
         $content = FOCUS_EVENT_URL;
         $targetList = $_POST['new_name_list'];
-        if ($_SESSION['list_id']) changeNameList($_SESSION['list_id'], $_POST['new_name_list']);
+        if ($_SESSION['list_id']) changeNameEvent($_SESSION['list_id'], $_POST['new_name_list']);
         $_SESSION["auth"] = $targetList;
         header("Location: " . "/timecapsule/?list=$targetList");
         break;

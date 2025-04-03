@@ -4,8 +4,8 @@
 
 <div class="listing_lists">
     <?php foreach ($lists as $list) : ?>
-        <a class="list_available" href="./?list=<?= $list['list_name'] ?>">
-            <p>> <?= $list['list_name'] ?></p>
+        <a class="list_available" href="./?list=<?= $list['event_name'] ?>">
+            <p>> <?= $list['event_name'] ?></p>
         </a>
     <?php endforeach ?>
 </div>
@@ -23,30 +23,31 @@
     <p>Vous pourrez modifier ces informations par la suite.</p>
 
     <form action="<?= BASE_URL ?>" method="POST" enctype="multipart/form-data">
+    <input type='hidden' id='post_create_event' name='post_create_event' required />
 
         <div><p class="form_category bold">Général</p></div>
 
         <div class="form_field">
-            <label for='new_list_title' class="label_new_list">
+            <label for='new_event_title' class="label_new_list">
                 <p>Nom de l'évènement :</p>
             </label>
-            <input type="text" id="new_list_title" name="new_list_title" required />
-            <input type='hidden' id='post_create_list' name='post_create_list' required />
+            <input type="text" id="new_event_title" name="new_event_title" required />
         </div>
+
         <div class="form_field">
-            <label for='new_list_password' class="label_new_list">
+            <label for='new_event_password' class="label_new_list">
                 <p>Mot de passe pour y accéder :<br><span class="italic"> (optionnel)</span></p>
             </label>
-            <input type="password" id="new_list_password" name="new_list_password" />
+            <input type="password" id="new_event_password" name="new_event_password" />
         </div>
 
         <div><p class="form_category bold">Design</p></div>
 
         <div class="form_field">
-            <label for='logo_event'><p>Image d'en-tête (logo par exemple) :</p>
+            <label for='new_event_logo'><p>Image d'en-tête (logo par exemple) :</p>
             <span class="italic">Il est conseillé d'utiliser une image sans fond, format png.<br>
             Si vous ne téléchargez pas d'image, une image standard sera utilisée.</span></label>
-            <input type='file' id='logo_event' name='logo_event' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif">
+            <input type='file' id='new_event_logo' name='new_event_logo' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif">
         </div>
 
         <div>
@@ -83,8 +84,8 @@
         <div>
             <label for='font_color'><p>Couleur des textes :</p></label>
             <select id='font_color' name='font_color' required>
-                <option value='black' >Blanc</option>
                 <option value='black' selected >Noir</option>
+                <option value='black' >Blanc</option>
                 <option value='greenyellow'>Vert</option>
                 <option value='aquamarine'>Bleu marin</option>
                 <option value='midnightblue'>Bleu minuit</option>
@@ -101,10 +102,35 @@
         </div>
     </form>
 
+    <input type='button' class="button" id='preview_button_refresh' value='Actualiser'>
 
-    <div id='preview_bloc'>
+    <div id='preview_module'>
         <p class="title_popup bold">Prévisualiser votre rendu</p>
-        <input type='button' class="button" id='preview_button_refresh' value='Actualiser'>
+
+        <div id='preview_whole' style="background-color: white">
+            <div id='preview_header' style="background-color: black">
+                <img src="https://fneto-prod.fr/timecapsule/img/timecapsule-logo.png" 
+                id="preview_logo" alt="Exemple logo">
+            </div>
+
+            <div>
+                <p id="preview_title">Nom de mon super évènement</p>
+            </div>
+
+            <div id="preview_content_memory">
+                <div id="memory_example_container">
+                    <img src="https://fneto-prod.fr/timecapsule/img/photo_template.jpg" alt="Exemple photo">
+                    <p>Une super soirée passée avec toi !</p>
+                    <p>Par Mélanie</p>
+                </div>
+            </div>
+
+            <div id="preview_adding_button" style="background-color: blue">
+                <p id="preview_adding_btn_text" style="color: white">+</p>
+            </div>
+        </div>
+
+        <!-- legacy
 
                 <div class='polaroid' id='container_memory_preview'>
                     <img class='memory_photo' id='photo_memory_preview' src='https://fneto-prod.fr/slovenia/img/muffin-profile.png' alt='Preview memory'>
@@ -113,13 +139,13 @@
                         <h3 id="notes_memory_preview" style="display: none">Notes test</h3>
                         <div class="memory_preview_flex">
                             <h4>Par&#x202F;</h4>
-                            <h4 id="author_memory_preview">Autheur</h4>
+                            <h4 id="author_memory_preview">Auteur</h4>
                             <h4>&#x202F;-&#x202F;</h4>
                             <h4 id="date_memory_preview">date</h4>
                         </div>
 
                     </div>
 
-                </div>
+                </div> -->
 
     </dialog>

@@ -2,7 +2,7 @@
 
 function connect(): PDO
 {
-    $dbpath = __DIR__ . "/db/dev_db_timecapsule.db";
+    $dbpath = __DIR__ . "/db/db_timecapsule.db";
     try {
         $mysqlClient = new PDO("sqlite:{$dbpath}");
     } catch (Exception $e) {
@@ -13,96 +13,77 @@ function connect(): PDO
 }
 
 
-function createNewList(array $data): bool
+function createNewEvent(array $data): bool
 {
     $mysqlClient = connect();
-
-    // récup date + calcul prochaines périodes + set password si absent
-    $currentDateTS = strtotime(date('d/m/Y'));
-    if ($data['periodicity'] == 'weekly') {
-        $nextResetTS0 = strtotime('next Monday');
-        $nextResetTS1 = strtotime('+7 days', $nextResetTS0);
-        $nextResetTS2 = strtotime('+7 days', $nextResetTS1);
-        $nextResetTS3 = strtotime('+7 days', $nextResetTS2);
-        $nextResetTS4 = strtotime('+7 days', $nextResetTS3);
-        $nextResetTS5 = strtotime('+7 days', $nextResetTS4);
-    } else {
-        $nextResetTS0 = strtotime('first day of next month');
-        $nextResetTS1 = strtotime('first day of next month', $nextResetTS0);
-        $nextResetTS2 = strtotime('first day of next month', $nextResetTS1);
-        $nextResetTS3 = strtotime('first day of next month', $nextResetTS2);
-        $nextResetTS4 = strtotime('first day of next month', $nextResetTS3);
-        $nextResetTS5 = strtotime('first day of next month', $nextResetTS4);
-    }
  
     // SQL request and send
-    $SQLSendNewList = "INSERT INTO successfactory_list (list_name, list_password, periodicity, creation_date, 
-        next_reset_period0, 'next_reset_period1', 'next_reset_period2', 'next_reset_period3', 'next_reset_period4', 
-        'next_reset_period5', current_score)
-            VALUES (:list_name, :list_password, :periodicity, :creation_date, 
-        :next_reset_period0, :next_reset_period1, :next_reset_period2, :next_reset_period3, :next_reset_period4, 
-        :next_reset_period5, :current_score)";
-    $SendNewListStatement = $mysqlClient->prepare($SQLSendNewList);
-    $SendNewListStatement->execute([
-        'list_name' => $data['new_list_title'],
-        'list_password' => $data['new_list_password'] ?? null,
-        'periodicity' => $data['periodicity'],
+    $SQLCreateNewEvent = "INSERT INTO timecapsule_list 
+    (event_name, event_password, creation_date, event_logo, main_color, secondary_color, 
+    font_color)
+    VALUES (:event_name, :event_password, :creation_date, :event_logo, :main_color, 
+    :secondary_color, :font_color)";
+    $CreateNewEventStatement = $mysqlClient->prepare($SQLCreateNewEvent);
+    $CreateNewEventStatement->execute([
+        'event_name' => $data['new_event_title'],
+        'event_password' => $data['new_event_password'] ?? null,
         'creation_date' => date('d/m/Y'),
-        'next_reset_period0' => $nextResetTS0,
-        'next_reset_period1' => $nextResetTS1,
-        'next_reset_period2' => $nextResetTS2,
-        'next_reset_period3' => $nextResetTS3,
-        'next_reset_period4' => $nextResetTS4,
-        'next_reset_period5' => $nextResetTS5,
-        'current_score' => 0
+        'event_logo' => $data['new_event_logo'], // ATTENTION : Need de le passer en URL et de le save
+        'main_color' => $data['main_color'],
+        'secondary_color' => $data['secondary_color'],
+        'font_color' => $data['font_color']
     ]);
 
     return true;
 }
 
-function getAllLists(): array
+
+function getAllEvents(): array
 {
     // Get existing lists to display it on HP
-    $SQLGetAllLists = 'SELECT * FROM timecapsule_list';
-    $allListsStatement = connect()->prepare($SQLGetAllLists);
-    $allListsStatement->execute();
+    $SQLGetAllEvents = 'SELECT * FROM timecapsule_list';
+    $getAllEventsStatement = connect()->prepare($SQLGetAllEvents);
+    $getAllEventsStatement->execute();
 
-    return $allListsStatement->fetchAll();
+    return $getAllEventsStatement->fetchAll();
 }
 
-function getListByName(string $name)
+
+function getEventByName(string $name)
 {
-    $SQLGetListInfos = 'SELECT * FROM successfactory_list WHERE list_name = ?';
-    $checkPasswordStatement = connect()->prepare($SQLGetListInfos);
+    $SQLGetEventInfos = 'SELECT * FROM timecapsule_list WHERE list_name = ?';
+    $checkPasswordStatement = connect()->prepare($SQLGetEventInfos);
     $checkPasswordStatement->execute([$name]);
 
     return $checkPasswordStatement->fetch();
 }
 
-function deleteList(float $id)
+function deleteEvent(float $id)
 {
-    $SQLDeleteList = 'DELETE FROM successfactory_list WHERE list_id = ?';
-    $deleteListStatement = connect()->prepare($SQLDeleteList);
-    $deleteListStatement->execute([$id]);
+    $SQLDeleteEvent = 'DELETE FROM timecapsule_list WHERE list_id = ?';
+    $deleteEventStatement = connect()->prepare($SQLDeleteEvent);
+    $deleteEventStatement->execute([$id]);
 }
 
-function changeNameList(int $id, string $newName)
+function changeNameEvent(int $id, string $newName)
 {
-    $SQLChangeNameList = 'UPDATE successfactory_list SET list_name = ? WHERE list_id = ?';
-    $changeNameListStatement = connect()->prepare($SQLChangeNameList);
-    $changeNameListStatement->execute([$newName, $id]);
+    $SQLChangeNameEvent = 'UPDATE timecapsule_list SET list_name = ? WHERE list_id = ?';
+    $changeNameEventStatement = connect()->prepare($SQLChangeNameEvent);
+    $changeNameEventStatement->execute([$newName, $id]);
 }
 
-function getObjectivesByListId(int $id): array
+function getMemoriesByEventId(int $id): array
 {
-    $SQLGetObjectivesById = 'SELECT * FROM successfactory_obj WHERE obj_list_id = ?';
-    $getObjectivesStatement = connect()->prepare($SQLGetObjectivesById);
-    $getObjectivesStatement->execute([$id]);
+    $SQLGetMemoriesById = 'SELECT * FROM successfactory_obj WHERE obj_list_id = ?';
+    $getMemoriesStatement = connect()->prepare($SQLGetMemoriesById);
+    $getMemoriesStatement->execute([$id]);
 
-    return $getObjectivesStatement->fetchAll();
+    return $getMemoriesStatement->fetchAll();
 }
 
+/* TEMPORAIREMENT EN COMM CAR VA BCP CHANGER */
 
+/*
 function createNewObjective(array $data): bool
 {
     $mysqlClient = connect();
@@ -122,8 +103,8 @@ function createNewObjective(array $data): bool
 
     // SQL request and send
     $SQLSendNewObjective = "INSERT INTO successfactory_obj (obj_list_id, obj_list_name, 
-        obj_name, periodicity_obj,/* next_reset_obj,*/ current_score_obj, max_score_obj, tag_obj)
-        VALUES (:obj_list_id, :obj_list_name, :obj_name, :periodicity_obj,/*:next_reset_obj,*/ 
+        obj_name, periodicity_obj, current_score_obj, max_score_obj, tag_obj)
+        VALUES (:obj_list_id, :obj_list_name, :obj_name, :periodicity_obj, 
         :current_score_obj, :max_score_obj, :tag_obj)";
     $SendNewObjStatement = $mysqlClient->prepare($SQLSendNewObjective);
     $SendNewObjStatement->execute([
@@ -131,7 +112,6 @@ function createNewObjective(array $data): bool
         'obj_list_name' => $_GET['list'],
         'obj_name' => $_POST['new_obj_title'],
         'periodicity_obj' => $_POST['periodicity'],
-        // 'next_reset_obj' => NULL,
         'current_score_obj' => 0,
         'max_score_obj' => $maxScore,
         'tag_obj' => $_POST['new_obj_tag']
@@ -139,6 +119,8 @@ function createNewObjective(array $data): bool
 
     return true;
 }
+
+*/
 
 // Ajouter un système de like par session id ?
 
