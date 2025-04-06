@@ -4,7 +4,7 @@
 
 <div class="listing_lists">
     <?php foreach ($lists as $list) : ?>
-        <a class="list_available" href="./?list=<?= $list['event_name'] ?>">
+        <a class="list_available" href="./?event=<?= $list['event_id'] ?>">
             <p>> <?= $list['event_name'] ?></p>
         </a>
     <?php endforeach ?>
@@ -36,7 +36,8 @@
 
         <div class="form_field">
             <label for='new_event_password' class="label_new_list">
-                <p>Mot de passe pour y accéder :<br><span class="italic"> (optionnel)</span></p>
+                <p>Mot de passe pour y accéder :
+                <br><span class="italic smaller"> (optionnel)</span></p>
             </label>
             <input type="password" id="new_event_password" name="new_event_password" />
         </div>
@@ -45,56 +46,69 @@
 
         <div class="form_field">
             <label for='new_event_logo'><p>Image d'en-tête (logo par exemple) :</p>
-            <span class="italic">Il est conseillé d'utiliser une image sans fond, format png.<br>
+            <span class="italic smaller">Il est conseillé d'utiliser une image sans fond, format png.
             Si vous ne téléchargez pas d'image, une image standard sera utilisée.</span></label>
             <input type='file' id='new_event_logo' name='new_event_logo' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif">
         </div>
 
-        <div>
-            <label for='main_color'><p>Couleur principale :</p></label>
-            <select id='main_color' name='main_color' required>
-                <option value='black' selected >Noir</option>
-                <option value='greenyellow'>Vert</option>
-                <option value='aquamarine'>Bleu marin</option>
-                <option value='midnightblue'>Bleu minuit</option>
-                <option value='red'>Rouge</option>
-                <option value='yellow'>Jaune</option>
-                <option value='slateblue'>Violet</option>
-                <option value='sienna'>Chocolat</option>
-                <option value='hotpink'>Rose</option>
-            </select>
-        </div>
+        <div id="color_module">
 
-        <div>
-            <label for='secondary_color'><p>Couleur secondaire :</p></label>
-            <select id='secondary_color' name='secondary_color' required>
-                <option value='black' selected >Blanc</option>
-                <option value='black' >Noir</option>
-                <option value='greenyellow'>Vert</option>
-                <option value='aquamarine'>Bleu marin</option>
-                <option value='midnightblue'>Bleu minuit</option>
-                <option value='red'>Rouge</option>
-                <option value='yellow'>Jaune</option>
-                <option value='slateblue'>Violet</option>
-                <option value='sienna'>Chocolat</option>
-                <option value='hotpink'>Rose</option>
-            </select>
-        </div>
+            <div class="color_content">
+                <div class="color_choosing">
+                    <label for='main_color'><p>Couleur principale :</p></label>
+                    <select id='main_color' name='main_color' class='form_field' required>
+                        <option value='black' selected >Noir</option>
+                        <option value='greenyellow'>Vert</option>
+                        <option value='aquamarine'>Bleu marin</option>
+                        <option value='midnightblue'>Bleu minuit</option>
+                        <option value='red'>Rouge</option>
+                        <option value='yellow'>Jaune</option>
+                        <option value='slateblue'>Violet</option>
+                        <option value='sienna'>Chocolat</option>
+                        <option value='hotpink'>Rose</option>
+                    </select>
+                </div>
+                <div class="nuancier" id="nuancier_main_color" style="background-color:black"></div>
+            </div>
 
-        <div>
-            <label for='font_color'><p>Couleur des textes :</p></label>
-            <select id='font_color' name='font_color' required>
-                <option value='black' selected >Noir</option>
-                <option value='black' >Blanc</option>
-                <option value='greenyellow'>Vert</option>
-                <option value='aquamarine'>Bleu marin</option>
-                <option value='midnightblue'>Bleu minuit</option>
-                <option value='red'>Rouge</option>
-                <option value='yellow'>Jaune</option>
-                <option value='slateblue'>Violet</option>
-                <option value='sienna'>Chocolat</option>
-                <option value='hotpink'>Rose</option>
-            </select>
+            <div class="color_content">
+                <div class="color_choosing">
+                    <label for='secondary_color'><p>Couleur secondaire :</p></label>
+                    <select id='secondary_color' name='secondary_color' class='form_field' required>
+                        <option value='white' selected >Blanc</option>
+                        <option value='black' >Noir</option>
+                        <option value='greenyellow'>Vert</option>
+                        <option value='aquamarine'>Bleu marin</option>
+                        <option value='midnightblue'>Bleu minuit</option>
+                        <option value='red'>Rouge</option>
+                        <option value='yellow'>Jaune</option>
+                        <option value='slateblue'>Violet</option>
+                        <option value='sienna'>Chocolat</option>
+                        <option value='hotpink'>Rose</option>
+                    </select>
+                </div>
+                <div class="nuancier" id="nuancier_secondary_color" style="background-color:white"></div>
+            </div>
+
+            <div class="color_content">
+                <div class="color_choosing">
+                    <label for='font_color'><p>Couleur des textes :</p></label>
+                    <select id='font_color' name='font_color' class='form_field' required>
+                        <option value='black' selected >Noir</option>
+                        <option value='white' >Blanc</option>
+                        <option value='greenyellow'>Vert</option>
+                        <option value='aquamarine'>Bleu marin</option>
+                        <option value='midnightblue'>Bleu minuit</option>
+                        <option value='red'>Rouge</option>
+                        <option value='yellow'>Jaune</option>
+                        <option value='slateblue'>Violet</option>
+                        <option value='sienna'>Chocolat</option>
+                        <option value='hotpink'>Rose</option>
+                    </select>
+                </div>
+                <div class="nuancier" id="nuancier_font_color" style="background-color:black"></div>
+            </div>
+
         </div>
 
         <div id="modal_submit_button_bloc">
@@ -130,22 +144,5 @@
             </div>
         </div>
 
-        <!-- legacy
-
-                <div class='polaroid' id='container_memory_preview'>
-                    <img class='memory_photo' id='photo_memory_preview' src='https://fneto-prod.fr/slovenia/img/muffin-profile.png' alt='Preview memory'>
-                    <div class='text_memory'>
-                        <h2 id="title_memory_preview">Titre test</h2>
-                        <h3 id="notes_memory_preview" style="display: none">Notes test</h3>
-                        <div class="memory_preview_flex">
-                            <h4>Par&#x202F;</h4>
-                            <h4 id="author_memory_preview">Auteur</h4>
-                            <h4>&#x202F;-&#x202F;</h4>
-                            <h4 id="date_memory_preview">date</h4>
-                        </div>
-
-                    </div>
-
-                </div> -->
 
     </dialog>

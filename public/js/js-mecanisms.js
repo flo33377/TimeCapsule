@@ -45,6 +45,30 @@ getDialogBox2.addEventListener('click', (event) => {
 };
 
 
+/* Preview color */
+
+let mainColorChoice = document.getElementById('main_color');
+
+if (mainColorChoice) {
+    mainColorChoice.addEventListener('change', () => {
+        let nuancierMainColor = document.getElementById("nuancier_main_color");
+        nuancierMainColor.style.backgroundColor = mainColorChoice.value;
+    });
+
+    let secondaryColorChoice = document.getElementById('secondary_color');
+    secondaryColorChoice.addEventListener('change', () => {
+        let nuancierSecondaryColor = document.getElementById("nuancier_secondary_color");
+        nuancierSecondaryColor.style.backgroundColor = secondaryColorChoice.value;
+    });
+
+    let fontColorChoice = document.getElementById('font_color');
+    fontColorChoice.addEventListener('change', ( )=> {
+        let nuancierFontColor = document.getElementById("nuancier_font_color");
+        nuancierFontColor.style.backgroundColor = fontColorChoice.value;
+    });
+};
+
+
 /* Preview function */
 
 let previewLogoEvent = document.getElementById('preview_logo');

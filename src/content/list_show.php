@@ -6,7 +6,7 @@
         <a class="back_button cta nav_left" href="<?= BASE_URL ?>">< Retour</a>
     </div>
 
-    <h1><?= $list["list_name"] ?></h1>
+    <h1><?= $event["event_name"] ?></h1>
 
     <div class="nav_right">
     <?php if (empty($list["list_password"]) || $_SESSION['auth'] == $list["list_name"]) : ?>

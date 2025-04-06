@@ -38,7 +38,7 @@ switch ($method) {
         break;
 
     case "GET":
-        if (!empty($_GET["list"])) $page = "get_show_event"; // le get est généré sous forme de param d'URL
+        if (!empty($_GET["event"])) $page = "get_show_event"; // le get est généré sous forme de param d'URL
         break;
 }
 
@@ -62,7 +62,7 @@ switch ($page) {
 
         if ($userPswd && $targetList) {
             $content = FOCUS_EVENT_URL;
-            $list = getEventByName($targetList);
+            $list = getEventById($targetList);
 
             if ($list && isset($list["list_password"]) && $userPswd === $list["list_password"]) {
                 $_SESSION["auth"] = $targetList;
@@ -73,11 +73,10 @@ switch ($page) {
 
     case "get_show_event": // afficher une liste et enregistre list_id dans SESSION
         $content = FOCUS_EVENT_URL;
-        $listName = $_GET["list"] ?? null;
-        if ($listName) $list = getEventByName($listName);
-        $_SESSION['list_id'] = $list['list_id'] ?? null;
-        $_SESSION['periodicity'] = $list['periodicity'] ?? null;
-        $objectivesList = getMemoriesByEventId($list['list_id']); // get all obj
+        $eventId = $_GET["event"] ?? null;
+        if ($eventId) $event = getEventById($eventId);
+        $_SESSION['event_id'] = $event['event_id'] ?? null;
+        $objectivesList = getMemoriesByEventId($event['event_id']); // get all obj
         break;
     
     case "post_erase_event": // supprime une liste

@@ -15,6 +15,29 @@ function connect(): PDO
 
 function createNewEvent(array $data): bool
 {
+
+    $TransferPathLogo = __DIR__ . '/content/logo_events/';
+    if ($_SERVER["SERVER_PORT"] === "5000") { // vaut true si en local
+        $publicPath = __DIR__ . '/content/logo_events/';
+    } else {
+        $publicPath = 'https://fneto-prod.fr/timecapsule/src/content/logo_events/';
+    };
+
+    $urlLogo = '';
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && $_FILES["new_event_logo"]["tmp_name"] !== "") {
+        // vérifier si ce bout de code fonctionne (ne peut marcher qu'avec BDD prod) 
+        // --> remplace les caractères spéciaux pour ne pas créer de conflit de génération d'URL (cas de Chloë)
+        $searchEncodedCharacters  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ');
+        $replaceEncodedCharacters = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y');
+        $eventNameEncoded = str_replace($searchEncodedCharacters, $replaceEncodedCharacters, $_POST['new_event_title']);
+        // fin du bout de code à tester
+        $depositoryUrlLogo = $TransferPathLogo . date("F-j-Y_H-i-s") . $eventNameEncoded . "." . strtolower(pathinfo($_FILES['new_event_logo']['name'], PATHINFO_EXTENSION));
+        move_uploaded_file($_FILES['new_event_logo']['tmp_name'], $depositoryUrlLogo);
+
+        $urlLogo = $publicPath . date("F-j-Y_H-i-s") . $eventNameEncoded . "." . strtolower(pathinfo($_FILES['new_event_logo']['name'], PATHINFO_EXTENSION));
+    }
+
     $mysqlClient = connect();
  
     // SQL request and send
@@ -28,7 +51,7 @@ function createNewEvent(array $data): bool
         'event_name' => $data['new_event_title'],
         'event_password' => $data['new_event_password'] ?? null,
         'creation_date' => date('d/m/Y'),
-        'event_logo' => $data['new_event_logo'], // ATTENTION : Need de le passer en URL et de le save
+        'event_logo' => $urlLogo,
         'main_color' => $data['main_color'],
         'secondary_color' => $data['secondary_color'],
         'font_color' => $data['font_color']
@@ -49,11 +72,11 @@ function getAllEvents(): array
 }
 
 
-function getEventByName(string $name)
+function getEventById(float $id)
 {
-    $SQLGetEventInfos = 'SELECT * FROM timecapsule_list WHERE list_name = ?';
+    $SQLGetEventInfos = 'SELECT * FROM timecapsule_list WHERE event_id = ?';
     $checkPasswordStatement = connect()->prepare($SQLGetEventInfos);
-    $checkPasswordStatement->execute([$name]);
+    $checkPasswordStatement->execute([$id]);
 
     return $checkPasswordStatement->fetch();
 }
@@ -74,7 +97,7 @@ function changeNameEvent(int $id, string $newName)
 
 function getMemoriesByEventId(int $id): array
 {
-    $SQLGetMemoriesById = 'SELECT * FROM successfactory_obj WHERE obj_list_id = ?';
+    $SQLGetMemoriesById = 'SELECT * FROM timecapsule_memories WHERE event_id = ?';
     $getMemoriesStatement = connect()->prepare($SQLGetMemoriesById);
     $getMemoriesStatement->execute([$id]);
 
