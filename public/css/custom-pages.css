@@ -15,7 +15,7 @@
 
 #nav_buttons {
   position: fixed;
-  bottom: 5vh; right: 5vw;
+  bottom: 3vh; right: 3vh;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -27,7 +27,7 @@
   flex-direction: column;
 }}
 
-#nav_buttons div {
+#nav_buttons a {
   background-color: black;
   padding: 10px;
   height: 80px;
@@ -41,22 +41,14 @@
   justify-content: center;
 }
 
-#nav_buttons div a {
-  display: flex;
-  align-items: center;
-}
-
-#nav_buttons div p {
+#nav_buttons a p {
   display: flex;
   align-items: center;
   font-size: 5em;
+  color: white;
 }
 
-#nav_buttons img {
-  height: 90%;
-}
-
-/* Preview part */
+/* Memory part (preview + real) */
 
 #preview_whole {
   width: 100%;
@@ -90,13 +82,14 @@
   align-items: center;
 }
 
-#preview_content_memory img {
+#preview_content_memory img, #memory_container img {
   max-width: 200px;
   max-width: 90%;
 }
 
-#memory_example_container {
+#memory_container, .memory_container {
   width: 50%;
+  padding: 50px;
   object-fit: contain;
   display: flex;
   flex-direction: column;
@@ -108,11 +101,10 @@
   -webkit-box-shadow: 0px 1px 5px 0px #656565;
   -o-box-shadow: 0px 1px 5px 0px #656565;
   box-shadow: 0px 1px 5px 0px #656565;
-  rotate: 1deg;
   padding: 15px 0px;
 }
 
-#memory_example_container p {
+#memory_container p {
   max-width: 200px;
 }
 
@@ -175,7 +167,52 @@
 }
 
 
+/* Create memory */
 
+#create_memory_preview_bloc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2vh 0vh 5vh 0vh;
+}
+
+#memory_preview_btn_refresh {
+  background-color: white;
+  color: indianred;
+  border: 3px solid indianred;
+  padding: 8px;
+  box-shadow: 0px 10px 11px 0px rgba(0, 0, 0, 0.6);
+  margin: 2vh 0vh 3vh 0vh;
+  font-weight: bold;
+}
+
+#preview_format_selection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 2vh 0vw;
+}
+
+#preview_format_selection input{
+  visibility: hidden;
+  display: none;
+  margin: 2vh 0vw;
+}
+
+#preview_format_selection input:checked + label{
+  background-color: midnightblue;
+  color: white;
+  border-radius: 10vh;
+  padding: 1vh;
+  margin: 0vh 1vw;
+  transition: 0.5s color ease-in-out;
+}
+
+.memory_preview_flex {
+  display: flex;
+  flex-direction: row;
+}
 
 
 

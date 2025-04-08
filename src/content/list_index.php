@@ -116,7 +116,7 @@
         </div>
     </form>
 
-    <input type='button' class="button" id='preview_button_refresh' value='Actualiser'>
+    <input type='button' class="button" id='preview_event_btn_refresh' value='Actualiser'>
 
     <div id='preview_module'>
         <p class="title_popup bold">Prévisualiser votre rendu</p>
@@ -132,7 +132,7 @@
             </div>
 
             <div id="preview_content_memory">
-                <div id="memory_example_container">
+                <div id="memory_container">
                     <img src="https://fneto-prod.fr/timecapsule/img/photo_template.jpg" alt="Exemple photo">
                     <p>Une super soirée passée avec toi !</p>
                     <p>Par Mélanie</p>

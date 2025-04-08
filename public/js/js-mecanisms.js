@@ -4,7 +4,9 @@ let getDialogBox = document.getElementById('dialog1');
 let showModaleButton = document.getElementById('showModaleButton');
 let closeModaleButton = document.getElementById('close_popup');
 
+if(showModaleButton) {
 showModaleButton.addEventListener('click', () => {
+    // avant de placer l'évent, vérifie que l'elem est sur la page pour éviter les erreurs console
     getDialogBox.showModal();
     getDialogBox.style.top = `${(window.innerHeight - getDialogBox.offsetHeight) / 2}px`;
     getDialogBox.style.left = `${(window.innerWidth - getDialogBox.offsetWidth) / 2}px`
@@ -19,6 +21,7 @@ getDialogBox.addEventListener('click', (event) => {
         getDialogBox.close();
     }
 });
+};
 
 // If 2nd modal in the page - VOIR AVEC JULIEN S'IL A SOLUTION
 
@@ -74,7 +77,7 @@ if (mainColorChoice) {
 let previewLogoEvent = document.getElementById('preview_logo');
 
 if (previewLogoEvent) {
-    let playRefresh = document.getElementById('preview_button_refresh');
+    let playRefresh = document.getElementById('preview_event_btn_refresh');
     playRefresh.addEventListener('click', () => {
     const [photo] = document.getElementById("new_event_logo").files;
     if (photo) {

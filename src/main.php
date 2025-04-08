@@ -15,6 +15,8 @@ define("BASE_URL", ($_SERVER["SERVER_PORT"] === "5000") ? "http://localhost:5000
 define("LIST_INDEX_URL", __DIR__ . "/content/list_index.php");
     // FOCUS_EVENT_url = fichier qui demande mdp ou affiche content list si pas de mdp ou mdp ok
 define("FOCUS_EVENT_URL", __DIR__ . "/content/list_show.php");
+    // CREATE_MEMORY_URL = fichier sur lequel est le form pour ajouter memory
+define("CREATE_MEMORY_URL", __DIR__ . "/content/create_memory.php");
 
 
 // Variables de pages
@@ -33,12 +35,14 @@ switch ($method) {
             if (isset($_POST["post_create_event"])) $page = "post_create_event"; // basé sur l'input caché post_create_event
             if (isset($_POST["post_authenticate"])) $page = "post_authenticate"; // basé sur le champ caché sous le mdp
             if (isset($_POST["post_erase_event"])) $page = "post_erase_event"; // basé sur l'input caché suppr liste
-            if (isset($_POST["post_change_info_event"])) $page = "post_change_info_event"; // basé sur l'input caché change nom liste
+            if (isset($_POST["post_change_name_event"])) $page = "post_change_name_event"; // basé sur l'input caché change nom liste
+            if (isset($_POST["post_create_memory"])) $page = "post_create_memory"; // basé sur l'input caché post_create_memory
         }
         break;
 
     case "GET":
-        if (!empty($_GET["event"])) $page = "get_show_event"; // le get est généré sous forme de param d'URL
+        if (!empty($_GET["event"]) && !isset($_GET['create_mode'])) $page = "get_show_event"; // le get est généré sous forme de param d'URL
+        if (!empty($_GET['create_mode']) && $_GET['create_mode'] == 'true') $page = "go_create_memory"; // basé sur l'input caché create_memory
         break;
 }
 
@@ -56,43 +60,67 @@ switch ($page) {
         $content = LIST_INDEX_URL;
         break;
 
-    case "post_authenticate": // vérifier authentifcation
+    case "post_authenticate": // vérifier authentification
         $userPswd = $_POST["password"] ?? null;
-        $targetList = $_POST["targetList"] ?? null;
+        $targetEvent = $_POST["targetEvent"] ?? null;
 
-        if ($userPswd && $targetList) {
+        if ($userPswd && $targetEvent) {
             $content = FOCUS_EVENT_URL;
-            $list = getEventById($targetList);
+            $event = getEventById($targetEvent);
 
-            if ($list && isset($list["list_password"]) && $userPswd === $list["list_password"]) {
-                $_SESSION["auth"] = $targetList;
-                header("Location: " . "/timecapsule/?list=$targetList");
+            if ($event && isset($event["event_password"]) && $userPswd === $event["event_password"]) {
+                $_SESSION["auth"] = $targetEvent;
+                if($_SERVER["SERVER_PORT"] === "5000") {
+                    header("Location: " . "/?event=$targetEvent");
+                } else {
+                    header("Location: " . "/timecapsule/?event=$targetEvent");
+                };
             }
         }
         break;
 
-    case "get_show_event": // afficher une liste et enregistre list_id dans SESSION
+    case "get_show_event": // afficher une liste et enregistre event_id dans SESSION
         $content = FOCUS_EVENT_URL;
         $eventId = $_GET["event"] ?? null;
         if ($eventId) $event = getEventById($eventId);
         $_SESSION['event_id'] = $event['event_id'] ?? null;
-        $objectivesList = getMemoriesByEventId($event['event_id']); // get all obj
+        $_SESSION['main_color'] = $event['main_color'] ?? null;
+        $_SESSION['secondary_color'] = $event['secondary_color'] ?? null;
+        $_SESSION['font_color'] = $event['font_color'] ?? null;
+        $_SESSION['event_logo'] = $event['event_logo'] ?? null;
+        $memoriesData = getMemoriesByEventId($event['event_id']); // get all memories
         break;
     
-    case "post_erase_event": // supprime une liste
+    case "post_erase_event": // supprime un event
         // ATTENTION /!\: ajouter la verif par mot de passe pour ça /!\
         $content = LIST_INDEX_URL;
-        if ($_SESSION['list_id']) deleteEvent($_SESSION['list_id']);
+        if ($_SESSION['event_id']) deleteEvent($_SESSION['event_id']);
         $lists = getAllEvents();
         break;
     
-    case "post_change_info_event": // change le nom d'une liste
+    case "post_change_name_event": // change le nom d'un event
         // ATTENTION /!\: Modifier pour ne pas update que le nom /!\
         $content = FOCUS_EVENT_URL;
-        $targetList = $_POST['new_name_list'];
-        if ($_SESSION['list_id']) changeNameEvent($_SESSION['list_id'], $_POST['new_name_list']);
-        $_SESSION["auth"] = $targetList;
-        header("Location: " . "/timecapsule/?list=$targetList");
+        if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
+        if ($_SESSION['event_id']) changeNameEvent($_SESSION['event_id'], $_POST['new_name_event']);
+        $_SESSION["auth"] = $targetEvent;
+        if($_SERVER["SERVER_PORT"] === "5000") {
+            header("Location: " . "/?event=$targetEvent");
+        } else {
+            header("Location: " . "/timecapsule/?event=$targetEvent");
+        };
         break;
 
+    case "go_create_memory": // va sur la page pour créer des memories
+        $content = CREATE_MEMORY_URL;
+        $eventId = $_GET["event"] ?? null;
+        if ($eventId) $event = getEventById($eventId);
+        break;
+
+    case "post_create_memory": // créé un memory
+        $content = FOCUS_EVENT_URL;
+        $eventId = $_SESSION["event_id"] ?? null;
+        if ($eventId) $event = getEventById($eventId);
+        if ($eventId) createNewMemory($_POST);
+        $memoriesData = getMemoriesByEventId($event['event_id']); // get all memories
 }

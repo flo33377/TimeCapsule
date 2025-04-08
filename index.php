@@ -16,13 +16,27 @@
 </head>
 
 <body>
-  <header>
+  <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['main_color']) && $_SESSION['main_color'] != null) : ?>
+    <header style="background-color: <?= $_SESSION['main_color'] ?>" >
+  <?php else : ?>
+    <header>
+  <?php endif ?>
+
     <a href='<?= BASE_URL ?>'>
+      
+      <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['event_logo']) && $_SESSION['event_logo'] != null) : ?>
+        <img src='<?= $_SESSION['event_logo'] ?>' alt='logo évènement'>
+      <?php else : ?>
       <img src='https://fneto-prod.fr/timecapsule/img/timecapsule-logo.png' alt='logo Time Capsule'>
-    </a>
+    <?php endif ?>
+  </a>
   </header>
 
-  <main id='content'>
+  <main id='content'
+  <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['secondary_color']) && $_SESSION['secondary_color'] != null) : ?>
+    style="background-color: <?= $_SESSION['secondary_color'] ?>"
+  <?php endif ?>
+  >
     <?php include($content) ?>
   </main>
 
