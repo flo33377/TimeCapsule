@@ -91,6 +91,40 @@ function changeNameEvent(int $id, string $newName) {
     $changeNameEventStatement->execute([$newName, $id]);
 }
 
+function changeLogoOrColorsEvent(int $id, array $data) {
+    if($_FILES["photo_memory"]["tmp_name"] !== "") { // only if a new logo was uploaded
+        $TransferPathMemory = __DIR__ . '/content/memory_img/';
+        if ($_SERVER["SERVER_PORT"] === "5000") { // vaut true si en local
+            $publicPath = __DIR__ . '/content/memory_img/';
+        } else {
+            $publicPath = 'https://fneto-prod.fr/timecapsule/src/content/memory_img/';
+        };
+
+        $urlMemory = '';
+
+        $searchEncodedCharacters  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ');
+        $replaceEncodedCharacters = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y');
+        $memoryNameEncoded = str_replace($searchEncodedCharacters, $replaceEncodedCharacters, $_POST['post_event_name']);
+        
+        $depositoryUrlMemory = $TransferPathMemory . date("F-j-Y_H-i-s") . $memoryNameEncoded . "." . strtolower(pathinfo($_FILES['new_event_logo']['name'], PATHINFO_EXTENSION));
+        move_uploaded_file($_FILES['new_event_logo']['tmp_name'], $depositoryUrlMemory);
+
+        $urlMemory = $publicPath . date("F-j-Y_H-i-s") . $memoryNameEncoded . "." . strtolower(pathinfo($_FILES['new_event_logo']['name'], PATHINFO_EXTENSION));
+
+        $SQLChangeLogoAndColorsEvent = 'UPDATE timecapsule_list SET event_logo = ?, main_color = ?, 
+        secondary_color = ?, font_color = ? WHERE event_id = ?';
+        $changeLogoColorsEventStatement = connect()->prepare($SQLChangeLogoAndColorsEvent);
+        $changeLogoColorsEventStatement->execute([$urlMemory, $_POST['main_color'], $_POST['secondary_color'], $_POST['font_color'], $id]);
+
+        return true;
+    } else {
+        $SQLChangeOnlyColorsEvent = 'UPDATE timecapsule_list SET main_color = ?, 
+        secondary_color = ?, font_color = ? WHERE event_id = ?';
+        $changeOnlyColorsEventStatement = connect()->prepare($SQLChangeOnlyColorsEvent);
+        $changeOnlyColorsEventStatement->execute([$_POST['main_color'], $_POST['secondary_color'], $_POST['font_color'], $id]);
+    }
+}
+
 function getMemoriesByEventId(int $id): array {
     $SQLGetMemoriesById = 'SELECT * FROM timecapsule_memories WHERE event_id = ?';
     $getMemoriesStatement = connect()->prepare($SQLGetMemoriesById);
@@ -128,17 +162,16 @@ function createNewMemory(array $data): bool {
 
     // SQL request and send
     $SQLSendNewMemory = "INSERT INTO timecapsule_memories (event_id, memory_text, 
-        url_photo, memory_decoration, memory_author, memory_date, memory_likes_count)
+        url_photo, memory_decoration, memory_author, memory_likes_count)
         VALUES (:event_id, :memory_text, :url_photo, :memory_decoration, 
-        :memory_author, :memory_date, :memory_likes_count)";
+        :memory_author, :memory_likes_count)";
     $sendNewMemoryStatement = $mysqlClient->prepare($SQLSendNewMemory);
     $sendNewMemoryStatement->execute([
-        'event_id' => $_POST['event_id'],
-        'memory_text' => $_POST['title'],
+        'event_id' => $data['event_id'],
+        'memory_text' => $data['title'],
         'url_photo' => $urlMemory,
-        'memory_decoration' => $_POST['color'],
-        'memory_author' => $_POST['author'],
-        'memory_date' => $_POST['date'],
+        'memory_decoration' => $data['color'],
+        'memory_author' => $data['author'],
         'memory_likes_count' => '0'
     ]);
 

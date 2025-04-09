@@ -61,6 +61,8 @@ a:hover, a p:hover {
 /* MODALS AND POPUPS */
 
 dialog {
+  top: 10vh;
+  height: 80vh;
   border-radius: 20px;
   background-color: white;
   color: black;

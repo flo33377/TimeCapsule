@@ -8,7 +8,7 @@ if(showModaleButton) {
 showModaleButton.addEventListener('click', () => {
     // avant de placer l'évent, vérifie que l'elem est sur la page pour éviter les erreurs console
     getDialogBox.showModal();
-    getDialogBox.style.top = `${(window.innerHeight - getDialogBox.offsetHeight) / 2}px`;
+    //getDialogBox.style.top = `${(window.innerHeight - getDialogBox.offsetHeight) / 2}px`;
     getDialogBox.style.left = `${(window.innerWidth - getDialogBox.offsetWidth) / 2}px`
 })
 
@@ -48,7 +48,7 @@ getDialogBox2.addEventListener('click', (event) => {
 };
 
 
-/* Preview color */
+/* Preview color event */
 
 let mainColorChoice = document.getElementById('main_color');
 
@@ -71,24 +71,41 @@ if (mainColorChoice) {
     });
 };
 
+/* preview color create new memory */
 
-/* Preview function */
+let decorationChoice = document.getElementById('color');
+
+if(decorationChoice) {
+    decorationChoice.addEventListener('change', () => {
+        let nuancierDecoration = document.getElementById('nuancier_decoration');
+        let nuancierDecoValue = decorationChoice.value;
+        if (nuancierDecoValue.includes('color')) {
+            let valueCSSnuancier = nuancierDecoValue.slice(17);
+            nuancierDecoration.style.backgroundColor = valueCSSnuancier;
+          } else {
+            let valueCSSnuancier = nuancierDecoValue.slice(17);
+            nuancierDecoration.style.backgroundImage = valueCSSnuancier;
+          };
+    });
+};
+
+
+/* Preview Event function */
 
 let previewLogoEvent = document.getElementById('preview_logo');
+let logoAlreadyUploaded = document.getElementById('post_change_logo_colors'); // true only if we're on
+    // the change logo/colors admin modal, not the create event page
 
 if (previewLogoEvent) {
-    let playRefresh = document.getElementById('preview_event_btn_refresh');
-    playRefresh.addEventListener('click', () => {
-    const [photo] = document.getElementById("new_event_logo").files;
-    if (photo) {
-        previewLogoEvent.src = URL.createObjectURL(photo);
+    let playRefreshPreviewEvent = document.getElementById('preview_event_btn_refresh');
+    playRefreshPreviewEvent.addEventListener('click', () => {
+    const [logo] = document.getElementById("new_event_logo").files;
+    if (logo) {
+        previewLogoEvent.src = URL.createObjectURL(logo);
     } else {
+        if(!logoAlreadyUploaded) {
         previewLogoEvent.src = "https://fneto-prod.fr/timecapsule/img/timecapsule-logo.png";
-    };
-
-    let newEventValueTitle = document.getElementById('new_event_title');
-    let newEventPreviewTitle = newEventValueTitle.value;
-    document.getElementById('preview_title').innerHTML = newEventPreviewTitle;
+    }};
 
     let newEventValueMainColor = document.getElementById('main_color');
     let newEventPreviewMainColor = newEventValueMainColor.value;
@@ -106,3 +123,40 @@ if (previewLogoEvent) {
     });
 
 };
+
+
+/* Preview Memory function */
+
+let previewMemoryPhoto = document.getElementById('photo_memory_preview');
+
+if (previewMemoryPhoto) {
+    let playRefreshPreviewMemory = document.getElementById('memory_preview_btn_refresh');
+    playRefreshPreviewMemory.addEventListener('click', () => {
+    const [photo] = document.getElementById("photo_memory").files;
+    if (photo) {
+        previewMemoryPhoto.src = URL.createObjectURL(photo);
+    };
+
+    let newMemoryValueTitle = document.getElementById('title');
+    let newMemoryPreviewTitle = newMemoryValueTitle.value;
+    document.getElementById('title_memory_preview').innerHTML = newMemoryPreviewTitle;
+
+    let newMemoryValueAuthor = document.getElementById('author');
+    let newMemoryPreviewAuthor = newMemoryValueAuthor.value;
+    document.getElementById('author_memory_preview').innerHTML = newMemoryPreviewAuthor;
+
+    let newMemoryValueDecoration = document.getElementById('color');
+    let newMemoryPreviewDecoration = newMemoryValueDecoration.value;
+    if (newMemoryPreviewDecoration.includes('color')) {
+        let valueDecoration = newMemoryPreviewDecoration.slice(17);
+        document.getElementById('memory_container').style.backgroundColor = valueDecoration;
+      } else {
+        let valueDecoration = newMemoryPreviewDecoration.slice(17);
+        document.getElementById('memory_container').style.backgroundImage = valueDecoration;
+      };
+
+    });
+
+};
+
+

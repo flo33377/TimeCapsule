@@ -36,6 +36,7 @@ switch ($method) {
             if (isset($_POST["post_authenticate"])) $page = "post_authenticate"; // basé sur le champ caché sous le mdp
             if (isset($_POST["post_erase_event"])) $page = "post_erase_event"; // basé sur l'input caché suppr liste
             if (isset($_POST["post_change_name_event"])) $page = "post_change_name_event"; // basé sur l'input caché change nom liste
+            if (isset($_POST["post_change_logo_colors"])) $page = "post_change_logo_colors"; // basé sur l'input caché change logo colors
             if (isset($_POST["post_create_memory"])) $page = "post_create_memory"; // basé sur l'input caché post_create_memory
         }
         break;
@@ -104,6 +105,17 @@ switch ($page) {
         if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
         if ($_SESSION['event_id']) changeNameEvent($_SESSION['event_id'], $_POST['new_name_event']);
         $_SESSION["auth"] = $targetEvent;
+        if($_SERVER["SERVER_PORT"] === "5000") {
+            header("Location: " . "/?event=$targetEvent");
+        } else {
+            header("Location: " . "/timecapsule/?event=$targetEvent");
+        };
+        break;
+
+    case "post_change_logo_colors" : // change les couleurs et éventuellement le logo de l'event
+        $content = FOCUS_EVENT_URL;
+        if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
+        if ($_SESSION['event_id']) changeLogoOrColorsEvent($_SESSION['event_id'], $_POST);
         if($_SERVER["SERVER_PORT"] === "5000") {
             header("Location: " . "/?event=$targetEvent");
         } else {

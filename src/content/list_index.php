@@ -132,7 +132,7 @@
             </div>
 
             <div id="preview_content_memory">
-                <div id="memory_container">
+                <div id="memory_container" style="rotate: 1deg">
                     <img src="https://fneto-prod.fr/timecapsule/img/photo_template.jpg" alt="Exemple photo">
                     <p>Une super soirée passée avec toi !</p>
                     <p>Par Mélanie</p>

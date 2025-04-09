@@ -73,8 +73,6 @@
 <?php endif ?>
 >Enregistrer un nouveau souvenir</h2>
 
-<?php print_r($_SESSION); ?>
-
 <form action="<?= BASE_URL ?>" method="POST" enctype="multipart/form-data">
 
 <input type='hidden' id='post_create_memory' name='post_create_memory' required />
@@ -86,12 +84,7 @@
 </div>
 
 <div>
-    <label for='date'><p>Date</p></label>
-    <input type='date' id='date' name='date' required>
-</div>
-
-<div>
-    <label for='color'><p>Couleur</p></label>
+    <label for='color'><p>Couleur/décoration</p></label>
     <select id='color' name='color' required>
         <option value='background-color: white' selected>Blanc</option>
         <option value='background-color: black'>Noir</option>
@@ -111,6 +104,10 @@
         <option value='background-image: url("https://www.fneto-prod.fr/slovenia/memories/paterns/motif-plage.jpeg")'>Motif plage</option>
         <option value='background-image: url("https://www.fneto-prod.fr/slovenia/memories/paterns/motif-vivatech.jpeg")'>Motif Viva Tech</option>
     </select>
+</div>
+
+</div>
+    <div class="nuancier_new_memory" id="nuancier_decoration" style="background-color:white"></div>
 </div>
 
 <div>
@@ -141,8 +138,6 @@
                 <div class="memory_preview_flex">
                     <h4>Par&#x202F;</h4>
                     <h4 id="author_memory_preview">Auteur</h4>
-                    <h4>&#x202F;-&#x202F;</h4>
-                    <h4 id="date_memory_preview">date</h4>
                 </div>
             </div>
         </div>
