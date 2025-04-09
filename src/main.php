@@ -27,6 +27,10 @@ $content = LIST_INDEX_URL; // Par défaut, afficher la liste des listes
 $list = null; // créé la variable en prévision
 $lists = null; // créé la variable en prévision
 
+if (!isset($_SESSION['LikedMemory'])) {
+    $_SESSION['LikedMemory'] = []; // initialise un tableau vide pour stocker les publis likées
+};
+
 // Routes
 // Savoir sur quelle page on va en cas de POST ou GET
 switch ($method) {
@@ -132,7 +136,14 @@ switch ($page) {
     case "post_create_memory": // créé un memory
         $content = FOCUS_EVENT_URL;
         $eventId = $_SESSION["event_id"] ?? null;
+        if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
         if ($eventId) $event = getEventById($eventId);
         if ($eventId) createNewMemory($_POST);
         $memoriesData = getMemoriesByEventId($event['event_id']); // get all memories
+        if($_SERVER["SERVER_PORT"] === "5000") {
+            header("Location: " . "/?event=$targetEvent");
+        } else {
+            header("Location: " . "/timecapsule/?event=$targetEvent");
+        };
+        break;
 }

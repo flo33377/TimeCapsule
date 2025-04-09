@@ -178,5 +178,16 @@ function createNewMemory(array $data): bool {
     return true;
 }
 
-// Ajouter un système de like par session id ?
+function likesMemory(array $data): bool {
+
+    $SQLIncreaseNbrLikes = "UPDATE timecapsule_memories 
+    SET memory_likes_count = :memory_likes_count WHERE memory_id = :memory_id";
+    $SendIncreaseLikesNbr = connect()->prepare($SQLIncreaseNbrLikes);
+    $SendIncreaseLikesNbr->execute([
+        'memory_likes_count' => $data['newNbrOfLikes'],
+        'memory_id' => $data['memoryId']
+    ]);
+
+    return true;
+}
 

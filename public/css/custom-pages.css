@@ -225,4 +225,39 @@
   background-size: contain;
 }
 
+/* Liking part */
+
+.likes_bloc {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.liking_function_bloc img {
+  height: 30px;
+}
+
+.liking_function_bloc input[type="checkbox"] {
+  display: none;
+}
+
+@keyframes popHeart {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.liking_icon img.animate-heart {
+  animation: popHeart 0.4s ease;
+}
+
+
 

@@ -160,3 +160,67 @@ if (previewMemoryPhoto) {
 };
 
 
+/* Fonction de like des memories */
+
+// AJAX request to update DB when checkbox updated
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".like-checkbox").forEach(checkbox => {
+        checkbox.addEventListener("change", function () {
+            let memoryId = this.dataset.id; // get from the id
+            let currentNbrLikesImport = this.dataset.nbrlikes;
+
+            let newNbrOfLikes = parseInt(currentNbrLikesImport);
+            newNbrOfLikes++;
+
+            const formdata = new FormData();
+            formdata.append("memoryId", memoryId);
+            formdata.append("newNbrOfLikes", newNbrOfLikes);
+
+            fetch("./src/updateLikesNbr.php", {
+                method: "POST",
+                body: formdata
+            })
+            .then(response => { let reponse = response.text(); console.log(reponse) })
+
+            // disabled une fois cliquée
+            this.disabled = true;
+
+            // update le nombre de likes à +1
+            let likesBloc = this.closest(".likes_bloc");
+            let spanLikes = likesBloc.querySelector(".nbr_likes");
+            if (spanLikes) {
+                spanLikes.textContent = newNbrOfLikes;
+            };
+
+            // remplace par la nouvelle image
+            let imgIcon = this.parentElement.querySelector("img");
+            if (imgIcon) {
+                imgIcon.src = "https://fneto-prod.fr/timecapsule/img/heart_icon_full.png";
+            }
+
+            imgIcon.classList.add("animate-heart");
+
+            // supprimer la classe après timeout
+            setTimeout(() => {
+                imgIcon.classList.remove("animate-heart");
+            }, 400); // ATTENTION : Doit matcher la durée de l'animation CSS
+
+         })
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".like-checkbox").forEach(checkbox => { 
+        if(checkbox.checked) {
+            // remplace par la nouvelle image
+            let imgIcon = checkbox.parentElement.querySelector("img");
+            if (imgIcon) {
+                imgIcon.src = "https://fneto-prod.fr/timecapsule/img/heart_icon_full.png";
+            }
+        } 
+    })
+});
+
+
+

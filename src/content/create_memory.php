@@ -117,7 +117,7 @@
 
 <div>
     <label for='photo_memory'><p>Photo</p></label>
-    <input type='file' id='photo_memory' name='photo_memory' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif">
+    <input type='file' id='photo_memory' name='photo_memory' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif" required>
 </div>
 
 <div class='submit_button_bloc'>
