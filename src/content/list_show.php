@@ -17,7 +17,7 @@
         </h1>
 
     <div class="nav_right">
-    <?php if (empty($event["event_password"]) || $_SESSION['auth'] == $event["event_id"]) : ?>
+    <?php if (empty($event["event_password"]) || (isset($_SESSION['auth']) && $_SESSION['auth'] == $event["event_id"])) : ?>
         <a class='param_button' id='showModaleButton'>
             <img src="https://fneto-prod.fr/ambition-hub/img/parameter_icon.png" 
             alt="Bouton d'accès aux paramètres" >
@@ -29,6 +29,7 @@
 <!-- administration modal -->
 <!-- A retravailler pour time capsule -->
 
+<?php if (empty($event["event_password"]) || (isset($_SESSION['auth']) && $_SESSION['auth'] == $event["event_id"])) : ?>
 <dialog id='dialog1'>
 
     <button class="close_popup" id="close_popup">X</button>
@@ -75,12 +76,14 @@
             <input type='hidden' id='post_change_logo_colors' name='post_change_logo_colors' required />
             <input type='hidden' id='post_event_name' name='post_event_name' value=<?= $event['event_name'] ?> required />
 
-            <div class="form_field">
-            <label for='new_event_logo'><p>Image d'en-tête (logo par exemple) :</p>
-            <span class="italic smaller">Il est conseillé d'utiliser une image sans fond, format png.
-            Si vous ne téléchargez pas d'image, une image standard sera utilisée.</span></label>
-            <input type='file' id='new_event_logo' name='new_event_logo' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif">
-        </div>
+            <div class="form_field_file">
+                <div>
+                    <label for='new_event_logo'><p>Image d'en-tête (logo par exemple) :</p>
+                    <span class="italic smaller">Il est conseillé d'utiliser une image sans fond, format png.
+                    Si vous ne téléchargez pas d'image, une image standard sera utilisée.</span></label>
+                </div>
+                <input type='file' id='new_event_logo' name='new_event_logo' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif">
+            </div>
 
         <div id="color_module">
 
@@ -106,7 +109,7 @@
                 <div class="color_choosing">
                     <label for='secondary_color'><p>Couleur secondaire :</p></label>
                     <select id='secondary_color' name='secondary_color' class='form_field' required>
-                        <option value='white' <?php if($event['secondary_color'] == "black") : echo('selected'); endif ?>>Blanc</option>
+                        <option value='white' <?php if($event['secondary_color'] == "white") : echo('selected'); endif ?>>Blanc</option>
                         <option value='black' <?php if($event['secondary_color'] == "black") : echo('selected'); endif ?>>Noir</option>
                         <option value='greenyellow' <?php if($event['secondary_color'] == "greenyellow") : echo('selected'); endif ?>>Vert</option>
                         <option value='aquamarine' <?php if($event['secondary_color'] == "aquamarine") : echo('selected'); endif ?>>Bleu marin</option>
@@ -139,19 +142,20 @@
                 </div>
                 <div class="nuancier" id="nuancier_font_color" style="background-color:<?= $event['font_color'] ?>"></div>
             </div>
+        </div>
 
-            <div id="modal_submit_button_bloc">
-            <input id="modal_submit_button" class="admin_cta" type="submit" value="Modifier" />
-            </div>
-        </form>
-
-        <input type='button' class="button" id='preview_event_btn_refresh' value='Checker le rendu'>
+        <div id="modal_submit_button_bloc">
+            <input type='button' class="button cta cta_modal" id='preview_event_btn_refresh' value='Prévisualiser le rendu'>
+            <input id="modal_submit_button" class="main_cta" type="submit" value="Modifier" />
+        </div>
+    </form>
 
     <div id='preview_module'>
 
         <div id='preview_whole' style="background-color: <?= $event['secondary_color'] ?>">
             <div id='preview_header' style="background-color: <?= $event['main_color'] ?>">
-                <img src="<?= $event['event_logo'] ?>" 
+                <img src="<?php if($event['event_logo'] != null) : echo($event['event_logo']);
+                else : echo('https://fneto-prod.fr/timecapsule/img/timecapsule-logo.png'); endif ?>" 
                 id="preview_logo" alt="Exemple logo">
             </div>
 
@@ -171,11 +175,10 @@
                 <p id="preview_adding_btn_text" style="color: white">+</p>
             </div>
         </div>
-
     </details>
-    
 
     </dialog>
+<?php endif ?>
 
 <!-- page content -->
 
@@ -200,7 +203,7 @@
 
     <?php foreach ($memoriesData as $listingMemories) : ?>
         <?php if (!$listingMemories['cancel'] == 'true' ) : ?>
-            <div class='memory_container' style='<?= $listingMemories['memory_decoration'] ?>'>
+            <div class='memory_container' style='<?= $listingMemories['memory_decoration'] ?>; transform:rotate(<?= round(rand(-5,5)) ?>deg);'>
                 <img class='memory_photo' src='<?= $listingMemories['url_photo'] ?>' alt='Photo souvenir n°<?= $listingMemories['memory_id'] ?>'>
                 <div class='text_memory'>
                     <h2><?= $listingMemories['memory_text'] ?></h2>

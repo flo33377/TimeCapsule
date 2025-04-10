@@ -2,6 +2,23 @@
 
 session_start();
 
+/* fonction de débug - need fichier debug_log.txt
+function debug_log($message) {
+    $file = __DIR__ . '/debug_log.txt'; // Le fichier log sera dans le même dossier que ton script
+    $date = date('Y-m-d H:i:s');
+    $log = "[$date] $message\n";
+    file_put_contents($file, $log, FILE_APPEND);
+}
+
+// Utilisation du logger
+debug_log("SESSION: " . print_r($_SESSION, true));
+debug_log("POST: " . print_r($_POST, true));
+debug_log("GET: " . print_r($_GET, true));
+debug_log("-----------");
+
+// fin du debogger
+*/
+
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
@@ -75,6 +92,7 @@ switch ($page) {
 
             if ($event && isset($event["event_password"]) && $userPswd === $event["event_password"]) {
                 $_SESSION["auth"] = $targetEvent;
+                $_SESSION["event_id"] = $targetEvent;
                 if($_SERVER["SERVER_PORT"] === "5000") {
                     header("Location: " . "/?event=$targetEvent");
                 } else {
@@ -104,11 +122,11 @@ switch ($page) {
         break;
     
     case "post_change_name_event": // change le nom d'un event
-        // ATTENTION /!\: Modifier pour ne pas update que le nom /!\
         $content = FOCUS_EVENT_URL;
         if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
         if ($_SESSION['event_id']) changeNameEvent($_SESSION['event_id'], $_POST['new_name_event']);
         $_SESSION["auth"] = $targetEvent;
+        session_write_close();
         if($_SERVER["SERVER_PORT"] === "5000") {
             header("Location: " . "/?event=$targetEvent");
         } else {
@@ -120,6 +138,7 @@ switch ($page) {
         $content = FOCUS_EVENT_URL;
         if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
         if ($_SESSION['event_id']) changeLogoOrColorsEvent($_SESSION['event_id'], $_POST);
+        $_SESSION["auth"] = $targetEvent;
         if($_SERVER["SERVER_PORT"] === "5000") {
             header("Location: " . "/?event=$targetEvent");
         } else {

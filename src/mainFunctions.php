@@ -92,7 +92,7 @@ function changeNameEvent(int $id, string $newName) {
 }
 
 function changeLogoOrColorsEvent(int $id, array $data) {
-    if($_FILES["photo_memory"]["tmp_name"] !== "") { // only if a new logo was uploaded
+    if($_FILES["new_event_logo"]["tmp_name"] !== "") { // only if a new logo was uploaded
         $TransferPathMemory = __DIR__ . '/content/memory_img/';
         if ($_SERVER["SERVER_PORT"] === "5000") { // vaut true si en local
             $publicPath = __DIR__ . '/content/memory_img/';

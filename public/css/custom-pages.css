@@ -39,6 +39,11 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
+  text-decoration: none;
+}
+
+#nav_buttons a:hover {
+  text-decoration: none;
 }
 
 #nav_buttons a p {
@@ -74,6 +79,7 @@
 
 #preview_title {
   margin: 20px 0px;
+  text-align: center;
 }
 
 #preview_content_memory {
@@ -82,8 +88,7 @@
   align-items: center;
 }
 
-#preview_content_memory img, #memory_container img {
-  max-width: 200px;
+#preview_content_memory img, #memory_container img, .memory_photo {
   max-width: 90%;
 }
 
@@ -96,6 +101,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 70%;
 
   background-color: bisque;
   border: 1px solid #C9C9C9;
@@ -103,7 +109,7 @@
   -webkit-box-shadow: 0px 1px 5px 0px #656565;
   -o-box-shadow: 0px 1px 5px 0px #656565;
   box-shadow: 0px 1px 5px 0px #656565;
-  padding: 15px 0px;
+  padding: 15px 0px 5px 0px;
 }
 
 #memory_container p {
@@ -168,6 +174,20 @@
   margin: 10px;
 }
 
+.form_field_file {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+
+.form_field_file div, .form_field_file p, .form_field_file span {
+  width: fit-content;
+}
+
+.form_field_file input {
+  margin-top: 10px;
+}
 
 /* Create memory */
 
@@ -176,39 +196,6 @@
   flex-direction: column;
   align-items: center;
   margin: 2vh 0vh 5vh 0vh;
-}
-
-#memory_preview_btn_refresh {
-  background-color: white;
-  color: indianred;
-  border: 3px solid indianred;
-  padding: 8px;
-  box-shadow: 0px 10px 11px 0px rgba(0, 0, 0, 0.6);
-  margin: 2vh 0vh 3vh 0vh;
-  font-weight: bold;
-}
-
-#preview_format_selection {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 2vh 0vw;
-}
-
-#preview_format_selection input{
-  visibility: hidden;
-  display: none;
-  margin: 2vh 0vw;
-}
-
-#preview_format_selection input:checked + label{
-  background-color: midnightblue;
-  color: white;
-  border-radius: 10vh;
-  padding: 1vh;
-  margin: 0vh 1vw;
-  transition: 0.5s color ease-in-out;
 }
 
 .memory_preview_flex {
@@ -236,7 +223,7 @@
 }
 
 .liking_function_bloc img {
-  height: 30px;
+  height: 20px;
 }
 
 .liking_function_bloc input[type="checkbox"] {
@@ -258,6 +245,36 @@
 .liking_icon img.animate-heart {
   animation: popHeart 0.4s ease;
 }
+
+
+/* Memory feed */
+
+.memories_global {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5vh;
+}
+
+.memories_global div {
+  max-width: 60%;
+}
+
+.memories_global h2 {
+  margin: 0.5em 0em 0.3em 0em;
+}
+
+/* case desktop */
+@media screen and (min-width: 767px) { 
+  .memories_global {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .memories_global div {
+    width: 250px;
+  }
+}
+
 
 
 

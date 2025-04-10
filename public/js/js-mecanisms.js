@@ -82,9 +82,11 @@ if(decorationChoice) {
         if (nuancierDecoValue.includes('color')) {
             let valueCSSnuancier = nuancierDecoValue.slice(17);
             nuancierDecoration.style.backgroundColor = valueCSSnuancier;
+            nuancierDecoration.style.backgroundImage = "";
           } else {
             let valueCSSnuancier = nuancierDecoValue.slice(17);
             nuancierDecoration.style.backgroundImage = valueCSSnuancier;
+            nuancierDecoration.style.backgroundColor = "";
           };
     });
 };
@@ -150,9 +152,11 @@ if (previewMemoryPhoto) {
     if (newMemoryPreviewDecoration.includes('color')) {
         let valueDecoration = newMemoryPreviewDecoration.slice(17);
         document.getElementById('memory_container').style.backgroundColor = valueDecoration;
+        document.getElementById('memory_container').style.backgroundImage = "";
       } else {
         let valueDecoration = newMemoryPreviewDecoration.slice(17);
         document.getElementById('memory_container').style.backgroundImage = valueDecoration;
+        document.getElementById('memory_container').style.backgroundColor = "";
       };
 
     });

@@ -44,11 +44,15 @@
 
         <div><p class="form_category bold">Design</p></div>
 
-        <div class="form_field">
-            <label for='new_event_logo'><p>Image d'en-tête (logo par exemple) :</p>
-            <span class="italic smaller">Il est conseillé d'utiliser une image sans fond, format png.
-            Si vous ne téléchargez pas d'image, une image standard sera utilisée.</span></label>
-            <input type='file' id='new_event_logo' name='new_event_logo' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif">
+        <div class="form_field_file">
+            <div>
+                <label for='new_event_logo'><p>Image d'en-tête (logo par exemple) :</p>
+                <span class="italic smaller">Il est conseillé d'utiliser une image sans fond, format png.
+                Si vous ne téléchargez pas d'image, une image standard sera utilisée.</span></label>
+            </div>
+            <div class="file_input">
+                <input type='file' id='new_event_logo' name='new_event_logo' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif">
+            </div>
         </div>
 
         <div id="color_module">
@@ -76,7 +80,6 @@
                     <label for='secondary_color'><p>Couleur secondaire :</p></label>
                     <select id='secondary_color' name='secondary_color' class='form_field' required>
                         <option value='white' selected >Blanc</option>
-                        <option value='black' >Noir</option>
                         <option value='greenyellow'>Vert</option>
                         <option value='aquamarine'>Bleu marin</option>
                         <option value='midnightblue'>Bleu minuit</option>
@@ -112,11 +115,12 @@
         </div>
 
         <div id="modal_submit_button_bloc">
-            <input id="modal_submit_button" class="cta" type="submit" value="Créer votre feed" />
+            <input type='button' class="button cta cta_modal" id='preview_event_btn_refresh' value='Actualiser'>
+            <input id="modal_submit_button" class="main_cta" type="submit" value="Créer votre feed" />
         </div>
     </form>
 
-    <input type='button' class="button" id='preview_event_btn_refresh' value='Actualiser'>
+    
 
     <div id='preview_module'>
         <p class="title_popup bold">Prévisualiser votre rendu</p>

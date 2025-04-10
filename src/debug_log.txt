@@ -1,0 +1,116 @@
+[2025-04-10 19:14:28] SESSION: Array
+(
+)
+
+[2025-04-10 19:14:28] POST: Array
+(
+)
+
+[2025-04-10 19:14:28] GET: Array
+(
+)
+
+[2025-04-10 19:14:28] -----------
+[2025-04-10 19:14:30] SESSION: Array
+(
+    [LikedMemory] => Array
+        (
+        )
+
+)
+
+[2025-04-10 19:14:30] POST: Array
+(
+)
+
+[2025-04-10 19:14:30] GET: Array
+(
+    [event] => 19
+)
+
+[2025-04-10 19:14:30] -----------
+[2025-04-10 19:14:33] SESSION: Array
+(
+    [LikedMemory] => Array
+        (
+        )
+
+    [event_id] => 19
+    [main_color] => midnightblue
+    [secondary_color] => sienna
+    [font_color] => white
+    [event_logo] => https://fneto-prod.fr/timecapsule/src/content/memory_img/April-10-2025_16-13-26Nouveau.png
+)
+
+[2025-04-10 19:14:33] POST: Array
+(
+    [password] => coucou
+    [targetEvent] => 19
+    [password_proposition] => 
+    [post_authenticate] => 
+)
+
+[2025-04-10 19:14:33] GET: Array
+(
+    [event] => 19
+)
+
+[2025-04-10 19:14:33] -----------
+[2025-04-10 19:14:33] SESSION: Array
+(
+    [LikedMemory] => Array
+        (
+        )
+
+    [event_id] => 19
+    [main_color] => midnightblue
+    [secondary_color] => sienna
+    [font_color] => white
+    [event_logo] => https://fneto-prod.fr/timecapsule/src/content/memory_img/April-10-2025_16-13-26Nouveau.png
+    [auth] => 19
+)
+
+[2025-04-10 19:14:33] POST: Array
+(
+)
+
+[2025-04-10 19:14:33] GET: Array
+(
+    [event] => 19
+)
+
+[2025-04-10 19:14:33] -----------
+[2025-04-10 19:14:45] SESSION: Array
+(
+)
+
+[2025-04-10 19:14:45] POST: Array
+(
+    [post_change_name_event] => 
+    [new_name_event] => Test d'un nouveau nom - 2e essai
+)
+
+[2025-04-10 19:14:45] GET: Array
+(
+)
+
+[2025-04-10 19:14:45] -----------
+[2025-04-10 19:14:45] SESSION: Array
+(
+    [LikedMemory] => Array
+        (
+        )
+
+    [auth] => 
+)
+
+[2025-04-10 19:14:45] POST: Array
+(
+)
+
+[2025-04-10 19:14:45] GET: Array
+(
+    [event] => 
+)
+
+[2025-04-10 19:14:45] -----------
