@@ -70,6 +70,11 @@
                         <option value='slateblue'>Violet</option>
                         <option value='sienna'>Chocolat</option>
                         <option value='hotpink'>Rose</option>
+                        <option value='brown'>Marron</option>
+                        <option value='deepskyblue'>Bleu ciel</option>
+                        <option value='fuchsia'>Fuchsia</option>
+                        <option value='goldenrod'>Or</option>
+                        <option value='teal'>Teal</option>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_main_color" style="background-color:black"></div>
@@ -88,6 +93,11 @@
                         <option value='slateblue'>Violet</option>
                         <option value='sienna'>Chocolat</option>
                         <option value='hotpink'>Rose</option>
+                        <option value='brown'>Marron</option>
+                        <option value='deepskyblue'>Bleu ciel</option>
+                        <option value='fuchsia'>Fuchsia</option>
+                        <option value='goldenrod'>Or</option>
+                        <option value='teal'>Teal</option>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_secondary_color" style="background-color:white"></div>
@@ -107,6 +117,9 @@
                         <option value='slateblue'>Violet</option>
                         <option value='sienna'>Chocolat</option>
                         <option value='hotpink'>Rose</option>
+                        <option value='brown'>Marron</option>
+                        <option value='fuchsia'>Fuchsia</option>
+                        <option value='goldenrod'>Or</option>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_font_color" style="background-color:black"></div>

@@ -16,7 +16,7 @@
     <?= $event["event_name"] ?>
         </h1>
 
-    <div class="nav_right">
+    <div class="nav_right cta">
     <?php if (empty($event["event_password"]) || (isset($_SESSION['auth']) && $_SESSION['auth'] == $event["event_id"])) : ?>
         <a class='param_button' id='showModaleButton'>
             <img src="https://fneto-prod.fr/ambition-hub/img/parameter_icon.png" 
@@ -100,6 +100,11 @@
                         <option value='slateblue' <?php if($event['main_color'] == "slateblue") : echo('selected'); endif ?>>Violet</option>
                         <option value='sienna' <?php if($event['main_color'] == "sienna") : echo('selected'); endif ?>>Chocolat</option>
                         <option value='hotpink' <?php if($event['main_color'] == "hotpink") : echo('selected'); endif ?>>Rose</option>
+                        <option value='brown' <?php if($event['main_color'] == "brown") : echo('selected'); endif ?>>Marron</option>
+                        <option value='deepskyblue' <?php if($event['main_color'] == "deepskyblue") : echo('selected'); endif ?>>Bleu ciel</option>
+                        <option value='fuchsia' <?php if($event['main_color'] == "fuchsia") : echo('selected'); endif ?>>Fuchsia</option>
+                        <option value='goldenrod' <?php if($event['main_color'] == "goldenrod") : echo('selected'); endif ?>>Or</option>
+                        <option value='teal' <?php if($event['main_color'] == "teal") : echo('selected'); endif ?>>Teal</option>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_main_color" style="background-color:<?= $event['main_color'] ?>"></div>
@@ -113,12 +118,17 @@
                         <option value='black' <?php if($event['secondary_color'] == "black") : echo('selected'); endif ?>>Noir</option>
                         <option value='greenyellow' <?php if($event['secondary_color'] == "greenyellow") : echo('selected'); endif ?>>Vert</option>
                         <option value='aquamarine' <?php if($event['secondary_color'] == "aquamarine") : echo('selected'); endif ?>>Bleu marin</option>
-                        <option value='midnightblue' <?php if($event['secondary_color'] == "midnigthblue") : echo('selected'); endif ?>>Bleu minuit</option>
+                        <option value='midnightblue' <?php if($event['secondary_color'] == "midnightblue") : echo('selected'); endif ?>>Bleu minuit</option>
                         <option value='red' <?php if($event['secondary_color'] == "red") : echo('selected'); endif ?>>Rouge</option>
                         <option value='yellow' <?php if($event['secondary_color'] == "yellow") : echo('selected'); endif ?>>Jaune</option>
                         <option value='slateblue' <?php if($event['secondary_color'] == "slateblue") : echo('selected'); endif ?>>Violet</option>
                         <option value='sienna' <?php if($event['secondary_color'] == "sienna") : echo('selected'); endif ?>>Chocolat</option>
                         <option value='hotpink' <?php if($event['secondary_color'] == "hotpink") : echo('selected'); endif ?>>Rose</option>
+                        <option value='brown' <?php if($event['main_color'] == "brown") : echo('selected'); endif ?>>Marron</option>
+                        <option value='deepskyblue' <?php if($event['main_color'] == "deepskyblue") : echo('selected'); endif ?>>Bleu ciel</option>
+                        <option value='fuchsia' <?php if($event['main_color'] == "fuchsia") : echo('selected'); endif ?>>Fuchsia</option>
+                        <option value='goldenrod' <?php if($event['main_color'] == "goldenrod") : echo('selected'); endif ?>>Or</option>
+                        <option value='teal' <?php if($event['main_color'] == "teal") : echo('selected'); endif ?>>Teal</option>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_secondary_color" style="background-color:<?= $event['secondary_color'] ?>"></div>
@@ -138,6 +148,9 @@
                         <option value='slateblue' <?php if($event['font_color'] == "slateblue") : echo('selected'); endif ?>>Violet</option>
                         <option value='sienna' <?php if($event['font_color'] == "sienna") : echo('selected'); endif ?>>Chocolat</option>
                         <option value='hotpink' <?php if($event['font_color'] == "hotpink") : echo('selected'); endif ?>>Rose</option>
+                        <option value='brown' <?php if($event['main_color'] == "brown") : echo('selected'); endif ?>>Marron</option>
+                        <option value='fuchsia' <?php if($event['main_color'] == "fuchsia") : echo('selected'); endif ?>>Fuchsia</option>
+                        <option value='goldenrod' <?php if($event['main_color'] == "goldenrod") : echo('selected'); endif ?>>Or</option>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_font_color" style="background-color:<?= $event['font_color'] ?>"></div>

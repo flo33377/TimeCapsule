@@ -151,12 +151,12 @@ if (previewMemoryPhoto) {
     let newMemoryPreviewDecoration = newMemoryValueDecoration.value;
     if (newMemoryPreviewDecoration.includes('color')) {
         let valueDecoration = newMemoryPreviewDecoration.slice(17);
-        document.getElementById('memory_container').style.backgroundColor = valueDecoration;
-        document.getElementById('memory_container').style.backgroundImage = "";
+        document.getElementById('memory_preview_container').style.backgroundColor = valueDecoration;
+        document.getElementById('memory_preview_container').style.backgroundImage = "";
       } else {
         let valueDecoration = newMemoryPreviewDecoration.slice(17);
-        document.getElementById('memory_container').style.backgroundImage = valueDecoration;
-        document.getElementById('memory_container').style.backgroundColor = "";
+        document.getElementById('memory_preview_container').style.backgroundImage = valueDecoration;
+        document.getElementById('memory_preview_container').style.backgroundColor = "";
       };
 
     });

@@ -98,6 +98,11 @@
                         <option value='slateblue' <?php if($event['main_color'] == "slateblue") : echo('selected'); endif ?>>Violet</option>
                         <option value='sienna' <?php if($event['main_color'] == "sienna") : echo('selected'); endif ?>>Chocolat</option>
                         <option value='hotpink' <?php if($event['main_color'] == "hotpink") : echo('selected'); endif ?>>Rose</option>
+                        <option value='brown' <?php if($event['main_color'] == "brown") : echo('selected'); endif ?>>Marron</option>
+                        <option value='deepskyblue' <?php if($event['main_color'] == "deepskyblue") : echo('selected'); endif ?>>Bleu ciel</option>
+                        <option value='fuchsia' <?php if($event['main_color'] == "fuchsia") : echo('selected'); endif ?>>Fuchsia</option>
+                        <option value='goldenrod' <?php if($event['main_color'] == "goldenrod") : echo('selected'); endif ?>>Or</option>
+                        <option value='teal' <?php if($event['main_color'] == "teal") : echo('selected'); endif ?>>Teal</option>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_main_color" style="background-color:<?= $event['main_color'] ?>"></div>
@@ -117,6 +122,11 @@
                         <option value='slateblue' <?php if($event['secondary_color'] == "slateblue") : echo('selected'); endif ?>>Violet</option>
                         <option value='sienna' <?php if($event['secondary_color'] == "sienna") : echo('selected'); endif ?>>Chocolat</option>
                         <option value='hotpink' <?php if($event['secondary_color'] == "hotpink") : echo('selected'); endif ?>>Rose</option>
+                        <option value='brown' <?php if($event['main_color'] == "brown") : echo('selected'); endif ?>>Marron</option>
+                        <option value='deepskyblue' <?php if($event['main_color'] == "deepskyblue") : echo('selected'); endif ?>>Bleu ciel</option>
+                        <option value='fuchsia' <?php if($event['main_color'] == "fuchsia") : echo('selected'); endif ?>>Fuchsia</option>
+                        <option value='goldenrod' <?php if($event['main_color'] == "goldenrod") : echo('selected'); endif ?>>Or</option>
+                        <option value='teal' <?php if($event['main_color'] == "teal") : echo('selected'); endif ?>>Teal</option>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_secondary_color" style="background-color:<?= $event['secondary_color'] ?>"></div>
@@ -136,6 +146,9 @@
                         <option value='slateblue' <?php if($event['font_color'] == "slateblue") : echo('selected'); endif ?>>Violet</option>
                         <option value='sienna' <?php if($event['font_color'] == "sienna") : echo('selected'); endif ?>>Chocolat</option>
                         <option value='hotpink' <?php if($event['font_color'] == "hotpink") : echo('selected'); endif ?>>Rose</option>
+                        <option value='brown' <?php if($event['main_color'] == "brown") : echo('selected'); endif ?>>Marron</option>
+                        <option value='fuchsia' <?php if($event['main_color'] == "fuchsia") : echo('selected'); endif ?>>Fuchsia</option>
+                        <option value='goldenrod' <?php if($event['main_color'] == "goldenrod") : echo('selected'); endif ?>>Or</option>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_font_color" style="background-color:<?= $event['font_color'] ?>"></div>
@@ -233,11 +246,19 @@
         <option value='background-color: slateblue'>Violet</option>
         <option value='background-color: sienna'>Chocolat</option>
         <option value='background-color: hotpink'>Rose</option>
-        <option value='background-image: url("https://www.fneto-prod.fr/timecapsule/img/paterns/motif-vague.jpeg")'>Motif vague</option>
-        <option value='background-image: url("https://www.fneto-prod.fr/timecapsule/img/paterns/motif-chien.jpeg")'>Motif chien</option>
-        <option value='background-image: url("https://www.fneto-prod.fr/timecapsule/img/paterns/motif-coeur.jpeg")'>Motif coeurs</option>
-        <option value='background-image: url("https://www.fneto-prod.fr/timecapsule/img/paterns/motif-fleur.jpeg")'>Motif fleurs</option>
-        <option value='background-image: url("https://www.fneto-prod.fr/timecapsule/img/paterns/motif-vivatech.jpeg")'>Motifs géométriques</option>
+        <option value='background-color: brown'>Marron</option>
+        <option value='background-color: deepskyblue'>Bleu ciel</option>
+        <option value='background-color: fuchsia'>Fuchsia</option>
+        <option value='background-color: goldenrod'>Or</option>
+        <option value='background-color: teal'>Teal</option>
+        <option value='background-image: url("https://fneto-prod.fr/timecapsule/img/paterns/motif-vague.jpeg")'>Motif vague</option>
+        <option value='background-image: url("https://fneto-prod.fr/timecapsule/img/paterns/motif-chien.jpeg")'>Motif chien</option>
+        <option value='background-image: url("https://fneto-prod.fr/timecapsule/img/paterns/motif-coeur.jpeg")'>Motif coeurs</option>
+        <option value='background-image: url("https://fneto-prod.fr/timecapsule/img/paterns/motif-fleur.jpeg")'>Motif fleurs</option>
+        <option value='background-image: url("https://fneto-prod.fr/timecapsule/img/paterns/yellowblack.jpg")'>Couleurs de Pouffsouffle</option>
+        <option value='background-image: url("https://fneto-prod.fr/timecapsule/img/paterns/hufflepuffpatern.jpg")'>Motifs Pouffsouffle</option>
+        <option value='background-image: url("https://fneto-prod.fr/timecapsule/img/paterns/skynight.jpg")'>Ciel étoilé</option>
+        <option value='background-image: url("https://fneto-prod.fr/timecapsule/img/paterns/oldparchmentpatern.jpg")'>Motif parchemin</option>
     </select>
 </div>
 
@@ -260,7 +281,11 @@
     style="color: <?= $_SESSION['font_color'] ?>"
     <?php endif ?>
     >Photo</p></label>
-    <input type='file' id='photo_memory' name='photo_memory' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif" required>
+    <input type='file' id='photo_memory' name='photo_memory' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif" required
+    <?php if(isset($_GET['event']) && $_GET['event'] != null && $_GET['event'] != null && isset($_SESSION['font_color']) && $_SESSION['font_color'] != null) : ?>
+    style="color: <?= $_SESSION['font_color'] ?>"
+    <?php endif ?>
+    >
 </div>
 
 <div id="submit_button_bloc">
@@ -273,7 +298,7 @@
 <div id='create_memory_preview_bloc'>
 
 
-    <div id='memory_container' style="rotate: 1deg">
+    <div class='memory_container' id='memory_preview_container' style="rotate: 1deg">
             <img class='memory_photo' id='photo_memory_preview' src='https://fneto-prod.fr/slovenia/img/muffin-profile.png' alt='Preview memory'>
             <div class='text_memory'>
                 <h2 id="title_memory_preview">Titre test</h2>

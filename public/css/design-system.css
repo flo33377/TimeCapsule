@@ -178,7 +178,7 @@ dialog span {
   text-decoration: none;
   font-size: 14px;
   padding: 0.7em;
-  border: 2px solid black;
+  border: 2px solid white;
   text-transform: uppercase;
   cursor: pointer;
 }
@@ -186,6 +186,7 @@ dialog span {
 .main_cta:hover {
   color: black;
   background-color: white;
+  border: 2px solid black;
 }
 
 /* HEADER */
@@ -230,6 +231,11 @@ nav img {
   display: flex;
   justify-self: flex-end;
   width: 40px;
+  border: 2px solid black;
+}
+
+.nav_right a {
+  display: flex;
 }
 
 .param_button:hover img {
@@ -284,8 +290,8 @@ h2 {
 
 /* BUTTONS */
 
-.back_button {
-  height: 30px; width: 30px;
+.back_button, .nav_right {
+  height: 40px; width: 40px;
   background-color: white;
   font-weight: bold;
   font-size: large;
