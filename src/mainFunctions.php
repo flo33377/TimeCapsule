@@ -1,5 +1,7 @@
 <?php
 
+
+
 function connect(): PDO {
     $dbpath = __DIR__ . "/db/db_timecapsule.db";
     try {

@@ -45,19 +45,15 @@
 
 #nav_buttons img {
   height: 35px;
-  margin-left: -5px;
   filter: invert(1);
+}
+
+.margin_left {
+  margin-left: -5px;
 }
 
 #nav_buttons a:hover {
   text-decoration: none;
-}
-
-#nav_buttons a p {
-  display: flex;
-  align-items: center;
-  font-size: 5em;
-  color: white;
 }
 
 /* Memory part (preview + real) */
@@ -103,7 +99,12 @@
   width: 50%;
 }
 
-#memory_container, .memory_container {
+@media screen and (min-width: 767px) { 
+  #memory_preview_container, #memory_container {
+  max-width: 300px;
+}}
+
+.memory_container, #memory_container {
   object-fit: contain;
   display: flex;
   flex-direction: column;
@@ -215,9 +216,15 @@
   width: 100px;
   border-radius: 20%;
   border: 2px solid black;
-  margin: 10px;
   background-size: contain;
+  align-self: center;
+  margin-bottom: -25px;
 }
+
+#preview_memory_buttons {
+  height: 40px;
+}
+
 
 /* Liking part */
 

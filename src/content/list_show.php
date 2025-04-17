@@ -81,7 +81,7 @@ $shareLink = './?event=' . $_SESSION['event_id'] . '&share=true';
         style="background-color: <?= $_SESSION['main_color'] ?>;"
     <?php endif ?>
 >
-    <img src="https://fneto-prod.fr/timecapsule/img/share_icon.png" class="nav_icon" alt="Bouton de partage"
+    <img src="https://fneto-prod.fr/timecapsule/img/share_icon.png" class="nav_icon margin_left" alt="Bouton de partage"
     <?php if(isset($_SESSION['main_color']) && $_SESSION['main_color'] == 'white') : ?>
         style="filter: invert(0);"
     <?php endif ?>
@@ -93,11 +93,11 @@ $shareLink = './?event=' . $_SESSION['event_id'] . '&share=true';
         style="background-color: <?= $_SESSION['main_color'] ?>"
     <?php endif ?>
         >
-        <p
-        <?php if(isset($_SESSION['main_color']) && $_SESSION['main_color'] == 'white') : ?>
-        style="color: black"
-        <?php endif ?>
-        >+</p>
+        <img src="https://fneto-prod.fr/timecapsule/img/add_icon.png" class="nav_icon" alt="Bouton d'ajout d'un souvenir"
+    <?php if(isset($_SESSION['main_color']) && $_SESSION['main_color'] == 'white') : ?>
+        style="filter: invert(0);"
+    <?php endif ?>
+    >
     </a>
 </div>
 

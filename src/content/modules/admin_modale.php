@@ -90,7 +90,7 @@
             </div>
         </div>
 
-        <div id="modal_submit_button_bloc">
+        <div id="modal_submit_button_bloc" class="preview_double_buttons">
             <input type='button' class="button cta cta_modal" id='preview_event_btn_refresh' value='Prévisualiser le rendu'>
             <input id="modal_submit_button" class="main_cta" type="submit" value="Modifier" />
         </div>

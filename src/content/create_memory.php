@@ -20,64 +20,48 @@
 
 <?php else : ?>
 
-<h2
-<?php if(isset($_GET['event']) && $_GET['event'] != null && $_GET['event'] != null && isset($_SESSION['font_color']) && $_SESSION['font_color'] != null) : ?>
-    style="color: <?= $_SESSION['font_color'] ?>"
+
+<h2 id="title_page_new_memory" 
+<?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['font_color']) && $_SESSION['font_color'] != null) : ?>
+    style="color: <?= $_SESSION['font_color'] ?>; background-color: <?= $_SESSION['secondary_color'] ?>; border: 2px solid <?= $_SESSION['font_color'] ?>"
 <?php endif ?>
 >Enregistrer un nouveau souvenir</h2>
 
-<form action="<?= BASE_URL ?>" method="POST" enctype="multipart/form-data" id="form_new_memory">
+<form action="<?= BASE_URL ?>" method="POST" enctype="multipart/form-data" id="form_new_memory"
+<?php if(isset($_GET['event']) && $_GET['event'] != null && $_GET['event'] != null && isset($_SESSION['font_color']) && $_SESSION['font_color'] != null) : ?>
+    style="border: 2px solid <?= $_SESSION['font_color'] ?>"
+<?php endif ?>
+>
 
 <input type='hidden' id='post_create_memory' name='post_create_memory' required />
 <input type='hidden' id='event_id' name='event_id' value="<?= $event["event_id"] ?>" required />
 
 <div class="field_new_memory">
-    <label for='title'><p
-    <?php if(isset($_GET['event']) && $_GET['event'] != null && $_GET['event'] != null && isset($_SESSION['font_color']) && $_SESSION['font_color'] != null) : ?>
-    style="color: <?= $_SESSION['font_color'] ?>"
-    <?php endif ?>
-    >Titre</p></label>
+    <label for='title'><p>Titre</p></label>
     <input type='text' id='title' name='title' required>
 </div>
 
-<div>
-    <label for='color'><p
-    <?php if(isset($_GET['event']) && $_GET['event'] != null && $_GET['event'] != null && isset($_SESSION['font_color']) && $_SESSION['font_color'] != null) : ?>
-    style="color: <?= $_SESSION['font_color'] ?>"
-    <?php endif ?>
-    >Couleur/décoration</p></label>
+<div class="field_new_memory">
+    <label for='color'><p>Couleur/décoration</p></label>
     <select id='color' name='color' required>
     <?php generateSelectDesigns(true, true, $colors, $paterns, "bisque") ?>
     </select>
 </div>
 
-</div>
-    <div class="nuancier_new_memory" id="nuancier_decoration" style="background-color:bisque"></div>
-</div>
+<div class="nuancier_new_memory" id="nuancier_decoration" style="background-color:bisque"></div>
+
 
 <div class="field_new_memory">
-    <label for='author'><p
-    <?php if(isset($_GET['event']) && $_GET['event'] != null && $_GET['event'] != null && isset($_SESSION['font_color']) && $_SESSION['font_color'] != null) : ?>
-    style="color: <?= $_SESSION['font_color'] ?>"
-    <?php endif ?>
-    >Auteur</p></label>
+    <label for='author'><p>Auteur</p></label>
     <input type='text' id='author' name='author' required>
 </div>
 
-<div>
-    <label for='photo_memory'><p
-    <?php if(isset($_GET['event']) && $_GET['event'] != null && $_GET['event'] != null && isset($_SESSION['font_color']) && $_SESSION['font_color'] != null) : ?>
-    style="color: <?= $_SESSION['font_color'] ?>"
-    <?php endif ?>
-    >Photo</p></label>
-    <input type='file' id='photo_memory' name='photo_memory' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif" required
-    <?php if(isset($_GET['event']) && $_GET['event'] != null && $_GET['event'] != null && isset($_SESSION['font_color']) && $_SESSION['font_color'] != null) : ?>
-    style="color: <?= $_SESSION['font_color'] ?>"
-    <?php endif ?>
-    >
+<div class="field_new_memory">
+    <label for='photo_memory'><p>Photo</p></label>
+    <input type='file' id='photo_memory' name='photo_memory' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif" required>
 </div>
 
-<div id="submit_button_bloc">
+<div id="preview_memory_buttons">
     <input type='button' class="button cta cta_modal" id='memory_preview_btn_refresh' value='Prévisualiser'>
     <input id='submit_button' class="main_cta" type="submit" value="Enregistrer" />
 </div>

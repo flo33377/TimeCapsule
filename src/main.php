@@ -67,8 +67,8 @@ switch ($method) {
 
     case "GET":
         if (!empty($_GET["event"]) && !isset($_GET['create_mode'])) $page = "get_show_event"; // le get est généré sous forme de param d'URL
-        if (!empty($_GET['create_mode']) && $_GET['create_mode'] == 'true') $page = "go_create_memory"; // basé sur l'input caché create_memory
-        if (!empty($_GET['share']) && $_GET['share'] == 'true') $page = "go_share_page"; // basé sur l'input caché create_memory
+        if (!empty($_GET["event"]) && !empty($_GET['create_mode']) && $_GET['create_mode'] == 'true') $page = "go_create_memory"; // basé sur l'input caché create_memory
+        if (!empty($_GET["event"]) && !empty($_GET['share']) && $_GET['share'] == 'true') $page = "go_share_page"; // basé sur l'input caché create_memory
         break;
 }
 
