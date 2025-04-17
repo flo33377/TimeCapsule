@@ -12,7 +12,13 @@
   <link rel="icon" type="image/png" sizes="32x32" href="https://fneto-prod.fr/timecapsule/img/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://fneto-prod.fr/timecapsule/img/favicon.png">
   <script src="./public/js/js-mecanisms.js" defer></script>
-  <title>Time Capsule</title>
+  <title
+  <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($event["event_name"]) && $event["event_name"] != null) : ?>
+    ><?= $event["event_name"] ?> - Time Capsule
+    <?php else : ?>
+  >Time Capsule
+<?php endif ?>
+</title>
 </head>
 
 <body>

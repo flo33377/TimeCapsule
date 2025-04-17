@@ -24,6 +24,7 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 include_once(__DIR__ . "/mainFunctions.php");
+include_once(__DIR__ . "/navFunctions.php");
 
 // Constantes
     // base_url = lien vers la HP basé sur le serveur utilisé 
@@ -34,6 +35,8 @@ define("LIST_INDEX_URL", __DIR__ . "/content/list_index.php");
 define("FOCUS_EVENT_URL", __DIR__ . "/content/list_show.php");
     // CREATE_MEMORY_URL = fichier sur lequel est le form pour ajouter memory
 define("CREATE_MEMORY_URL", __DIR__ . "/content/create_memory.php");
+    // SHARE_EVENT_URL = fichier pour share l'event (desktop mainly)
+define("SHARE_EVENT_URL", __DIR__ . "/content/share_page.php");
 
 
 // Variables de pages
@@ -65,6 +68,7 @@ switch ($method) {
     case "GET":
         if (!empty($_GET["event"]) && !isset($_GET['create_mode'])) $page = "get_show_event"; // le get est généré sous forme de param d'URL
         if (!empty($_GET['create_mode']) && $_GET['create_mode'] == 'true') $page = "go_create_memory"; // basé sur l'input caché create_memory
+        if (!empty($_GET['share']) && $_GET['share'] == 'true') $page = "go_share_page"; // basé sur l'input caché create_memory
         break;
 }
 
@@ -165,4 +169,10 @@ switch ($page) {
             header("Location: " . "/timecapsule/?event=$targetEvent");
         };
         break;
+    
+    case "go_share_page" : // va sur la page de partage
+        $content = SHARE_EVENT_URL;
+        $eventId = $_GET["event"] ?? null;
+        if ($eventId) $event = getEventById($eventId);
+        break; 
 }

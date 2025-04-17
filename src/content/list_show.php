@@ -1,197 +1,7 @@
 
-<!-- navigation bar -->
+<!-- navigation bar & admin modale -->
 
-<nav id='nav_bar'>
-    <div>
-        <a class="back_button cta nav_left" href="<?= BASE_URL ?>">
-            <p> < </p>
-        </a>
-    </div>
-
-    <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['font_color']) && $_SESSION['font_color'] != null) : ?>
-        <h1 style="color: <?= $_SESSION['font_color'] ?>" >
-    <?php else : ?>
-        <h1>
-    <?php endif ?>
-    <?= $event["event_name"] ?>
-        </h1>
-
-    <div class="nav_right cta">
-    <?php if (empty($event["event_password"]) || (isset($_SESSION['auth']) && $_SESSION['auth'] == $event["event_id"])) : ?>
-        <a class='param_button' id='showModaleButton'>
-            <img src="https://fneto-prod.fr/ambition-hub/img/parameter_icon.png" 
-            alt="Bouton d'accès aux paramètres" >
-        </a>
-    <?php endif ?>
-    </div>
-</nav>
-
-<!-- administration modal -->
-<!-- A retravailler pour time capsule -->
-
-<?php if (empty($event["event_password"]) || (isset($_SESSION['auth']) && $_SESSION['auth'] == $event["event_id"])) : ?>
-<dialog id='dialog1'>
-
-    <button class="close_popup" id="close_popup">X</button>
-    <p class="title_popup bold">Gérer mon évènement</p>
-
-    <details><summary
-    <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['secondary_color']) && $_SESSION['secondary_color'] != null) : ?>
-    style="background-color: <?= $_SESSION['secondary_color'] ?>; color: <?= $_SESSION['font_color'] ?>"
-    <?php endif ?>
-        >Supprimer l'évènement</summary>
-
-        <p class="italic">Attention : cette action est irréversible</p>
-        <form action="<?= BASE_URL ?>" method="POST">
-            <input type='hidden' id='post_erase_event' name='post_erase_event' required />
-            <div id="modal_submit_button_bloc">
-            <input id="modal_submit_button" class="admin_cta erase_button" type="submit" value="Oui, je veux supprimer ma liste" />
-            </div>
-        </form>
-    </details>
-
-        <details><summary
-        <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['secondary_color']) && $_SESSION['secondary_color'] != null) : ?>
-        style="background-color: <?= $_SESSION['secondary_color'] ?>; color: <?= $_SESSION['font_color'] ?>"
-        <?php endif ?>
-            >Modifier le nom de mon évènement</summary>
-
-        <form action="<?= BASE_URL ?>" method="POST">
-            <input type='hidden' id='post_change_name_event' name='post_change_name_event' required />
-            <input type='text' id='new_name_event' class="text_field"
-            name='new_name_event' placeholder="Nouveau nom de l'évènement" required />
-            <div id="modal_submit_button_bloc">
-            <input id="modal_submit_button" class="admin_cta" type="submit" value="Modifier" />
-            </div>
-        </form>
-    </details>
-
-    <details><summary
-        <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['secondary_color']) && $_SESSION['secondary_color'] != null) : ?>
-        style="background-color: <?= $_SESSION['secondary_color'] ?>; color: <?= $_SESSION['font_color'] ?>"
-        <?php endif ?>
-            >Modifier le logo ou les couleurs du site</summary>
-
-        <form action="<?= BASE_URL ?>" method="POST" enctype="multipart/form-data">
-            <input type='hidden' id='post_change_logo_colors' name='post_change_logo_colors' required />
-            <input type='hidden' id='post_event_name' name='post_event_name' value=<?= $event['event_name'] ?> required />
-
-            <div class="form_field_file">
-                <div>
-                    <label for='new_event_logo'><p>Image d'en-tête (logo par exemple) :</p>
-                    <span class="italic smaller">Il est conseillé d'utiliser une image sans fond, format png.
-                    Si vous ne téléchargez pas d'image, une image standard sera utilisée.</span></label>
-                </div>
-                <input type='file' id='new_event_logo' name='new_event_logo' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif">
-            </div>
-
-        <div id="color_module">
-
-            <div class="color_content">
-                <div class="color_choosing">
-                    <label for='main_color'><p>Couleur principale :</p></label>
-                    <select id='main_color' name='main_color' class='form_field' required>
-                        <option value='black' <?php if($event['main_color'] == "black") : echo('selected'); endif ?>>Noir</option>
-                        <option value='greenyellow' <?php if($event['main_color'] == "greenyellow") : echo('selected'); endif ?>>Vert</option>
-                        <option value='aquamarine' <?php if($event['main_color'] == "aquamarine") : echo('selected'); endif ?>>Bleu marin</option>
-                        <option value='midnightblue' <?php if($event['main_color'] == "midnigthblue") : echo('selected'); endif ?>>Bleu minuit</option>
-                        <option value='red' <?php if($event['main_color'] == "red") : echo('selected'); endif ?>>Rouge</option>
-                        <option value='yellow' <?php if($event['main_color'] == "yellow") : echo('selected'); endif ?>>Jaune</option>
-                        <option value='slateblue' <?php if($event['main_color'] == "slateblue") : echo('selected'); endif ?>>Violet</option>
-                        <option value='sienna' <?php if($event['main_color'] == "sienna") : echo('selected'); endif ?>>Chocolat</option>
-                        <option value='hotpink' <?php if($event['main_color'] == "hotpink") : echo('selected'); endif ?>>Rose</option>
-                        <option value='brown' <?php if($event['main_color'] == "brown") : echo('selected'); endif ?>>Marron</option>
-                        <option value='deepskyblue' <?php if($event['main_color'] == "deepskyblue") : echo('selected'); endif ?>>Bleu ciel</option>
-                        <option value='fuchsia' <?php if($event['main_color'] == "fuchsia") : echo('selected'); endif ?>>Fuchsia</option>
-                        <option value='goldenrod' <?php if($event['main_color'] == "goldenrod") : echo('selected'); endif ?>>Or</option>
-                        <option value='teal' <?php if($event['main_color'] == "teal") : echo('selected'); endif ?>>Teal</option>
-                    </select>
-                </div>
-                <div class="nuancier" id="nuancier_main_color" style="background-color:<?= $event['main_color'] ?>"></div>
-            </div>
-
-            <div class="color_content">
-                <div class="color_choosing">
-                    <label for='secondary_color'><p>Couleur secondaire :</p></label>
-                    <select id='secondary_color' name='secondary_color' class='form_field' required>
-                        <option value='white' <?php if($event['secondary_color'] == "white") : echo('selected'); endif ?>>Blanc</option>
-                        <option value='black' <?php if($event['secondary_color'] == "black") : echo('selected'); endif ?>>Noir</option>
-                        <option value='greenyellow' <?php if($event['secondary_color'] == "greenyellow") : echo('selected'); endif ?>>Vert</option>
-                        <option value='aquamarine' <?php if($event['secondary_color'] == "aquamarine") : echo('selected'); endif ?>>Bleu marin</option>
-                        <option value='midnightblue' <?php if($event['secondary_color'] == "midnightblue") : echo('selected'); endif ?>>Bleu minuit</option>
-                        <option value='red' <?php if($event['secondary_color'] == "red") : echo('selected'); endif ?>>Rouge</option>
-                        <option value='yellow' <?php if($event['secondary_color'] == "yellow") : echo('selected'); endif ?>>Jaune</option>
-                        <option value='slateblue' <?php if($event['secondary_color'] == "slateblue") : echo('selected'); endif ?>>Violet</option>
-                        <option value='sienna' <?php if($event['secondary_color'] == "sienna") : echo('selected'); endif ?>>Chocolat</option>
-                        <option value='hotpink' <?php if($event['secondary_color'] == "hotpink") : echo('selected'); endif ?>>Rose</option>
-                        <option value='brown' <?php if($event['main_color'] == "brown") : echo('selected'); endif ?>>Marron</option>
-                        <option value='deepskyblue' <?php if($event['main_color'] == "deepskyblue") : echo('selected'); endif ?>>Bleu ciel</option>
-                        <option value='fuchsia' <?php if($event['main_color'] == "fuchsia") : echo('selected'); endif ?>>Fuchsia</option>
-                        <option value='goldenrod' <?php if($event['main_color'] == "goldenrod") : echo('selected'); endif ?>>Or</option>
-                        <option value='teal' <?php if($event['main_color'] == "teal") : echo('selected'); endif ?>>Teal</option>
-                    </select>
-                </div>
-                <div class="nuancier" id="nuancier_secondary_color" style="background-color:<?= $event['secondary_color'] ?>"></div>
-            </div>
-
-            <div class="color_content">
-                <div class="color_choosing">
-                    <label for='font_color'><p>Couleur des textes :</p></label>
-                    <select id='font_color' name='font_color' class='form_field' required>
-                    <option value='white' <?php if($event['font_color'] == "black") : echo('selected'); endif ?>>Blanc</option>
-                        <option value='black' <?php if($event['font_color'] == "black") : echo('selected'); endif ?>>Noir</option>
-                        <option value='greenyellow' <?php if($event['font_color'] == "greenyellow") : echo('selected'); endif ?>>Vert</option>
-                        <option value='aquamarine' <?php if($event['font_color'] == "aquamarine") : echo('selected'); endif ?>>Bleu marin</option>
-                        <option value='midnightblue' <?php if($event['font_color'] == "midnigthblue") : echo('selected'); endif ?>>Bleu minuit</option>
-                        <option value='red' <?php if($event['font_color'] == "red") : echo('selected'); endif ?>>Rouge</option>
-                        <option value='yellow' <?php if($event['font_color'] == "yellow") : echo('selected'); endif ?>>Jaune</option>
-                        <option value='slateblue' <?php if($event['font_color'] == "slateblue") : echo('selected'); endif ?>>Violet</option>
-                        <option value='sienna' <?php if($event['font_color'] == "sienna") : echo('selected'); endif ?>>Chocolat</option>
-                        <option value='hotpink' <?php if($event['font_color'] == "hotpink") : echo('selected'); endif ?>>Rose</option>
-                        <option value='brown' <?php if($event['main_color'] == "brown") : echo('selected'); endif ?>>Marron</option>
-                        <option value='fuchsia' <?php if($event['main_color'] == "fuchsia") : echo('selected'); endif ?>>Fuchsia</option>
-                        <option value='goldenrod' <?php if($event['main_color'] == "goldenrod") : echo('selected'); endif ?>>Or</option>
-                    </select>
-                </div>
-                <div class="nuancier" id="nuancier_font_color" style="background-color:<?= $event['font_color'] ?>"></div>
-            </div>
-        </div>
-
-        <div id="modal_submit_button_bloc">
-            <input type='button' class="button cta cta_modal" id='preview_event_btn_refresh' value='Prévisualiser le rendu'>
-            <input id="modal_submit_button" class="main_cta" type="submit" value="Modifier" />
-        </div>
-    </form>
-
-    <div id='preview_module'>
-
-        <div id='preview_whole' style="background-color: <?= $event['secondary_color'] ?>">
-            <div id='preview_header' style="background-color: <?= $event['main_color'] ?>">
-                <img src="<?php if($event['event_logo'] != null) : echo($event['event_logo']);
-                else : echo('https://fneto-prod.fr/timecapsule/img/timecapsule-logo.png'); endif ?>" 
-                id="preview_logo" alt="Exemple logo">
-            </div>
-
-            <div>
-                <p id="preview_title" style="color: <?= $event['font_color'] ?>"><?= $event['event_name'] ?></p>
-            </div>
-
-            <div id="preview_content_memory">
-                <div id="memory_container" style="rotate: 1deg">
-                    <img src="https://fneto-prod.fr/timecapsule/img/photo_template.jpg" alt="Exemple photo">
-                    <p>Une super soirée passée avec toi !</p>
-                    <p>Par Mélanie</p>
-                </div>
-            </div>
-
-            <div id="preview_adding_button" style="background-color: <?= $event['main_color'] ?>">
-                <p id="preview_adding_btn_text" style="color: white">+</p>
-            </div>
-        </div>
-    </details>
-
-    </dialog>
-<?php endif ?>
+<?php include_once(__DIR__ . "/modules/sub_header.php") ?>
 
 <!-- page content -->
 
@@ -216,7 +26,12 @@
 
     <?php foreach ($memoriesData as $listingMemories) : ?>
         <?php if (!$listingMemories['cancel'] == 'true' ) : ?>
-            <div class='memory_container' style='<?= $listingMemories['memory_decoration'] ?>; transform:rotate(<?= round(rand(-5,5)) ?>deg);'>
+            <div class='memory_container' style='
+                <?php if((str_contains($listingMemories['memory_decoration'], 'fneto-prod.fr'))) {
+                    echo "background-image: url('" . $listingMemories['memory_decoration'] . "')";
+                } else {
+                    echo "background-color: " . $listingMemories['memory_decoration'];
+                } ?>; transform:rotate(<?= round(rand(-2,2)) ?>deg);'>
                 <img class='memory_photo' src='<?= $listingMemories['url_photo'] ?>' alt='Photo souvenir n°<?= $listingMemories['memory_id'] ?>'>
                 <div class='text_memory'>
                     <h2><?= $listingMemories['memory_text'] ?></h2>
@@ -249,13 +64,39 @@
 
 
 <!-- Nav buttons -->
+
+<?php // gère l'API de partage RS du lien VS l'envoi vers la page dédiée
+$isMobile = isMobile();
+$shareLink = './?event=' . $_SESSION['event_id'] . '&share=true';
+?>
+
 <div id='nav_buttons'>
-    <a class="objective_adding_button" href="./?event=<?= $_SESSION['event_id'] ?>&create_mode=true"
+<a 
+    <?= $isMobile ? 'id="shareBtn" data-href="' . htmlspecialchars($shareLink) . '" data-name="' . $event["event_name"] . '"' : 'href="' . htmlspecialchars($shareLink) . '"'
+    //si sur mobile, met l'ID ShareBtn pour déclencher API Share en JS et ajoute le lien desktop en data pour éventuel fallback en JS si API non-fonctionnelle
+    // sinon met direct le lien en href 
+    ?>
+    <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['main_color']) && $_SESSION['main_color'] != null) : ?>
+        style="background-color: <?= $_SESSION['main_color'] ?>;"
+    <?php endif ?>
+>
+    <img src="https://fneto-prod.fr/timecapsule/img/share_icon.png" class="nav_icon" alt="Bouton de partage"
+    <?php if(isset($_SESSION['main_color']) && $_SESSION['main_color'] == 'white') : ?>
+        style="filter: invert(0);"
+    <?php endif ?>
+    >
+</a>
+
+    <a href="./?event=<?= $_SESSION['event_id'] ?>&create_mode=true"
     <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['main_color']) && $_SESSION['main_color'] != null) : ?>
         style="background-color: <?= $_SESSION['main_color'] ?>"
     <?php endif ?>
         >
-        <p>+</p>
+        <p
+        <?php if(isset($_SESSION['main_color']) && $_SESSION['main_color'] == 'white') : ?>
+        style="color: black"
+        <?php endif ?>
+        >+</p>
     </a>
 </div>
 

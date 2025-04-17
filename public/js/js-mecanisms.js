@@ -75,21 +75,22 @@ if (mainColorChoice) {
 
 let decorationChoice = document.getElementById('color');
 
-if(decorationChoice) {
+if (decorationChoice) {
     decorationChoice.addEventListener('change', () => {
         let nuancierDecoration = document.getElementById('nuancier_decoration');
         let nuancierDecoValue = decorationChoice.value;
-        if (nuancierDecoValue.includes('color')) {
-            let valueCSSnuancier = nuancierDecoValue.slice(17);
-            nuancierDecoration.style.backgroundColor = valueCSSnuancier;
-            nuancierDecoration.style.backgroundImage = "";
-          } else {
-            let valueCSSnuancier = nuancierDecoValue.slice(17);
-            nuancierDecoration.style.backgroundImage = valueCSSnuancier;
+
+        // Si la valeur est une URL (donc un motif)
+        if (nuancierDecoValue.includes('fneto-prod.fr')) {
+            nuancierDecoration.style.backgroundImage = `url('${nuancierDecoValue}')`;
             nuancierDecoration.style.backgroundColor = "";
-          };
+        } else {
+            // Sinon on considère que c’est une couleur
+            nuancierDecoration.style.backgroundColor = nuancierDecoValue;
+            nuancierDecoration.style.backgroundImage = "";
+        }
     });
-};
+}
 
 
 /* Preview Event function */
@@ -133,35 +134,37 @@ let previewMemoryPhoto = document.getElementById('photo_memory_preview');
 
 if (previewMemoryPhoto) {
     let playRefreshPreviewMemory = document.getElementById('memory_preview_btn_refresh');
+
     playRefreshPreviewMemory.addEventListener('click', () => {
-    const [photo] = document.getElementById("photo_memory").files;
-    if (photo) {
-        previewMemoryPhoto.src = URL.createObjectURL(photo);
-    };
+        // Aperçu de la photo
+        const [photo] = document.getElementById("photo_memory").files;
+        if (photo) {
+            previewMemoryPhoto.src = URL.createObjectURL(photo);
+        }
 
-    let newMemoryValueTitle = document.getElementById('title');
-    let newMemoryPreviewTitle = newMemoryValueTitle.value;
-    document.getElementById('title_memory_preview').innerHTML = newMemoryPreviewTitle;
+        // Mise à jour du titre
+        let newMemoryValueTitle = document.getElementById('title').value;
+        document.getElementById('title_memory_preview').innerHTML = newMemoryValueTitle;
 
-    let newMemoryValueAuthor = document.getElementById('author');
-    let newMemoryPreviewAuthor = newMemoryValueAuthor.value;
-    document.getElementById('author_memory_preview').innerHTML = newMemoryPreviewAuthor;
+        // Mise à jour de l’auteur
+        let newMemoryValueAuthor = document.getElementById('author').value;
+        document.getElementById('author_memory_preview').innerHTML = newMemoryValueAuthor;
 
-    let newMemoryValueDecoration = document.getElementById('color');
-    let newMemoryPreviewDecoration = newMemoryValueDecoration.value;
-    if (newMemoryPreviewDecoration.includes('color')) {
-        let valueDecoration = newMemoryPreviewDecoration.slice(17);
-        document.getElementById('memory_preview_container').style.backgroundColor = valueDecoration;
-        document.getElementById('memory_preview_container').style.backgroundImage = "";
-      } else {
-        let valueDecoration = newMemoryPreviewDecoration.slice(17);
-        document.getElementById('memory_preview_container').style.backgroundImage = valueDecoration;
-        document.getElementById('memory_preview_container').style.backgroundColor = "";
-      };
+        // Mise à jour de la décoration
+        let newMemoryPreviewDecoration = document.getElementById('color').value;
+        let previewContainer = document.getElementById('memory_preview_container');
 
+        if (newMemoryPreviewDecoration.includes('fneto-prod.fr')) {
+            // C’est une image de fond
+            previewContainer.style.backgroundImage = `url('${newMemoryPreviewDecoration}')`;
+            previewContainer.style.backgroundColor = "";
+        } else {
+            // C’est une couleur CSS
+            previewContainer.style.backgroundColor = newMemoryPreviewDecoration;
+            previewContainer.style.backgroundImage = "";
+        }
     });
-
-};
+}
 
 
 /* Fonction de like des memories */
@@ -225,6 +228,74 @@ document.addEventListener("DOMContentLoaded", function () {
         } 
     })
 });
+
+
+/* Sharing function for nav button */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        const fallbackUrl = shareBtn.dataset.href;
+        const eventName = shareBtn.dataset.name;
+
+        if (navigator.share) {
+            shareBtn.addEventListener('click', async (e) => {
+                // async permet d'utiliser await dans la fonction et d'indiquer qu'on est sur une manip 
+                // qui va débuter puis se terminer (ex : appel API, partage via navigator.share)
+                // await permet de détecter le moment où terminé et d'effectuer une action si besoin à la fin
+                e.preventDefault();
+                try {
+                    await navigator.share({
+                        title: document.title,
+                        text: `J'ai créé un site pour l'événement : ${eventName}. Viens-y déposer tes photos toi aussi !`,
+                        url: window.location.href
+                    });
+                    // avec await, on mettrait ici l'action à effectuer après partage ok (console.log)
+                } catch (err) {
+                    console.error("Erreur lors du partage :", err);
+                    // Fallback si l'utilisateur annule ou si l'API échoue
+                    window.location.href = fallbackUrl;
+                }
+            });
+        } else {
+            // Si Web Share API non disponible
+            shareBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = fallbackUrl;
+            });
+        }
+    }
+});
+
+
+/* COPY FUNCTION FOR SHARING TEXT*/
+
+document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.getElementById('CopyTextShareBtn');
+    const textArea = document.getElementById('sharingTextArea');
+    const messageConfirmCopyOK = document.getElementById('copyMessage');
+
+    copyBtn.addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText(textArea.value);
+
+            // Afficher le message avec un fade in
+            messageConfirmCopyOK.style.opacity = '1';
+
+            // Attendre 3 secondes puis disparaître en fade out
+            setTimeout(() => {
+                messageConfirmCopyOK.style.opacity = '0';
+            }, 2000);
+        } catch (err) {
+            console.error('Erreur lors de la copie :', err);
+            alert("La copie a échoué.");
+        }
+    });
+});
+
+
+
+
 
 
 

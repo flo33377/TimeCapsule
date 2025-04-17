@@ -1,3 +1,5 @@
+<?php include_once(__DIR__ . "/modules/colors_functions.php") ?>
+
 <h1>Bienvenue sur Time Capsule !</h1>
 <br>
 <h2>Accédez au feed d'un évènement existant :</h2>
@@ -61,20 +63,7 @@
                 <div class="color_choosing">
                     <label for='main_color'><p>Couleur principale :</p></label>
                     <select id='main_color' name='main_color' class='form_field' required>
-                        <option value='black' selected >Noir</option>
-                        <option value='greenyellow'>Vert</option>
-                        <option value='aquamarine'>Bleu marin</option>
-                        <option value='midnightblue'>Bleu minuit</option>
-                        <option value='red'>Rouge</option>
-                        <option value='yellow'>Jaune</option>
-                        <option value='slateblue'>Violet</option>
-                        <option value='sienna'>Chocolat</option>
-                        <option value='hotpink'>Rose</option>
-                        <option value='brown'>Marron</option>
-                        <option value='deepskyblue'>Bleu ciel</option>
-                        <option value='fuchsia'>Fuchsia</option>
-                        <option value='goldenrod'>Or</option>
-                        <option value='teal'>Teal</option>
+                    <?php generateSelectDesigns(false, true, $colors, $paterns, "black") ?>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_main_color" style="background-color:black"></div>
@@ -84,20 +73,7 @@
                 <div class="color_choosing">
                     <label for='secondary_color'><p>Couleur secondaire :</p></label>
                     <select id='secondary_color' name='secondary_color' class='form_field' required>
-                        <option value='white' selected >Blanc</option>
-                        <option value='greenyellow'>Vert</option>
-                        <option value='aquamarine'>Bleu marin</option>
-                        <option value='midnightblue'>Bleu minuit</option>
-                        <option value='red'>Rouge</option>
-                        <option value='yellow'>Jaune</option>
-                        <option value='slateblue'>Violet</option>
-                        <option value='sienna'>Chocolat</option>
-                        <option value='hotpink'>Rose</option>
-                        <option value='brown'>Marron</option>
-                        <option value='deepskyblue'>Bleu ciel</option>
-                        <option value='fuchsia'>Fuchsia</option>
-                        <option value='goldenrod'>Or</option>
-                        <option value='teal'>Teal</option>
+                    <?php generateSelectDesigns(false, true, $colors, $paterns, "white") ?>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_secondary_color" style="background-color:white"></div>
@@ -107,19 +83,7 @@
                 <div class="color_choosing">
                     <label for='font_color'><p>Couleur des textes :</p></label>
                     <select id='font_color' name='font_color' class='form_field' required>
-                        <option value='black' selected >Noir</option>
-                        <option value='white' >Blanc</option>
-                        <option value='greenyellow'>Vert</option>
-                        <option value='aquamarine'>Bleu marin</option>
-                        <option value='midnightblue'>Bleu minuit</option>
-                        <option value='red'>Rouge</option>
-                        <option value='yellow'>Jaune</option>
-                        <option value='slateblue'>Violet</option>
-                        <option value='sienna'>Chocolat</option>
-                        <option value='hotpink'>Rose</option>
-                        <option value='brown'>Marron</option>
-                        <option value='fuchsia'>Fuchsia</option>
-                        <option value='goldenrod'>Or</option>
+                    <?php generateSelectDesigns(false, true, $colors, $paterns, "black") ?>
                     </select>
                 </div>
                 <div class="nuancier" id="nuancier_font_color" style="background-color:black"></div>
@@ -149,7 +113,7 @@
             </div>
 
             <div id="preview_content_memory">
-                <div id="memory_container" style="rotate: 1deg">
+                <div id="memory_container" style="rotate: 2deg">
                     <img src="https://fneto-prod.fr/timecapsule/img/photo_template.jpg" alt="Exemple photo">
                     <p>Une super soirée passée avec toi !</p>
                     <p>Par Mélanie</p>
