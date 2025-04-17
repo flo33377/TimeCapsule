@@ -28,7 +28,8 @@
         <?php if (!$listingMemories['cancel'] == 'true' ) : ?>
             <div class='memory_container' style='
                 <?php if((str_contains($listingMemories['memory_decoration'], 'fneto-prod.fr'))) {
-                    echo "background-image: url('" . $listingMemories['memory_decoration'] . "')";
+                    // htmlspecialchars permet d'échapper les apostrophes/guillemets par défaut
+                    echo "background-image: url(\"" . htmlspecialchars($listingMemories['memory_decoration'], ENT_QUOTES) . "\");";
                 } else {
                     echo "background-color: " . $listingMemories['memory_decoration'];
                 } ?>; transform:rotate(<?= round(rand(-2,2)) ?>deg);'>

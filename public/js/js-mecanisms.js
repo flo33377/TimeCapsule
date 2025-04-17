@@ -279,12 +279,16 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             await navigator.clipboard.writeText(textArea.value);
 
-            // Afficher le message avec un fade in
+            // Slide in (depuis le bas)
             messageConfirmCopyOK.style.opacity = '1';
+            messageConfirmCopyOK.style.transform = 'translateX(-50%) translateY(-30px)';
+            messageConfirmCopyOK.style.bottom = '40px';
 
-            // Attendre 3 secondes puis disparaître en fade out
+            // Slide out après 3 secondes
             setTimeout(() => {
                 messageConfirmCopyOK.style.opacity = '0';
+                messageConfirmCopyOK.style.transform = 'translateX(-50%) translateY(100px)';
+                messageConfirmCopyOK.style.bottom = '-100px';
             }, 2000);
         } catch (err) {
             console.error('Erreur lors de la copie :', err);

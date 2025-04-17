@@ -261,6 +261,7 @@
   flex-direction: column;
   align-items: center;
   gap: 5vh;
+  margin-bottom: 100px;
 }
 
 .memories_global div {
@@ -276,6 +277,7 @@
   .memories_global {
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
   }
   .memories_global div {
     width: 250px;
@@ -299,17 +301,17 @@
 
 #copyMessage {
   position: fixed;
-  top: 50%;
+  bottom: -100px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   background-color: #4CAF50;
   color: white;
-  padding: 16px 24px;
+  padding: 14px 20px;
   border-radius: 8px;
   font-size: 1rem;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.5s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
   z-index: 9999;
 }
 
