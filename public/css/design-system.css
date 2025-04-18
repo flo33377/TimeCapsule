@@ -182,6 +182,27 @@ input[type='password'] {
   width: 100%;
 }
 
+.custom-color-picker {
+  position: relative;
+  display: inline-block;
+  width: 20%;
+}
+
+input[type='color'] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.color-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 .field_new_memory, .field_new_memory input {
   width: 100%;
   height: 30px;

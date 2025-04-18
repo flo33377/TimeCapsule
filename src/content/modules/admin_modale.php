@@ -57,38 +57,63 @@
                 <input type='file' id='new_event_logo' name='new_event_logo' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif">
             </div>
 
-        <div id="color_module">
+            <div id="color_module">
 
-            <div class="color_content">
-                <div class="color_choosing">
-                    <label for='main_color'><p>Couleur principale :</p></label>
-                    <select id='main_color' name='main_color' class='form_field' required>
-                    <?php generateSelectDesigns(false, true, $colors, $paterns, $event["main_color"] ?? null) ?>
-                    </select>
+                <div class="color_content">
+                    <div class="color_choosing">
+                        <label for='main_color'><p>Couleur principale :</p></label>
+                    </div>
+                    <div class="custom-color-picker">
+                    <input type="color" id='main_color' name='main_color' class='form_field real-color-input' 
+                    <?php if(isset($event['main_color']) && $event['main_color'] != null) : ?> value="<?= $event['main_color'] ?>"
+                    <?php else : ?> value="#041009"
+                    <?php endif ?>
+                    required>
+                    <div class="color-circle" style="background-color: 
+                    <?php if(isset($event['main_color']) && $event['main_color'] != null) : ?><?= $event['main_color'] ?>
+                    <?php else : ?>#041009
+                    <?php endif ?>
+                    ;"></div>
+                    </div>
                 </div>
-                <div class="nuancier" id="nuancier_main_color" style="background-color:<?= $event['main_color'] ?>"></div>
-            </div>
 
-            <div class="color_content">
-                <div class="color_choosing">
-                    <label for='secondary_color'><p>Couleur secondaire :</p></label>
-                    <select id='secondary_color' name='secondary_color' class='form_field' required>
-                    <?php generateSelectDesigns(false, true, $colors, $paterns, $event["secondary_color"] ?? null) ?>
-                    </select>
+                <div class="color_content">
+                    <div class="color_choosing">
+                        <label for='secondary_color'><p>Couleur secondaire :</p></label>
+                    </div>
+                    <div class="custom-color-picker">
+                    <input type="color" id='secondary_color' name='secondary_color' class='form_field real-color-input'
+                    <?php if(isset($event['secondary_color']) && $event['secondary_color'] != null) : ?> value="<?= $event['secondary_color'] ?>"
+                    <?php else : ?> value="#FFFFFF"
+                    <?php endif ?>
+                    required>
+                    <div class="color-circle" style="background-color: 
+                    <?php if(isset($event['secondary_color']) && $event['secondary_color'] != null) : ?><?= $event['secondary_color'] ?>
+                    <?php else : ?>#ffffff
+                    <?php endif ?>
+                    ;"></div>
+                    </div>
                 </div>
-                <div class="nuancier" id="nuancier_secondary_color" style="background-color:<?= $event['secondary_color'] ?>"></div>
-            </div>
 
-            <div class="color_content">
-                <div class="color_choosing">
-                    <label for='font_color'><p>Couleur des textes :</p></label>
-                    <select id='font_color' name='font_color' class='form_field' required>
-                    <?php generateSelectDesigns(false, true, $colors, $paterns, $event["font_color"] ?? null) ?>
-                    </select>
+                <div class="color_content">
+                    <div class="color_choosing">
+                        <label for='font_color'><p>Couleur des textes :</p></label>
+                    </div>
+                    <div class="custom-color-picker">
+                    <input type="color" id='font_color' name='font_color' class='form_field real-color-input' 
+                    <?php if(isset($event['font_color']) && $event['font_color'] != null) : ?> value="<?= $event['font_color'] ?>"
+                    <?php else : ?> value="#041009"
+                    <?php endif ?>
+                    required>
+                    <div class="color-circle" style="background-color: 
+                    <?php if(isset($event['font_color']) && $event['font_color'] != null) : ?><?= $event['font_color'] ?>
+                    <?php else : ?>#041009
+                    <?php endif ?>
+                    ;"></div>
+                    </div>
                 </div>
-                <div class="nuancier" id="nuancier_font_color" style="background-color:<?= $event['font_color'] ?>"></div>
-            </div>
-        </div>
+
+                </div>
 
         <div id="modal_submit_button_bloc" class="preview_double_buttons">
             <input type='button' class="button cta cta_modal" id='preview_event_btn_refresh' value='Prévisualiser le rendu'>

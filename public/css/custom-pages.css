@@ -150,10 +150,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
   margin: 20px 0px;
 }
 
+/* case mobile */
 @media screen and (max-width: 1024px) { 
   #color_module {
   flex-direction: column;
@@ -168,10 +169,19 @@
   gap: 20px;
 }
 
+/* case mobile */
+@media screen and (min-width: 1024px) { 
+  .color_content {
+  flex-direction: column;
+}
+  .color_content p {
+    text-align: center;
+  }
+}
+
 .color_choosing {
   display: flex;
   flex-direction: column;
-  width: 90%;
 }
 
 .nuancier {

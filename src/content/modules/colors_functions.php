@@ -1,5 +1,7 @@
 <?php
 
+        // fonction qui imprime les select à partir d'un tableau commun
+
 // 2 param : patern ou non, echo selected ou non
 
 $colors = [ // key is the name to display, value is the coding name
@@ -56,6 +58,29 @@ function generateSelectDesigns(bool $displayPaterns, bool $displayColorsWithSele
     }
 }
 
+
+        // fonction qui indique sur la couleur est claire ou non (pour passer les icones en noir)
+
+function isLightColor($hexColor) {
+    // enlève le # si présent
+    $hexColor = ltrim($hexColor, '#');
+
+    // Si la couleur est en format court (#fff)
+    if (strlen($hexColor) === 3) {
+        $hexColor = $hexColor[0].$hexColor[0] . $hexColor[1].$hexColor[1] . $hexColor[2].$hexColor[2];
+    }
+
+    // Convertir en valeurs R, G, B
+    $r = hexdec(substr($hexColor, 0, 2));
+    $g = hexdec(substr($hexColor, 2, 2));
+    $b = hexdec(substr($hexColor, 4, 2));
+
+    // Calcul de luminance
+    $luminance = (0.299 * $r + 0.587 * $g + 0.114 * $b);
+
+    // Retourne true si couleur claire
+    return $luminance > 186;
+}
 
 
 

@@ -44,7 +44,6 @@ Tu peux modifier le message avant de l'envoyer.
     Le texte a bien été copié !
 </div>
 
-
 <?php endif ?>
 
 

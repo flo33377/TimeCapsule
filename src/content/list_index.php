@@ -62,31 +62,31 @@
             <div class="color_content">
                 <div class="color_choosing">
                     <label for='main_color'><p>Couleur principale :</p></label>
-                    <select id='main_color' name='main_color' class='form_field' required>
-                    <?php generateSelectDesigns(false, true, $colors, $paterns, "black") ?>
-                    </select>
                 </div>
-                <div class="nuancier" id="nuancier_main_color" style="background-color:black"></div>
+                <div class="custom-color-picker">
+                <input type="color" id='main_color' name='main_color' class='form_field real-color-input' value="#041009" required>
+                <div class="color-circle"></div>
+                </div>
             </div>
 
             <div class="color_content">
                 <div class="color_choosing">
                     <label for='secondary_color'><p>Couleur secondaire :</p></label>
-                    <select id='secondary_color' name='secondary_color' class='form_field' required>
-                    <?php generateSelectDesigns(false, true, $colors, $paterns, "white") ?>
-                    </select>
                 </div>
-                <div class="nuancier" id="nuancier_secondary_color" style="background-color:white"></div>
+                <div class="custom-color-picker">
+                <input type="color" id='secondary_color' name='secondary_color' class='form_field real-color-input' value="#FFFFFF" required>
+                <div class="color-circle"></div>
+                </div>
             </div>
 
             <div class="color_content">
                 <div class="color_choosing">
                     <label for='font_color'><p>Couleur des textes :</p></label>
-                    <select id='font_color' name='font_color' class='form_field' required>
-                    <?php generateSelectDesigns(false, true, $colors, $paterns, "black") ?>
-                    </select>
                 </div>
-                <div class="nuancier" id="nuancier_font_color" style="background-color:black"></div>
+                <div class="custom-color-picker">
+                <input type="color" id='font_color' name='font_color' class='form_field real-color-input' value="#041009" required>
+                <div class="color-circle"></div>
+                </div>
             </div>
 
         </div>

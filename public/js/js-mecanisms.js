@@ -50,26 +50,26 @@ getDialogBox2.addEventListener('click', (event) => {
 
 /* Preview color event */
 
-let mainColorChoice = document.getElementById('main_color');
+document.addEventListener('DOMContentLoaded', () => {
+    const colorPickers = document.querySelectorAll('.custom-color-picker');
 
-if (mainColorChoice) {
-    mainColorChoice.addEventListener('change', () => {
-        let nuancierMainColor = document.getElementById("nuancier_main_color");
-        nuancierMainColor.style.backgroundColor = mainColorChoice.value;
-    });
+    colorPickers.forEach(picker => {
+        const input = picker.querySelector('.real-color-input');
+        const circle = picker.querySelector('.color-circle');
 
-    let secondaryColorChoice = document.getElementById('secondary_color');
-    secondaryColorChoice.addEventListener('change', () => {
-        let nuancierSecondaryColor = document.getElementById("nuancier_secondary_color");
-        nuancierSecondaryColor.style.backgroundColor = secondaryColorChoice.value;
-    });
+        // Init couleur par défaut
+        circle.style.backgroundColor = input.value;
 
-    let fontColorChoice = document.getElementById('font_color');
-    fontColorChoice.addEventListener('change', ( )=> {
-        let nuancierFontColor = document.getElementById("nuancier_font_color");
-        nuancierFontColor.style.backgroundColor = fontColorChoice.value;
+        // Clique sur le cercle => déclenche l’input
+        circle.addEventListener('click', () => input.click());
+
+        // Mise à jour de la couleur du cercle quand l’utilisateur choisit une nouvelle couleur
+        input.addEventListener('input', () => {
+            circle.style.backgroundColor = input.value;
+        });
     });
-};
+});
+
 
 /* preview color create new memory */
 
@@ -296,6 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
 
 
 
