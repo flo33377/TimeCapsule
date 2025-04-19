@@ -1,7 +1,7 @@
 
 /* PAGE MOT DE PASSE */
 
-#content form {
+form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -185,7 +185,7 @@
 }
 
 .nuancier {
-  height: 20px;
+  min-height: 20px;
   width: 20px;
   border-radius: 50%;
   border: 2px solid black;
@@ -219,6 +219,7 @@
 .memory_preview_flex {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .nuancier_new_memory {
@@ -228,11 +229,63 @@
   border: 2px solid black;
   background-size: contain;
   align-self: center;
+  margin-top: 10px;
   margin-bottom: -25px;
 }
 
 #preview_memory_buttons {
   height: 40px;
+}
+
+.radio_selection_block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+#background_selection {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 2vh 0vw;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px 0px;
+}
+
+#background_selection input{
+  visibility: hidden;
+  display: none;
+}
+
+#background_selection label {
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0vh 1vw;
+}
+
+#background_selection input:checked + label{
+  background-color: black;
+  color: white;
+  transition: 0.5s color ease-in-out;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#memory_color_content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#memory_patern_content {
+  flex-direction: column;
 }
 
 

@@ -42,16 +42,6 @@
 </div>
 
 <div class="field_new_memory">
-    <label for='color'><p>Couleur/décoration</p></label>
-    <select id='color' name='color' required>
-    <?php generateSelectDesigns(true, true, $colors, $paterns, "bisque") ?>
-    </select>
-</div>
-
-<div class="nuancier_new_memory" id="nuancier_decoration" style="background-color:bisque"></div>
-
-
-<div class="field_new_memory">
     <label for='author'><p>Auteur</p></label>
     <input type='text' id='author' name='author' required>
 </div>
@@ -60,6 +50,46 @@
     <label for='photo_memory'><p>Photo</p></label>
     <input type='file' id='photo_memory' name='photo_memory' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif" required>
 </div>
+
+<!--
+<div class="field_new_memory">
+    <label for='color'><p>Couleur/décoration</p></label>
+    <select id='color' name='color' required>
+    <?php // generateSelectDesigns(false, true, true, $colors, $paterns, "bisque") ?>
+    </select>
+</div>
+-->
+
+<!-- test du radio -->
+
+<div class="radio_selection_block">
+    <div id='background_selection'>
+        <input type='radio' id='backg_color' name='backg_value' value='color' checked>
+        <label for='backg_color'>Couleur de fond</label>
+        <input type='radio' id='backg_patern' name='backg_value' value='patern'>
+        <label for='backg_patern'>Motif de fond</label>
+    </div>
+
+    <div class="custom-color-picker" id="memory_color_content">
+        <label for="color_memory">Couleur du polaroid :</label>
+        <div>
+            <input type="color" name='color_memory' id='color_memory' class='form_field real-color-input' value="#ffe4c4">
+            <div class="color-circle" style="background-color: #ffe4c4" ></div>
+        </div>
+    </div>
+
+    <div id="memory_patern_content" class="field_new_memory" style="display: none;">
+        <label for="patern_memory"><p>Motif du polaroid :</p></label>
+        <select id='patern_memory' name='patern_memory' required>
+        <?php generateSelectDesigns(false, true, true, $colors, $paterns, "https://fneto-prod.fr/timecapsule/img/paterns/motif-vague.jpeg") ?>
+        </select>
+        <div class="nuancier_new_memory" id="nuancier_decoration" style="background-image: url('https://fneto-prod.fr/timecapsule/img/paterns/motif-vague.jpeg')"></div>
+    </div>
+
+</div>
+
+<!-- fin test -->
+
 
 <div id="preview_memory_buttons">
     <input type='button' class="button cta cta_modal" id='memory_preview_btn_refresh' value='Prévisualiser'>

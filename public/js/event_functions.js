@@ -1,53 +1,3 @@
-// Open 1st modal of the page
-
-let getDialogBox = document.getElementById('dialog1');
-let showModaleButton = document.getElementById('showModaleButton');
-let closeModaleButton = document.getElementById('close_popup');
-
-if(showModaleButton) {
-showModaleButton.addEventListener('click', () => {
-    // avant de placer l'évent, vérifie que l'elem est sur la page pour éviter les erreurs console
-    getDialogBox.showModal();
-    //getDialogBox.style.top = `${(window.innerHeight - getDialogBox.offsetHeight) / 2}px`;
-    getDialogBox.style.left = `${(window.innerWidth - getDialogBox.offsetWidth) / 2}px`
-})
-
-closeModaleButton.addEventListener('click', () =>
-    getDialogBox.close()
-)
-
-getDialogBox.addEventListener('click', (event) => {
-    if (event.target === getDialogBox) {
-        getDialogBox.close();
-    }
-});
-};
-
-// If 2nd modal in the page - VOIR AVEC JULIEN S'IL A SOLUTION
-
-let getDialogBox2 = document.getElementById('dialog2');
-let showModaleButton2 = document.getElementById('showModaleButton2');
-let closeModaleButton2 = document.getElementById('close_popup2');
-
-if (getDialogBox2) {
-showModaleButton2.addEventListener('click', () => {
-    getDialogBox2.showModal();
-    getDialogBox2.style.top = `${(window.innerHeight - getDialogBox2.offsetHeight) / 2}px`;
-    getDialogBox2.style.left = `${(window.innerWidth - getDialogBox2.offsetWidth) / 2}px`
-})
-
-closeModaleButton2.addEventListener('click', () =>
-    getDialogBox2.close()
-)
-
-getDialogBox2.addEventListener('click', (event) => {
-    if (event.target === getDialogBox2) {
-        getDialogBox2.close();
-    }
-});
-};
-
-
 /* Preview color event */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -69,29 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
-
-/* preview color create new memory */
-
-let decorationChoice = document.getElementById('color');
-
-if (decorationChoice) {
-    decorationChoice.addEventListener('change', () => {
-        let nuancierDecoration = document.getElementById('nuancier_decoration');
-        let nuancierDecoValue = decorationChoice.value;
-
-        // Si la valeur est une URL (donc un motif)
-        if (nuancierDecoValue.includes('fneto-prod.fr')) {
-            nuancierDecoration.style.backgroundImage = `url('${nuancierDecoValue}')`;
-            nuancierDecoration.style.backgroundColor = "";
-        } else {
-            // Sinon on considère que c’est une couleur
-            nuancierDecoration.style.backgroundColor = nuancierDecoValue;
-            nuancierDecoration.style.backgroundImage = "";
-        }
-    });
-}
-
 
 /* Preview Event function */
 
@@ -126,46 +53,6 @@ if (previewLogoEvent) {
     });
 
 };
-
-
-/* Preview Memory function */
-
-let previewMemoryPhoto = document.getElementById('photo_memory_preview');
-
-if (previewMemoryPhoto) {
-    let playRefreshPreviewMemory = document.getElementById('memory_preview_btn_refresh');
-
-    playRefreshPreviewMemory.addEventListener('click', () => {
-        // Aperçu de la photo
-        const [photo] = document.getElementById("photo_memory").files;
-        if (photo) {
-            previewMemoryPhoto.src = URL.createObjectURL(photo);
-        }
-
-        // Mise à jour du titre
-        let newMemoryValueTitle = document.getElementById('title').value;
-        document.getElementById('title_memory_preview').innerHTML = newMemoryValueTitle;
-
-        // Mise à jour de l’auteur
-        let newMemoryValueAuthor = document.getElementById('author').value;
-        document.getElementById('author_memory_preview').innerHTML = newMemoryValueAuthor;
-
-        // Mise à jour de la décoration
-        let newMemoryPreviewDecoration = document.getElementById('color').value;
-        let previewContainer = document.getElementById('memory_preview_container');
-
-        if (newMemoryPreviewDecoration.includes('fneto-prod.fr')) {
-            // C’est une image de fond
-            previewContainer.style.backgroundImage = `url('${newMemoryPreviewDecoration}')`;
-            previewContainer.style.backgroundColor = "";
-        } else {
-            // C’est une couleur CSS
-            previewContainer.style.backgroundColor = newMemoryPreviewDecoration;
-            previewContainer.style.backgroundImage = "";
-        }
-    });
-}
-
 
 /* Fonction de like des memories */
 
@@ -275,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const textArea = document.getElementById('sharingTextArea');
     const messageConfirmCopyOK = document.getElementById('copyMessage');
 
+    if(copyBtn) {
     copyBtn.addEventListener('click', async () => {
         try {
             await navigator.clipboard.writeText(textArea.value);
@@ -295,12 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("La copie a échoué.");
         }
     });
-});
-
-
-
-
-
-
+}});
 
 

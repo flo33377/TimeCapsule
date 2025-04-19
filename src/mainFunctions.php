@@ -162,6 +162,14 @@ function createNewMemory(array $data): bool {
         $urlMemory = null;
     }
 
+    // Part to select color or patern
+    $decoration = '';
+    if($data['backg_value'] == 'color') {
+        $decoration = $data['color_memory'];
+    } else {
+        $decoration = $data['patern_memory'];
+    }
+
     // SQL request and send
     $SQLSendNewMemory = "INSERT INTO timecapsule_memories (event_id, memory_text, 
         url_photo, memory_decoration, memory_author, memory_likes_count)
@@ -172,7 +180,7 @@ function createNewMemory(array $data): bool {
         'event_id' => $data['event_id'],
         'memory_text' => $data['title'],
         'url_photo' => $urlMemory,
-        'memory_decoration' => $data['color'],
+        'memory_decoration' => $decoration,
         'memory_author' => $data['author'],
         'memory_likes_count' => '0'
     ]);
