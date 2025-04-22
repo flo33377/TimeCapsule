@@ -37,10 +37,18 @@ $paterns = [
 ];
 
 
-function generateSelectDesigns(bool $displayColors, bool $displayPaterns, bool $displayColorsWithSelected, array $colors, array $paterns, $selectedColor = null) {
+function generateSelectDesigns(bool $displayTransparent, bool $displayColors, bool $displayPaterns, bool $defaultValueSelected, array $colors, array $paterns, $selectedColor = null) {
+    // Partie transparent
+    if($displayTransparent) {
+        if($selectedColor == 'transparent') {
+            echo "<option value='transparent' selected>Pas de couleur de fond</option>";
+        } else {
+            echo "<option value='transparent'>Pas de couleur de fond</option>";
+        }
+    }
     // Partie couleur
     if($displayColors) {
-        if ($displayColorsWithSelected) {
+        if ($defaultValueSelected) {
             foreach ($colors as $name => $value) { // indique la clé correspond à name et la valeur à value
                 $selected = ($selectedColor === $value) ? 'selected' : '';
                 echo '<option value="' . htmlspecialchars($value) . '" ' . $selected . '>' . htmlspecialchars($name) . '</option>';
@@ -57,6 +65,21 @@ function generateSelectDesigns(bool $displayColors, bool $displayPaterns, bool $
         foreach ($paterns as $name => $url) {
             echo '<option value="' . htmlspecialchars($url) . '">' . htmlspecialchars($name) . '</option>';
         }
+    }
+}
+
+        // fonction qui génère les selects des déco
+
+$decorations = [
+    'Stickers étoile' => 'starsticker',
+    'Scotch' => 'scotch',
+    'Punaise' => 'pin'
+];
+
+function generateSelectDecorations ($decorations) {
+    echo "<option value='none' selected>Aucune décoration supplémentaire</option>";
+    foreach ($decorations as $name => $value) {
+        echo '<option value="' . htmlspecialchars($value) . '">' . htmlspecialchars($name) . '</option>';
     }
 }
 

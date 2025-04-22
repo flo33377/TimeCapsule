@@ -74,7 +74,7 @@
                     <label for='secondary_color'><p>Couleur secondaire :</p></label>
                 </div>
                 <div class="custom-color-picker">
-                <input type="color" id='secondary_color' name='secondary_color' class='form_field real-color-input' value="#FFFFFF" required>
+                    <input type="color" id='secondary_color' name='secondary_color' class='form_field real-color-input' value="#FFFFFF" required>
                 <div class="color-circle"></div>
                 </div>
             </div>

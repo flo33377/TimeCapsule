@@ -172,15 +172,20 @@ function createNewMemory(array $data): bool {
 
     // SQL request and send
     $SQLSendNewMemory = "INSERT INTO timecapsule_memories (event_id, memory_text, 
-        url_photo, memory_decoration, memory_author, memory_likes_count)
-        VALUES (:event_id, :memory_text, :url_photo, :memory_decoration, 
+        url_photo, memory_additional_deco, memory_text_color, memory_backg_font, 
+        memory_additional_deco, memory_author, memory_likes_count)
+        VALUES (:event_id, :memory_text, :url_photo, :memory_additional_deco, 
+        :memory_text_color, :memory_backg_font, :memory_additional_deco, 
         :memory_author, :memory_likes_count)";
     $sendNewMemoryStatement = $mysqlClient->prepare($SQLSendNewMemory);
     $sendNewMemoryStatement->execute([
         'event_id' => $data['event_id'],
         'memory_text' => $data['title'],
         'url_photo' => $urlMemory,
-        'memory_decoration' => $decoration,
+        'memory_additional_deco' => $decoration,
+        'memory_text_color' => $data['text_memory_color'],
+        'memory_backg_font' => $data['backg_font_memory'],
+        'memory_additional_deco' => $data['decoration_memory'],
         'memory_author' => $data['author'],
         'memory_likes_count' => '0'
     ]);

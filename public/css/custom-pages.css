@@ -92,7 +92,7 @@ form {
 }
 
 #preview_content_memory img, #memory_container img, .memory_photo {
-  max-width: 90%;
+  width: 90%;
 }
 
 #memory_container {
@@ -213,7 +213,7 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2vh 0vh 5vh 0vh;
+  margin: 30px 0 20px 0;
 }
 
 .memory_preview_flex {
@@ -284,23 +284,71 @@ form {
   gap: 10px;
 }
 
-#memory_patern_content {
+#memory_patern_content, 
+#memory_backg_font_content, 
+#memory_decoration_content {
   flex-direction: column;
+}
+
+/* case mobile */
+@media screen and (min-width: 1024px) { 
+  #new_memory_font_color, #new_memory_backg_font_color {
+    flex-direction: row;
+}
+  #form_new_memory summary {
+    width: 90%;
+  }
+}
+
+#new_memory_font_color {
+  justify-self: space-evenly;
+}
+
+.toggle_trigger {
+  align-self: center;
+}
+
+.new_memory_options_field {
+  opacity: 0;
+  display: none;
+  transition: opacity 0.4s ease;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.new_memory_options_field.visible {
+  display: flex;
+  opacity: 1;
+}
+
+.new_memory_options_field.fading-out {
+  opacity: 0;
+}
+
+/* Chevron */
+.toggle_trigger .chevron {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.toggle_trigger.active .chevron {
+  transform: rotate(90deg);
 }
 
 
 /* Liking part */
 
 .likes_bloc {
-  width: 90%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  gap: 20px;
 }
 
 .liking_function_bloc img {
   height: 20px;
+  filter: drop-shadow(0 0px 1px white);
 }
 
 .liking_function_bloc input[type="checkbox"] {
@@ -334,8 +382,59 @@ form {
   margin-bottom: 100px;
 }
 
-.memories_global div {
-  max-width: 60%;
+.whole_memory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.memory_container {
+  max-width: 70%;
+}
+
+.starsticker_memory,
+.pin_memory {
+  position: relative;
+  height: 50px;
+  z-index: 1;
+}
+
+.pin_memory {
+  margin-left: 20px;
+  margin-bottom: -22px;
+}
+
+.starsticker_memory {
+  right: 47%;
+  top: -35px;
+  transform: rotate(29deg);
+  margin-bottom: -55px;
+}
+
+.scotch_memory_left,
+.scotch_memory_right {
+  height: 50px;
+  z-index: 1;
+  margin-bottom: -50px;
+}
+
+.scotch_memory_left {
+  position: relative;
+  right: 47%;
+  top: -35px;
+}
+
+.scotch_memory_right {
+  position: relative;
+  left: 47%;
+  top: -35px;
+  transform: rotate(90deg);
+}
+
+.text_memory {
+  margin: 5px 0px;
+  padding: 0 5px;
+  width: 90%;
 }
 
 .memories_global h2 {
@@ -350,7 +449,7 @@ form {
     justify-content: center;
   }
   .memories_global div {
-    width: 250px;
+    max-width: 250px;
   }
 }
 

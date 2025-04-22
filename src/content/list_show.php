@@ -24,37 +24,7 @@
 
 <div class='memories_global'>
 
-    <?php foreach ($memoriesData as $listingMemories) : ?>
-        <?php if (!$listingMemories['cancel'] == 'true' ) : ?>
-            <div class='memory_container' style='
-                <?php if((str_contains($listingMemories['memory_decoration'], 'fneto-prod.fr'))) {
-                    // htmlspecialchars permet d'échapper les apostrophes/guillemets par défaut
-                    echo "background-image: url(\"" . htmlspecialchars($listingMemories['memory_decoration'], ENT_QUOTES) . "\");";
-                } else {
-                    echo "background-color: " . $listingMemories['memory_decoration'];
-                } ?>; transform:rotate(<?= round(rand(-2,2)) ?>deg);'>
-                <img class='memory_photo' src='<?= $listingMemories['url_photo'] ?>' alt='Photo souvenir n°<?= $listingMemories['memory_id'] ?>'>
-                <div class='text_memory'>
-                    <h2><?= $listingMemories['memory_text'] ?></h2>
-                    <h4>Par <?= $listingMemories['memory_author'] ?></h4>
-                </div>
-                <div class="likes_bloc">
-                    <div class="liking_function_bloc">
-                        <input type='checkbox' class="like-checkbox" data-nbrlikes='<?= $listingMemories['memory_likes_count'] ?>' 
-                        name='box_memory_<?= $listingMemories['memory_id'] ?>' id='<?= $listingMemories['memory_id'] ?>' data-id='<?= $listingMemories['memory_id'] ?>'
-                        <?php if(in_array($listingMemories['memory_id'], $_SESSION['LikedMemory'])) : echo('disabled checked'); endif ?>
-                        >
-                        <label for='<?= $listingMemories['memory_id'] ?>' class="liking_icon">
-                            <img src="https://fneto-prod.fr/timecapsule/img/heart_icon_empty.png" class="heart_icon" alt="liking_icon">
-                        </label>
-                    </div>
-                    <div>
-                        <p><span class="nbr_likes"><?= $listingMemories['memory_likes_count'] ?></span> likes</p>
-                    </div>
-                </div>
-            </div>
-        <?php endif ?>
-    <?php endforeach ?>
+<?php include_once(__DIR__ . '/modules/memories_display_mecanism.php'); ?>
 
 </div>
 
