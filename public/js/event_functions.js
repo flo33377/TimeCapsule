@@ -1,4 +1,4 @@
-/* Preview color event */
+/* Système de preview color dans les color pickers */
 
 document.addEventListener('DOMContentLoaded', () => {
     const colorPickers = document.querySelectorAll('.custom-color-picker');
@@ -20,6 +20,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Fonction qui calcule si couleur est trop claire pour utiliser icone blanche
+// cf. nav buttons
+
+function isLightColor(hexColor) {
+    // Supprimer le # si présent
+    hexColor = hexColor.replace(/^#/, '');
+
+    // Si format court (#fff), l'étendre à 6 caractères
+    if (hexColor.length === 3) {
+        hexColor = hexColor.split('').map(c => c + c).join('');
+    }
+
+    // Convertir les composants hexadécimaux en décimal
+    const r = parseInt(hexColor.substring(0, 2), 16);
+    const g = parseInt(hexColor.substring(2, 4), 16);
+    const b = parseInt(hexColor.substring(4, 6), 16);
+
+    // Calcul de luminance
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
+
+    // Retourne true si la couleur est claire
+    return luminance > 186;
+}
+
+
 /* Preview Event function */
 
 let previewLogoEvent = document.getElementById('preview_logo');
@@ -38,9 +63,16 @@ if (previewLogoEvent) {
     }};
 
     let newEventValueMainColor = document.getElementById('main_color');
+    let newEventNavButtons = document.getElementsByClassName('preview_btn_each');
     let newEventPreviewMainColor = newEventValueMainColor.value;
     document.getElementById('preview_header').style.backgroundColor = newEventPreviewMainColor;
-    document.getElementById('preview_adding_button').style.backgroundColor = newEventPreviewMainColor;
+    for(let i = 0; i < newEventNavButtons.length; i++) {
+        newEventNavButtons[i]. style.backgroundColor = newEventPreviewMainColor;
+        const picto = newEventNavButtons[i].querySelector('img');
+        if(picto) {
+        picto.style.filter = isLightColor(newEventPreviewMainColor) ? 'invert(0)' : 'invert(1)';
+        }
+    }
 
     let newEventValueSecondaryColor = document.getElementById('secondary_color');
     let newEventPreviewSecondaryColor = newEventValueSecondaryColor.value;
@@ -53,6 +85,32 @@ if (previewLogoEvent) {
     });
 
 };
+
+// Preview event fonction - avertissement de couleur trop claire => picto en blanc
+
+let warningMainColorNotLightHTML = "<p id='warning_main_color_light'>Attention : la couleur principale " +
+"sélectionnée étant claire, les icones de navigation seront en noir.<br>(cf. Prévisualisation)</p>";
+
+let newEventMainColorPicker = document.getElementById('main_color');
+
+if (newEventMainColorPicker) {
+    newEventWarningBloc = document.getElementById('new_event_main_color_comment');
+    newEventMainColorPicker.addEventListener('change', () => {
+        let currentMainColor = newEventMainColorPicker.value;
+        let warningMessageDisplayed = document.getElementById('warning_main_color_light');
+        if(isLightColor(currentMainColor)) {
+            if(!warningMessageDisplayed) {
+                newEventWarningBloc.innerHTML = warningMainColorNotLightHTML;
+            };
+        } else {
+            if(warningMessageDisplayed) {
+                warningMessageDisplayed.remove();
+            }
+        };
+    })
+}
+
+
 
 /* Fonction de like des memories */
 

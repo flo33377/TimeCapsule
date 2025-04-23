@@ -57,6 +57,9 @@
             </div>
         </div>
 
+        
+        <div id="new_event_main_color_comment" class="new_event_warning_message"></div>
+
         <div id="color_module">
 
             <div class="color_content">
@@ -120,8 +123,16 @@
                 </div>
             </div>
 
-            <div id="preview_adding_button" style="background-color: blue">
-                <p id="preview_adding_btn_text" style="color: white">+</p>
+
+            <div id="preview_buttons">
+                <div class="preview_btn_each" style="background-color: black;">
+                    <img src="https://fneto-prod.fr/timecapsule/img/share_icon.png"
+                    style="filter: invert(1);" alt="Bouton 1">
+                </div>
+                <div class="preview_btn_each" style="background-color: black;">
+                    <img src="https://fneto-prod.fr/timecapsule/img/add_icon.png" 
+                    style="filter: invert(1);" alt="Bouton 2">
+                </div>
             </div>
         </div>
 

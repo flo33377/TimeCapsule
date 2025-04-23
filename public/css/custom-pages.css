@@ -89,6 +89,7 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: -50px;
 }
 
 #preview_content_memory img, #memory_container img, .memory_photo {
@@ -124,7 +125,7 @@ form {
   max-width: 200px;
 }
 
-#preview_adding_button {
+.preview_btn_each {
   height: 50px; width: 50px;
   display: flex;
   justify-content: center;
@@ -138,13 +139,25 @@ form {
   border-radius: 50%;
 
   margin-right: 20px;
+  margin-top: 10px;
 }
 
-#preview_adding_btn_text {
-  font-size: 50px;
+.preview_btn_each img {
+  height: 30px;
 }
 
 /* COLOR MODULE - FORM NEW EVENT */
+
+.new_event_warning_message {
+  margin-bottom: -18px;
+}
+
+.new_event_warning_message p {
+  font-size: small;
+  text-align: center;
+  font-style: italic;
+  color: red;
+}
 
 #color_module {
   display: flex;
