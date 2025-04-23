@@ -44,7 +44,7 @@
 
 
         <div class="likes_bloc">
-            <div class="liking_function_bloc">
+            <div class="liking_function_bloc nbr_like_bloc">
                 <input type='checkbox' class="like-checkbox" data-nbrlikes='<?= $listingMemories['memory_likes_count'] ?>' 
                 name='box_memory_<?= $listingMemories['memory_id'] ?>' id='<?= $listingMemories['memory_id'] ?>' data-id='<?= $listingMemories['memory_id'] ?>'
                 <?php if(in_array($listingMemories['memory_id'], $_SESSION['LikedMemory'])) : echo('disabled checked'); endif ?>
@@ -53,7 +53,7 @@
                     <img src="https://fneto-prod.fr/timecapsule/img/heart_icon_empty.png" class="heart_icon" alt="liking_icon">
                 </label>
             </div>
-            <div>
+            <div class="nbr_like_bloc">
                 <p><span class="nbr_likes"><?= $listingMemories['memory_likes_count'] ?></span> likes</p>
             </div>
         </div>

@@ -355,13 +355,18 @@ form {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   gap: 20px;
 }
 
 .liking_function_bloc img {
   height: 20px;
+  width: 20px !important;
   filter: drop-shadow(0 0px 1px white);
+}
+
+.nbr_like_bloc {
+  width: fit-content;
 }
 
 .liking_function_bloc input[type="checkbox"] {

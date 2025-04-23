@@ -64,7 +64,7 @@
 
                 <div class="color_content">
                     <div class="color_choosing">
-                        <label for='main_color'><p>Couleur principale :</p></label>
+                        <p>Couleur principale :</p>
                     </div>
                     <div class="custom-color-picker">
                     <input type="color" id='main_color' name='main_color' class='form_field real-color-input' 
@@ -82,7 +82,7 @@
 
                 <div class="color_content">
                     <div class="color_choosing">
-                        <label for='secondary_color'><p>Couleur secondaire :</p></label>
+                        <p>Couleur secondaire :</p>
                     </div>
                     <div class="custom-color-picker">
                     <input type="color" id='secondary_color' name='secondary_color' class='form_field real-color-input'
@@ -100,7 +100,7 @@
 
                 <div class="color_content">
                     <div class="color_choosing">
-                        <label for='font_color'><p>Couleur des textes :</p></label>
+                        <p>Couleur des textes :</p>
                     </div>
                     <div class="custom-color-picker">
                     <input type="color" id='font_color' name='font_color' class='form_field real-color-input' 
@@ -142,6 +142,17 @@
                     <img src="https://fneto-prod.fr/timecapsule/img/photo_template.jpg" alt="Exemple photo">
                     <p>Une super soirée passée avec toi !</p>
                     <p>Par Mélanie</p>
+
+                    <div class="likes_bloc">
+                        <div class="liking_function_bloc nbr_like_bloc">
+                            <div class="liking_icon">
+                                <img src="https://fneto-prod.fr/timecapsule/img/heart_icon_empty.png" class="heart_icon" alt="liking_icon">
+                            </div>
+                        </div>
+                        <div class="nbr_like_bloc">
+                            <p><span class="nbr_likes">12 likes</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
