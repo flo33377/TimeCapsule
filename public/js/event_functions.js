@@ -88,8 +88,9 @@ if (previewLogoEvent) {
 
 // Preview event fonction - avertissement de couleur trop claire => picto en blanc
 
-let warningMainColorNotLightHTML = "<p id='warning_main_color_light'>Attention : la couleur principale " +
-"sélectionnée étant claire, les icones de navigation seront en noir.<br>(cf. Prévisualisation)</p>";
+let warningMainColorNotLightHTML = `<p id='warning_main_color_light'>
+Attention : la couleur principale sélectionnée étant claire, les icones de navigation 
+seront en noir.<br>(cf. Prévisualisation)</p>`;
 
 let newEventMainColorPicker = document.getElementById('main_color');
 
@@ -182,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (shareBtn) {
         const fallbackUrl = shareBtn.dataset.href;
         const eventName = shareBtn.dataset.name;
+        const passwordEvent = shareBtn.dataset.password;
 
         if (navigator.share) {
             shareBtn.addEventListener('click', async (e) => {
@@ -190,17 +192,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 // await permet de détecter le moment où terminé et d'effectuer une action si besoin à la fin
                 e.preventDefault();
                 try {
-                    await navigator.share({
-                        title: document.title,
-                        text: `J'ai créé un site pour l'événement : ${eventName}. Viens-y déposer tes photos toi aussi !`,
-                        url: window.location.href
-                    });
+                    if(passwordEvent) {
+                        await navigator.share({
+                            title: document.title,
+                            text: `J'ai créé un site pour l'événement : ${eventName}. 
+                            Viens-y déposer tes photos toi aussi ! Voici le mot de passe pour y accéder : ${passwordEvent}`,
+                            url: window.location.href
+                        });    
+                    } else {
+                        await navigator.share({
+                            title: document.title,
+                            text: `J'ai créé un site pour l'événement : ${eventName}. Viens-y déposer tes photos toi aussi !`,
+                            url: window.location.href
+                        });
+                    }
                     // avec await, on mettrait ici l'action à effectuer après partage ok (console.log)
                 } catch (err) {
+                    if(err.name != 'AbortError') {
                     console.error("Erreur lors du partage :", err);
                     // Fallback si l'utilisateur annule ou si l'API échoue
                     window.location.href = fallbackUrl;
-                }
+                }}
             });
         } else {
             // Si Web Share API non disponible

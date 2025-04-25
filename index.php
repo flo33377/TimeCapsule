@@ -13,6 +13,7 @@
   <script src="./public/js/event_functions.js" defer></script>
   <script src="./public/js/memories_functions.js" defer></script>
   <script src="./public/js/modales.js" defer></script>
+  <script src="./public/js/notifications.js" defer></script>
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://fneto-prod.fr/timecapsule/img/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://fneto-prod.fr/timecapsule/img/favicon.png">
@@ -28,6 +29,7 @@
 </head>
 
 <body>
+
   <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['main_color']) && $_SESSION['main_color'] != null) : ?>
     <header style="background-color: <?= $_SESSION['main_color'] ?>" >
   <?php else : ?>
@@ -50,6 +52,9 @@
   <?php endif ?>
   >
     <?php include($content) ?>
+
+    <?php include_once(__DIR__ . "/src/content/notifications/notifications.php") ?>
+  
   </main>
 
 </body>

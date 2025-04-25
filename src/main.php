@@ -130,7 +130,12 @@ switch ($page) {
         if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
         if ($_SESSION['event_id']) changeNameEvent($_SESSION['event_id'], $_POST['new_name_event']);
         $_SESSION["auth"] = $targetEvent;
-        session_write_close();
+        
+        $_SESSION['bannerType'] = "SuccessBanner";
+        $_SESSION['bannerMessage'] = "ChangeName";
+
+        session_write_close(); // permet de bien dire d'enregistrer les var de session avant le header location
+
         if($_SERVER["SERVER_PORT"] === "5000") {
             header("Location: " . "/?event=$targetEvent");
         } else {
@@ -140,9 +145,16 @@ switch ($page) {
 
     case "post_change_logo_colors" : // change les couleurs et éventuellement le logo de l'event
         $content = FOCUS_EVENT_URL;
+
+        $_SESSION['bannerType'] = "SuccessBanner";
+        $_SESSION['bannerMessage'] = "ChangeColorLogo";
+
         if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
         if ($_SESSION['event_id']) changeLogoOrColorsEvent($_SESSION['event_id'], $_POST);
         $_SESSION["auth"] = $targetEvent;
+
+        session_write_close();
+
         if($_SERVER["SERVER_PORT"] === "5000") {
             header("Location: " . "/?event=$targetEvent");
         } else {

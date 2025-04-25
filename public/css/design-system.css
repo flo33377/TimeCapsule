@@ -479,5 +479,59 @@ details form {
   width: 100%;
 }
 
+/* Notification system */
+
+.invisible_banner {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.SuccessBanner {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%), translateY(100px);
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.SuccessBanner.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 40px;
+  transform: translateX(-50%) translateY(0);
+}
+
+.banner-content {
+  position: relative;
+}
+
+.progress-bar {
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: progressTimer 5s linear forwards;
+  border-radius: 0 8px 8px 0;
+}
+
+@keyframes progressTimer {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
 
 

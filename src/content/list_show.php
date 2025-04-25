@@ -47,6 +47,11 @@ $shareLink = './?event=' . $_SESSION['event_id'] . '&share=true';
     //si sur mobile, met l'ID ShareBtn pour déclencher API Share en JS et ajoute le lien desktop en data pour éventuel fallback en JS si API non-fonctionnelle
     // sinon met direct le lien en href 
     ?>
+    
+    <?php if(isset($event["event_password"]) && $event["event_password"] != null) : ?>
+        data-password="<?= $event['event_password'] ?>"
+    <?php endif ?>
+
     <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['main_color']) && $_SESSION['main_color'] != null) : ?>
         style="background-color: <?= $_SESSION['main_color'] ?>;"
     <?php endif ?>
