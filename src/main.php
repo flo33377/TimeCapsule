@@ -170,11 +170,18 @@ switch ($page) {
 
     case "post_create_memory": // créé un memory
         $content = FOCUS_EVENT_URL;
+
+        $_SESSION['bannerType'] = "SuccessBanner";
+        $_SESSION['bannerMessage'] = "MemoryCreated";
+
         $eventId = $_SESSION["event_id"] ?? null;
         if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
         if ($eventId) $event = getEventById($eventId);
         if ($eventId) createNewMemory($_POST);
         $memoriesData = getMemoriesByEventId($event['event_id']); // get all memories
+
+        session_write_close();
+
         if($_SERVER["SERVER_PORT"] === "5000") {
             header("Location: " . "/?event=$targetEvent");
         } else {

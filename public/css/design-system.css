@@ -486,14 +486,13 @@ details form {
   opacity: 0;
 }
 
-.SuccessBanner {
+.success-banner {
   position: fixed;
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%), translateY(100px);
   background-color: #4CAF50;
   color: white;
-  padding: 14px 20px;
   border-radius: 8px;
   font-size: 1rem;
   opacity: 0;
@@ -503,7 +502,30 @@ details form {
   overflow: hidden;
 }
 
-.SuccessBanner.show {
+.success-banner.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 40px;
+  transform: translateX(-50%) translateY(0);
+}
+
+.error-banner {
+  background-color: #f44336;
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%), translateY(100px);
+  color: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.error-banner.show {
   visibility: visible;
   opacity: 1;
   bottom: 40px;
@@ -512,6 +534,7 @@ details form {
 
 .banner-content {
   position: relative;
+  padding: 14px 20px;
 }
 
 .progress-bar {
