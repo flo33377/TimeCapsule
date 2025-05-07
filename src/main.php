@@ -2,7 +2,7 @@
 
 session_start();
 
-/* fonction de débug - need fichier debug_log.txt
+//fonction de débug - need fichier debug_log.txt
 function debug_log($message) {
     $file = __DIR__ . '/debug_log.txt'; // Le fichier log sera dans le même dossier que ton script
     $date = date('Y-m-d H:i:s');
@@ -17,7 +17,7 @@ debug_log("GET: " . print_r($_GET, true));
 debug_log("-----------");
 
 // fin du debogger
-*/
+
 
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
@@ -129,7 +129,7 @@ switch ($page) {
         $content = FOCUS_EVENT_URL;
         if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
         if ($_SESSION['event_id']) changeNameEvent($_SESSION['event_id'], $_POST['new_name_event']);
-        $_SESSION["auth"] = $targetEvent;
+        /* $_SESSION["auth"] = $targetEvent; */
         
         $_SESSION['bannerType'] = "SuccessBanner";
         $_SESSION['bannerMessage'] = "ChangeName";
@@ -138,8 +138,10 @@ switch ($page) {
 
         if($_SERVER["SERVER_PORT"] === "5000") {
             header("Location: " . "/?event=$targetEvent");
+            exit;
         } else {
             header("Location: " . "/timecapsule/?event=$targetEvent");
+            exit;
         };
         break;
 
@@ -151,14 +153,16 @@ switch ($page) {
 
         if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
         if ($_SESSION['event_id']) changeLogoOrColorsEvent($_SESSION['event_id'], $_POST);
-        $_SESSION["auth"] = $targetEvent;
+        /* $_SESSION["auth"] = $targetEvent; */
 
         session_write_close();
 
         if($_SERVER["SERVER_PORT"] === "5000") {
             header("Location: " . "/?event=$targetEvent");
+            exit;
         } else {
             header("Location: " . "/timecapsule/?event=$targetEvent");
+            exit;
         };
         break;
 
@@ -184,8 +188,10 @@ switch ($page) {
 
         if($_SERVER["SERVER_PORT"] === "5000") {
             header("Location: " . "/?event=$targetEvent");
+            exit;
         } else {
             header("Location: " . "/timecapsule/?event=$targetEvent");
+            exit;
         };
         break;
     

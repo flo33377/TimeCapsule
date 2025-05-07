@@ -128,7 +128,7 @@ function changeLogoOrColorsEvent(int $id, array $data) {
 }
 
 function getMemoriesByEventId(int $id): array {
-    $SQLGetMemoriesById = 'SELECT * FROM timecapsule_memories WHERE event_id = ?';
+    $SQLGetMemoriesById = 'SELECT * FROM timecapsule_memories WHERE event_id = ? ORDER BY memory_date DESC';
     $getMemoriesStatement = connect()->prepare($SQLGetMemoriesById);
     $getMemoriesStatement->execute([$id]);
 
@@ -139,6 +139,7 @@ function getMemoriesByEventId(int $id): array {
 function createNewMemory(array $data): bool {
     $mysqlClient = connect();
 
+    // part about file naming and stocking
     $TransferPathMemory = __DIR__ . '/content/memory_img/';
     if ($_SERVER["SERVER_PORT"] === "5000") { // vaut true si en local
         $publicPath = __DIR__ . '/content/memory_img/';
@@ -162,6 +163,29 @@ function createNewMemory(array $data): bool {
         $urlMemory = null;
     }
 
+    // part about timing
+    $dateTaken = '';
+
+    if (isset($_FILES['photo_memory']) && $_FILES['photo_memory']['error'] === UPLOAD_ERR_OK) {
+        $photoPath = $_FILES['photo_memory']['tmp_name'];
+    
+        if (function_exists('exif_read_data')) {
+            $exif = @exif_read_data($photoPath);
+    
+            if ($exif !== false && isset($exif['DateTimeOriginal'])) {
+                $dateTaken = $exif['DateTimeOriginal']; // type : "2023:05:24 15:32:10"
+                $dateTaken = str_replace(':', '-', substr($dateTaken, 0, 10)) . substr($dateTaken, 10);
+                // sur les 10 premiers cara, on remplace : par -, et ensuite on concatène les cara après à partir de 10
+                // Résultat : "2023-05-24 15:32:10"
+            } else {
+                $dateTaken = null; // Pas de métadonnée dispo
+            }
+        } else {
+            $dateTaken = null; // exif_read_data pas dispo sur le serveur
+        }
+    }
+    
+
     // Part to select color or patern
     $decoration = '';
     if($data['backg_value'] == 'color') {
@@ -173,10 +197,10 @@ function createNewMemory(array $data): bool {
     // SQL request and send
     $SQLSendNewMemory = "INSERT INTO timecapsule_memories (event_id, memory_text, 
         url_photo, memory_additional_deco, memory_text_color, memory_backg_font, 
-        memory_additional_deco, memory_author, memory_likes_count)
+        memory_additional_deco, memory_author, memory_date, memory_likes_count)
         VALUES (:event_id, :memory_text, :url_photo, :memory_additional_deco, 
         :memory_text_color, :memory_backg_font, :memory_additional_deco, 
-        :memory_author, :memory_likes_count)";
+        :memory_author, :memory_date, :memory_likes_count)";
     $sendNewMemoryStatement = $mysqlClient->prepare($SQLSendNewMemory);
     $sendNewMemoryStatement->execute([
         'event_id' => $data['event_id'],
@@ -187,6 +211,7 @@ function createNewMemory(array $data): bool {
         'memory_backg_font' => $data['backg_font_memory'],
         'memory_additional_deco' => $data['decoration_memory'],
         'memory_author' => $data['author'],
+        'memory_date' => $dateTaken,
         'memory_likes_count' => '0'
     ]);
 

@@ -1,5 +1,10 @@
 <?php include_once(__DIR__ . "/modules/colors_functions.php") ?>
 
+
+<?php //echo '<pre>';
+//print_r($_SESSION);
+//echo '<pre>'; ?>
+
 <h1>Bienvenue sur Time Capsule !</h1>
 <br>
 <h2>Accédez au feed d'un évènement existant :</h2>
@@ -120,6 +125,7 @@
                     <img src="https://fneto-prod.fr/timecapsule/img/photo_template.jpg" alt="Exemple photo">
                     <p>Une super soirée passée avec toi !</p>
                     <p>Par Mélanie</p>
+
                     <div class="likes_bloc">
                         <div class="liking_function_bloc nbr_like_bloc">
                             <div class="liking_icon">
@@ -129,10 +135,10 @@
                         <div class="nbr_like_bloc">
                             <p><span class="nbr_likes">12 likes</p>
                         </div>
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
 
 
             <div id="preview_buttons">
