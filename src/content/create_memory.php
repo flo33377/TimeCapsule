@@ -51,6 +51,12 @@
     <input type='file' id='photo_memory' name='photo_memory' accept="image/png, image/jpeg, image/jpg, image/heic, image/heif" required>
 </div>
 
+<div class="field_new_memory">
+    <?php $defaultDate = date('Y-m-d\TH:i'); ?>
+    <label for="memory_date">Date du souvenir :</label>
+    <input type="datetime-local" id="memory_date" name="memory_date" required value="<?= htmlspecialchars($defaultDate) ?>" max="<?= htmlspecialchars($defaultDate) ?>">
+</div>
+
 
 <div class="radio_selection_block">
     <div id='background_selection'>

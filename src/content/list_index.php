@@ -9,11 +9,13 @@
 <br>
 <h2>Accédez au feed d'un évènement existant :</h2>
 
-<div class="listing_lists">
+<div class="listing_all_lists">
     <?php foreach ($lists as $list) : ?>
-        <a class="list_available" href="./?event=<?= $list['event_id'] ?>">
-            <p>> <?= $list['event_name'] ?></p>
-        </a>
+        <div style="background-color: <?= $list['main_color'] ?>; background-image: url(<?= $list['event_logo'] ?>);">
+            <a class="list_available" href="./?event=<?= $list['event_id'] ?>">
+                <p><?= $list['event_name'] ?></p>
+            </a>
+        </div>
     <?php endforeach ?>
 </div>
 

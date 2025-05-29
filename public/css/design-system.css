@@ -172,7 +172,8 @@ dialog span {
 
 input[type='text'],
 input[type='file'],
-input[type='password'] {
+input[type='password'],
+input[type='datetime-local'] {
   background-color: white;
   border: 1px solid #ccc;
   padding: 0.5em;
