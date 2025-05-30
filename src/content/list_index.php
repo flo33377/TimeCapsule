@@ -11,9 +11,11 @@
 
 <div class="listing_all_lists">
     <?php foreach ($lists as $list) : ?>
-        <div style="background-color: <?= $list['main_color'] ?>; background-image: url(<?= $list['event_logo'] ?>);">
+        <div class="bloc_event_listing" style="background-color: <?= $list['main_color'] ?>; background-image: url(<?= $list['event_logo'] ?>);">
             <a class="list_available" href="./?event=<?= $list['event_id'] ?>">
-                <p><?= $list['event_name'] ?></p>
+                <div class="label_event">
+                    <p><?= $list['event_name'] ?></p>
+                </div>
             </a>
         </div>
     <?php endforeach ?>
