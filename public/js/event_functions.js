@@ -1,3 +1,100 @@
+
+/* Pagination listing events HP */
+
+if(document.getElementById('eventContainer')) { // error management
+    const itemsPerPage = 4; //nbr item par page
+    let currentPage = 0; // default setting
+
+    function renderPage(page) { // MàJ les blocs events
+    const container = document.getElementById('eventContainer');
+    container.innerHTML = ''; // reset avant changement event affichés
+
+    const start = page * itemsPerPage; // index of 1st event to display on this page
+    const end = start + itemsPerPage; // index of last event to display
+    const visibleItems = allLists.slice(start, end);
+
+    visibleItems.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.classList.add('bloc_event_listing', 'slide-in');
+        div.style.backgroundColor = item.main_color;
+        div.style.backgroundImage = `url('${item.event_logo}')`;
+        const delay = index * 0.1;
+        div.style.animation= `slideIn 0.5s linear ${delay}s both`;
+        div.innerHTML = `
+        <a class="list_available" href="./?event=${item.event_id}">
+            <div class="label_event">
+                <p>${item.event_name}</p>
+            </div>
+        </a>
+        `;
+        container.appendChild(div);
+    });
+
+    renderPagination(page);
+    }
+
+    function renderPagination(current) { // MàJ la pagination
+        const totalPages = Math.ceil(allLists.length / itemsPerPage); // nbr total pages
+        const controlsNbr = document.getElementById('paginationControls');
+        controlsNbr.innerHTML = ''; // reset avant changements
+        const controlsArrowLeft = document.getElementById('nav_arrow_left');
+        const controlsArrowRight = document.getElementById('nav_arrow_right');
+      
+        // Déterminer les indices des pages à afficher
+        let startPage = Math.max(current - 1, 0); // compare et prend le + grand pour
+        // ne pas prendre de nbr négatif
+        let endPage = Math.min(startPage + 2, totalPages - 1); // compare et prend le
+        // + petit pour ne pas dépasser le nbr max de pages
+      
+        // Si écart trop petit c'est qu'on est à la fin donc on recule dans la pagination
+        // mais s'assure de ne pas passer en négatif
+        if (endPage - startPage < 2) {
+          startPage = Math.max(endPage - 2, 0);
+        }
+      
+        // génère pour chaque chiffre son num + bouton
+        for (let i = startPage; i <= endPage; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i + 1;
+          if (i === current) {
+            btn.disabled = true;
+            btn.classList.add('active_pagination');
+          }
+      
+          btn.addEventListener('click', () => { // met un event dessus pour changement page
+            currentPage = i;
+            renderPage(currentPage);
+          });
+      
+          controlsNbr.appendChild(btn); // ajout le num, btn et event dans le DOM
+        }
+
+        if(current === 0) {
+            controlsArrowLeft.style.display = "none";
+        } else {
+            controlsArrowLeft.style.display = 'flex';
+            controlsArrowLeft.addEventListener('click', () =>
+                renderPage(current - 1));
+        }
+
+        const lastPage = (Math.ceil(allLists.length / itemsPerPage)) - 1; // num de la dernière page
+        // comme index commence à 0 et que length commence à 1 on retire -1
+
+        if(current == lastPage) {
+            controlsArrowRight.style.display = "none";
+        } else {
+            controlsArrowRight.style.display = 'flex';
+            controlsArrowRight.addEventListener('click', () =>
+                renderPage(current + 1));
+        }
+
+      }
+      
+    renderPage(currentPage); // lancement par défaut à l'exécution de la page
+
+};
+
+
 /* Système de preview color dans les color pickers */
 
 document.addEventListener('DOMContentLoaded', () => {

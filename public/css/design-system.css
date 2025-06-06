@@ -28,7 +28,7 @@ a:hover, a p:hover {
 }
 
 #content {
-  padding-top : 3rem;
+  padding : 3rem 0rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

@@ -504,12 +504,61 @@ form {
 
 /* Listing page */
 
-.listing_all_lists {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+#events_show_area {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 90%;
+}
+
+#nav_arrow_left, #nav_arrow_right {
+  height: 30px;
+  width: 30px;
+  margin-top: -50px;
+  z-index: 99;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 50px;
+  opacity: 0.5;
+  position: absolute;
+  padding: 5px;
+  cursor: pointer;
+}
+
+#nav_arrow_left {
+  rotate: 180deg;
+  left: 30px;
+}
+
+#nav_arrow_right {
+  right: 30px;
+}
+
+/* case desktop */
+@media screen and (min-width: 1024px) { 
+  #nav_arrow_left {
+  left: 60px;
+}
+  #nav_arrow_right {
+    right: 60px;
+}}
+
+#nav_arrow_left:hover, #nav_arrow_right:hover {
+  opacity: 1;
+}
+
+#whole_discovery_events_area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.listing_all_lists {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   padding: 0px 10px;
   gap: 10px;
 }
@@ -517,6 +566,7 @@ form {
 .listing_all_lists .bloc_event_listing {
   background-color: black;
   height: 200px;
+  width: 40vw;
   border-radius: 10px;
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
   background-repeat: no-repeat;
@@ -525,6 +575,12 @@ form {
   background-size: 100%;
   transition: background-size 0.4s ease;
 }
+
+/* case desktop */
+@media screen and (min-width: 1024px) { 
+  .listing_all_lists .bloc_event_listing {
+  width: 20vw;
+}}
 
 .listing_all_lists a {
   height: 100%;
@@ -575,3 +631,47 @@ form {
   text-decoration: none;
   transform: translateY(-50%);
 }
+
+/* Pagination des events */
+
+#paginationControls {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+#paginationControls button {
+  border: none;
+  height: 30px; width: 30px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#paginationControls button:hover {
+  border-bottom: 2px solid black;
+}
+
+#paginationControls .active_pagination {
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+}
+
+#paginationControls .active_pagination:hover {
+  border-bottom: none;
+}
+
+/* Animation injectée en JS sur le listing des events */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+

@@ -1,5 +1,7 @@
 <?php include_once(__DIR__ . "/modules/colors_functions.php") ?>
-
+<script>
+  const allLists = <?php echo json_encode($lists); ?>;
+</script>
 
 <?php //echo '<pre>';
 //print_r($_SESSION);
@@ -7,23 +9,23 @@
 
 <h1>Bienvenue sur Time Capsule !</h1>
 <br>
-<h2>Accédez au feed d'un évènement existant :</h2>
 
-<div class="listing_all_lists">
-    <?php foreach ($lists as $list) : ?>
-        <div class="bloc_event_listing" style="background-color: <?= $list['main_color'] ?>; background-image: url(<?= $list['event_logo'] ?>);">
-            <a class="list_available" href="./?event=<?= $list['event_id'] ?>">
-                <div class="label_event">
-                    <p><?= $list['event_name'] ?></p>
-                </div>
-            </a>
-        </div>
-    <?php endforeach ?>
-</div>
-
-<h2>Ou créez un nouveau feed pour un évènement :</h2>
+<h2>Commencez par créer votre évènement :</h2>
 
 <button class="cta" id='showModaleButton'>Créer un feed</button>
+
+<br>
+
+<h2>Ou accédez à un évènement existant :</h2>
+<div id="whole_discovery_events_area">
+    <img src="https://fneto-prod.fr/timecapsule/img/arrow-slider.png" alt="flèche navigation" id="nav_arrow_left">
+    <div id="events_show_area">
+        <div id="eventContainer" class="listing_all_lists"></div>
+        <div id="paginationControls"></div>
+    </div>
+    <img src="https://fneto-prod.fr/timecapsule/img/arrow-slider.png" alt="flèche navigation" id="nav_arrow_right">
+</div>
+
 
 <!-- creation list modal -->
 

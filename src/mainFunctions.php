@@ -37,7 +37,7 @@ function createNewEvent(array $data): bool {
 
         $urlLogo = $publicPath . date("F-j-Y_H-i-s") . $eventNameEncoded . "." . strtolower(pathinfo($_FILES['new_event_logo']['name'], PATHINFO_EXTENSION));
     } else {
-        $urlLogo = null;
+        $urlLogo = "https://fneto-prod.fr/timecapsule/img/timecapsule-logo.png";
     }
 
     $mysqlClient = connect();
@@ -65,7 +65,7 @@ function createNewEvent(array $data): bool {
 
 function getAllEvents(): array {
     // Get existing lists to display it on HP
-    $SQLGetAllEvents = 'SELECT * FROM timecapsule_list';
+    $SQLGetAllEvents = 'SELECT event_id, event_name, event_logo, main_color, secondary_color, font_color FROM timecapsule_list';
     $getAllEventsStatement = connect()->prepare($SQLGetAllEvents);
     $getAllEventsStatement->execute();
 
