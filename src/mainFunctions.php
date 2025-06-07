@@ -81,10 +81,65 @@ function getEventById(int $id) {
     return $checkPasswordStatement->fetch();
 }
 
-function deleteEvent(int $id) {
-    $SQLDeleteEvent = 'DELETE FROM timecapsule_list WHERE event_id = ?';
-    $deleteEventStatement = connect()->prepare($SQLDeleteEvent);
-    $deleteEventStatement->execute([$id]);
+function deleteEvent(int $id): void {
+    $pdo = connect();
+
+    try {
+        // Démarre une transaction (plusieurs opérations), 
+        //permet de ne pas enregistrer les modifications tant qu'on a pas fait commit()
+        $pdo->beginTransaction();
+
+        // 1. Récupérer les souvenirs liés à cet event
+        $SQLSelectMemories = 'SELECT url_photo FROM timecapsule_memories WHERE event_id = ?';
+        $selectMemoriesStmt = $pdo->prepare($SQLSelectMemories);
+        $selectMemoriesStmt->execute([$id]);
+        $memories = $selectMemoriesStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // 2. Supprimer les souvenirs de la base
+        $SQLDeleteMemories = 'DELETE FROM timecapsule_memories WHERE event_id = ?';
+        $deleteMemoriesStmt = $pdo->prepare($SQLDeleteMemories);
+        $deleteMemoriesStmt->execute([$id]);
+
+        // 3. Supprimer l'event
+        $SQLDeleteEvent = 'DELETE FROM timecapsule_list WHERE event_id = ?';
+        $deleteEventStmt = $pdo->prepare($SQLDeleteEvent);
+        $deleteEventStmt->execute([$id]);
+
+        // 4. Envoie l'ensemble des modifs et les sauvegardes si pas de retour d'erreur jusqu'ici
+        $pdo->commit();
+
+        
+        // Prend le bon path selon local ou non
+        if ($_SERVER["SERVER_PORT"] === "5000") { // vaut true si en local
+            $pathPrefix = __DIR__ . '/content/memory_img/';
+        } else {
+            // En prod, on reconstitue le chemin absolu sur le serveur
+            $baseUrl = 'https://fneto-prod.fr/timecapsule/'; //racine url publique
+            $serverRoot = '/home/fnetopm/www/timecapsule/';
+        }
+
+        // 5. Supprimer les fichiers liés (en dehors de la transaction)
+        foreach ($memories as $memory) {
+            $url = $memory['url_photo']; // url complète avec racine
+            if ($_SERVER["SERVER_PORT"] === "5000") {
+                // En local : on utilise directement le nom du fichier
+                $filename = basename($url);
+                $filePath = $pathPrefix . $filename; //
+            } else {
+                // En prod : on transforme l'URL publique en chemin serveur
+                $relativePath = str_replace($baseUrl, '', $url); // Ex: src/content/memory_img/photo.jpg
+                $filePath = $serverRoot . $relativePath;         // Ex: /home/fnetopm/www/timecapsule/src/content/memory_img/photo.jpg
+            }
+
+            debug_log("Tentative suppression fichier : $filePath");
+
+            if (file_exists($filePath)) { // si fichier existe bien
+                unlink($filePath); // supprime le fichier
+            }
+        }
+    } catch (Exception $e) {
+        $pdo->rollBack(); // annule les modifs s'il y a un retour d'erreur
+    }
 }
 
 function changeNameEvent(int $id, string $newName) {

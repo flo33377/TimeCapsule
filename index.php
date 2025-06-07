@@ -54,7 +54,7 @@
     <?php include($content) ?>
 
     <?php include_once(__DIR__ . "/src/content/notifications/notifications.php") ?>
-  
+
   </main>
 
 </body>

@@ -1,62 +1,177 @@
-[2025-05-08 11:40:30] SESSION: Array
+[2025-06-07 14:25:06] SESSION: Array
 (
-    [list_id] => 
-    [periodicity] => 
-    [event_id] => 17
-    [auth] => 17
-    [main_color] => #aee5c9
-    [secondary_color] => #c8c8f9
-    [font_color] => #041009
-    [event_logo] => https://fneto-prod.fr/timecapsule/img/timecapsule-logo.png
     [LikedMemory] => Array
         (
-            [0] => 6
-            [1] => 1
-            [2] => 7
-            [3] => 8
-            [4] => 11
         )
 
 )
 
-[2025-05-08 11:40:30] POST: Array
+[2025-06-07 14:25:06] POST: Array
 (
 )
 
-[2025-05-08 11:40:30] GET: Array
+[2025-06-07 14:25:06] GET: Array
 (
-    [event] => 17
+)
+
+[2025-06-07 14:25:06] -----------
+[2025-06-07 14:25:41] SESSION: Array
+(
+    [LikedMemory] => Array
+        (
+        )
+
+)
+
+[2025-06-07 14:25:41] POST: Array
+(
+)
+
+[2025-06-07 14:25:41] GET: Array
+(
+)
+
+[2025-06-07 14:25:41] -----------
+[2025-06-07 14:25:52] SESSION: Array
+(
+    [LikedMemory] => Array
+        (
+        )
+
+    [event_id] => 30
+    [main_color] => #595f5b
+    [secondary_color] => #ffffff
+    [font_color] => #041009
+    [event_logo] => https://fneto-prod.fr/timecapsule/src/content/logo_events/June-7-2025_14-18-19new event to delete v3.png
+)
+
+[2025-06-07 14:25:52] POST: Array
+(
+    [post_create_event] => 
+    [new_event_title] => event à suppr
+    [new_event_password] => 
+    [main_color] => #041009
+    [secondary_color] => #ffffff
+    [font_color] => #041009
+)
+
+[2025-06-07 14:25:52] GET: Array
+(
+)
+
+[2025-06-07 14:25:52] -----------
+[2025-06-07 14:25:54] SESSION: Array
+(
+    [LikedMemory] => Array
+        (
+        )
+
+    [event_id] => 30
+    [main_color] => #595f5b
+    [secondary_color] => #ffffff
+    [font_color] => #041009
+    [event_logo] => https://fneto-prod.fr/timecapsule/src/content/logo_events/June-7-2025_14-18-19new event to delete v3.png
+)
+
+[2025-06-07 14:25:54] POST: Array
+(
+)
+
+[2025-06-07 14:25:54] GET: Array
+(
+    [event] => 31
+)
+
+[2025-06-07 14:25:54] -----------
+[2025-06-07 14:25:59] SESSION: Array
+(
+    [LikedMemory] => Array
+        (
+        )
+
+    [event_id] => 31
+    [main_color] => #041009
+    [secondary_color] => #ffffff
+    [font_color] => #041009
+    [event_logo] => https://fneto-prod.fr/timecapsule/src/content/logo_events/June-7-2025_14-25-52event a suppr.png
+)
+
+[2025-06-07 14:25:59] POST: Array
+(
+)
+
+[2025-06-07 14:25:59] GET: Array
+(
+)
+
+[2025-06-07 14:25:59] -----------
+[2025-06-07 14:26:04] SESSION: Array
+(
+    [LikedMemory] => Array
+        (
+        )
+
+    [event_id] => 31
+    [main_color] => #041009
+    [secondary_color] => #ffffff
+    [font_color] => #041009
+    [event_logo] => https://fneto-prod.fr/timecapsule/src/content/logo_events/June-7-2025_14-25-52event a suppr.png
+)
+
+[2025-06-07 14:26:04] POST: Array
+(
+)
+
+[2025-06-07 14:26:04] GET: Array
+(
+    [event] => 31
+)
+
+[2025-06-07 14:26:04] -----------
+[2025-06-07 14:26:06] SESSION: Array
+(
+    [LikedMemory] => Array
+        (
+        )
+
+    [event_id] => 31
+    [main_color] => #041009
+    [secondary_color] => #ffffff
+    [font_color] => #041009
+    [event_logo] => https://fneto-prod.fr/timecapsule/src/content/logo_events/June-7-2025_14-25-52event a suppr.png
+)
+
+[2025-06-07 14:26:06] POST: Array
+(
+)
+
+[2025-06-07 14:26:06] GET: Array
+(
+    [event] => 31
     [create_mode] => true
 )
 
-[2025-05-08 11:40:30] -----------
-[2025-05-08 11:40:44] SESSION: Array
+[2025-06-07 14:26:06] -----------
+[2025-06-07 14:26:30] SESSION: Array
 (
-    [list_id] => 
-    [periodicity] => 
-    [event_id] => 17
-    [auth] => 17
-    [main_color] => #aee5c9
-    [secondary_color] => #c8c8f9
-    [font_color] => #041009
-    [event_logo] => https://fneto-prod.fr/timecapsule/img/timecapsule-logo.png
     [LikedMemory] => Array
         (
-            [0] => 6
-            [1] => 1
-            [2] => 7
-            [3] => 8
-            [4] => 11
         )
 
+    [event_id] => 31
+    [main_color] => #041009
+    [secondary_color] => #ffffff
+    [font_color] => #041009
+    [event_logo] => https://fneto-prod.fr/timecapsule/src/content/logo_events/June-7-2025_14-25-52event a suppr.png
 )
 
-[2025-05-08 11:40:44] POST: Array
+[2025-06-07 14:26:30] POST: Array
 (
     [post_create_memory] => 
-    [event_id] => 17
-    [title] => Test photo avec exif sur
+    [event_id] => 31
+    [title] => new test to delete
     [author] => Flo
+    [memory_date] => 2025-06-07T14:26
     [backg_value] => color
     [color_memory] => #ffe4c4
     [patern_memory] => https://fneto-prod.fr/timecapsule/img/paterns/motif-vague.jpeg
@@ -65,73 +180,59 @@
     [decoration_memory] => none
 )
 
-[2025-05-08 11:40:44] GET: Array
+[2025-06-07 14:26:30] GET: Array
 (
 )
 
-[2025-05-08 11:40:44] -----------
-[2025-05-08 11:40:44] ❌ Aucune donnée EXIF trouvée.
-[2025-05-08 11:40:44] SESSION: Array
+[2025-06-07 14:26:30] -----------
+[2025-06-07 14:26:30] SESSION: Array
 (
-    [list_id] => 
-    [periodicity] => 
-    [event_id] => 17
-    [auth] => 17
-    [main_color] => #aee5c9
-    [secondary_color] => #c8c8f9
-    [font_color] => #041009
-    [event_logo] => https://fneto-prod.fr/timecapsule/img/timecapsule-logo.png
     [LikedMemory] => Array
         (
-            [0] => 6
-            [1] => 1
-            [2] => 7
-            [3] => 8
-            [4] => 11
         )
 
+    [event_id] => 31
+    [main_color] => #041009
+    [secondary_color] => #ffffff
+    [font_color] => #041009
+    [event_logo] => https://fneto-prod.fr/timecapsule/src/content/logo_events/June-7-2025_14-25-52event a suppr.png
     [bannerType] => SuccessBanner
     [bannerMessage] => MemoryCreated
 )
 
-[2025-05-08 11:40:44] POST: Array
+[2025-06-07 14:26:30] POST: Array
 (
 )
 
-[2025-05-08 11:40:44] GET: Array
+[2025-06-07 14:26:30] GET: Array
 (
-    [event] => 17
+    [event] => 31
 )
 
-[2025-05-08 11:40:44] -----------
-[2025-05-08 11:43:50] SESSION: Array
+[2025-06-07 14:26:30] -----------
+[2025-06-07 14:26:35] SESSION: Array
 (
-    [list_id] => 
-    [periodicity] => 
-    [event_id] => 17
-    [auth] => 17
-    [main_color] => #aee5c9
-    [secondary_color] => #c8c8f9
-    [font_color] => #041009
-    [event_logo] => https://fneto-prod.fr/timecapsule/img/timecapsule-logo.png
     [LikedMemory] => Array
         (
-            [0] => 6
-            [1] => 1
-            [2] => 7
-            [3] => 8
-            [4] => 11
         )
 
+    [event_id] => 31
+    [main_color] => #041009
+    [secondary_color] => #ffffff
+    [font_color] => #041009
+    [event_logo] => https://fneto-prod.fr/timecapsule/src/content/logo_events/June-7-2025_14-25-52event a suppr.png
 )
 
-[2025-05-08 11:43:50] POST: Array
+[2025-06-07 14:26:35] POST: Array
+(
+    [post_erase_event] => 
+)
+
+[2025-06-07 14:26:35] GET: Array
 (
 )
 
-[2025-05-08 11:43:50] GET: Array
-(
-    [event] => 17
-)
-
-[2025-05-08 11:43:50] -----------
+[2025-06-07 14:26:35] -----------
+[2025-06-07 14:26:35] Tentative suppression fichier : /home/fnetopm/www/timecapsule/src/content/memory_img/June-7-2025_14-26-30new test to delete.png
+[2025-06-07 14:26:35] Fichier trouvé. Tentative unlink : /home/fnetopm/www/timecapsule/src/content/memory_img/June-7-2025_14-26-30new test to delete.png
+[2025-06-07 14:26:35] Fichier supprimé avec succès.

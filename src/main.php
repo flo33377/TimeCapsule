@@ -2,7 +2,7 @@
 
 session_start();
 
-/* 
+
 //fonction de débug - need fichier debug_log.txt
 function debug_log($message) {
     $file = __DIR__ . '/debug_log.txt'; // Le fichier log sera dans le même dossier que ton script
@@ -18,7 +18,7 @@ debug_log("GET: " . print_r($_GET, true));
 debug_log("-----------");
 
 // fin du debogger
-*/
+
 
 
 ini_set('display_errors', '1');
