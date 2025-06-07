@@ -44,6 +44,11 @@ const messages = {
         text: "Erreur lors du téléchargement",
         icon: "❌",
         colorClass: "error-banner"
+    },
+    UnknownEvent: {
+        text: "L'évènement ciblé n'existe pas.",
+        icon: "😕",
+        colorClass: "error-banner"
     }
 };
 

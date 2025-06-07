@@ -109,15 +109,22 @@ switch ($page) {
         break;
 
     case "get_show_event": // afficher une liste et enregistre event_id dans SESSION
-        $content = FOCUS_EVENT_URL;
         $eventId = $_GET["event"] ?? null;
         if ($eventId) $event = getEventById($eventId);
-        $_SESSION['event_id'] = $event['event_id'] ?? null;
-        $_SESSION['main_color'] = $event['main_color'] ?? null;
-        $_SESSION['secondary_color'] = $event['secondary_color'] ?? null;
-        $_SESSION['font_color'] = $event['font_color'] ?? null;
-        $_SESSION['event_logo'] = $event['event_logo'] ?? null;
-        $memoriesData = getMemoriesByEventId($event['event_id']); // get all memories
+        if (!$event) { // cas event non existant
+            $lists = getAllEvents();
+            $_SESSION['bannerType'] = "ErrorBanner";
+            $_SESSION['bannerMessage'] = "UnknownEvent";
+            $content = LIST_INDEX_URL;
+        } else { // cas event existe
+            $content = FOCUS_EVENT_URL;
+            $_SESSION['event_id'] = $event['event_id'] ?? null;
+            $_SESSION['main_color'] = $event['main_color'] ?? null;
+            $_SESSION['secondary_color'] = $event['secondary_color'] ?? null;
+            $_SESSION['font_color'] = $event['font_color'] ?? null;
+            $_SESSION['event_logo'] = $event['event_logo'] ?? null;
+            $memoriesData = getMemoriesByEventId($event['event_id']); // get all memories
+        };
         break;
     
     case "post_erase_event": // supprime un event

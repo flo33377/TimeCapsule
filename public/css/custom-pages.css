@@ -319,6 +319,7 @@ form {
 
 .toggle_trigger {
   align-self: center;
+  cursor: pointer;
 }
 
 .new_memory_options_field {
