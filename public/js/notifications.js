@@ -47,9 +47,14 @@ const messages = {
         icon: "😕",
         colorClass: "error-banner"
     },
-    errorCreationUser: {
+    ErrorCreationUser: {
         text: "Une erreur s'est produite. Merci de ré-essayer plus tard.",
         icon: "😕",
+        colorClass: "error-banner"
+    },
+    UnkonwnEmailUser: {
+        text: "Aucun compte ne semble associé à cet email. Merci de vous créer un compte.",
+        icon: "❌",
         colorClass: "error-banner"
     }
 };

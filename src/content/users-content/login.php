@@ -1,9 +1,13 @@
 
 <!-- page content -->
 
-<?php //echo '<pre>';
+<?php 
+//echo '<pre>';
 //print_r($_SESSION);
-//echo '<pre>'; ?>
+//echo '<pre>'; 
+//$_SESSION=[];
+?>
+
 
 <div id="content_bloc">
 
@@ -19,7 +23,7 @@
 <div id="connect_bloc">
     <h1>Connexion</h1>
 
-    <form action="<?= BASE_URL ?>" method="POST" enctype="form-data" id="form_login">
+    <form action="#" method="POST" enctype="form-data" id="form_login">
     <input type='hidden' id='post_connect_account' name='post_connect_account' required />
 
     <?php if(isset($existingEmail) && $existingEmail !== null) : ?>
@@ -29,9 +33,9 @@
     <div class="field_login">
         <label for='connect_email'><p>Email</p></label>
         <input type='email' id='connect_email' name='connect_email' required
-        <?php if(isset($existingEmail) && $existingEmail !== null) : 
+        <?php if(isset($attemptEmail) && $attemptEmail !== null) : 
             // si email déjà enregistré en base, le pré-rempli dans l'itf de connexion ?>
-            value="<?= $existingEmail ?>"
+            value="<?= $attemptEmail ?>"
         <?php endif ?>
         >
     </div>
@@ -40,6 +44,9 @@
         <label for='connect_password'><p>Mot de passe</p></label>
         <input type='password' id='connect_password' name='connect_password' required>
     </div>
+    <?php if(isset($statusPassword) && $statusPassword == false) : ?>
+        <p id="wrong_password">Le mot de passe entré est incorrect.</p>
+    <?php endif ?>
 
     <div id="connect_confirm">
         <input id='submit_connect_button' class="main_cta" type="submit" value="Me connecter" />

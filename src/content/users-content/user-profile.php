@@ -1,11 +1,18 @@
 <div id="content_bloc">
 
-Tu es inscrit !
+Ton compte
 
+<nav>
+<a href='<?= BASE_URL ?>'> < </a>
+<a href='?disconnect=true'>Deconnexion</a>
+</nav>
 
-<?php echo '<pre>';
+<?php 
+echo '<pre>';
 print_r($_SESSION);
-echo '<pre>'; ?>
+echo '<pre>'; 
+//$_SESSION=[];
+?>
 
 </div>
 

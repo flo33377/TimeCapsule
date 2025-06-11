@@ -26,7 +26,7 @@ function isRegistered(string $email): bool { // renvoie true si email déjà uti
     // sinon $userFound = false (car vide) donc false = false (pas diff) => donc renvoie false
 }
 
-function createnewUser(array $data) {
+function createnewUser(array $data) { // créé user
     $SQLCreateNewUser = "INSERT INTO timecapsule_users (user_email, user_password)
     VALUES (:user_email, :user_password)";
     $CreateNewUserStatement = connect()->prepare($SQLCreateNewUser);
@@ -36,7 +36,7 @@ function createnewUser(array $data) {
     ]);
 }
 
-function getUserInfosFromEmail(string $email) {
+function getUserInfosFromEmail(string $email) { // get infos liées à l'user
     $SQLGetUserInfos = 'SELECT * FROM timecapsule_users WHERE user_email = ?';
     $getUserInfosStatement = connect()->prepare($SQLGetUserInfos);
     $getUserInfosStatement->execute([$email]);
@@ -49,9 +49,16 @@ function getUserInfosFromEmail(string $email) {
     // d'erreur de boucle forEach par ex
 }
 
-function changeNameEvent(int $id, string $newName) {
-    $SQLChangeNameEvent = 'UPDATE timecapsule_list SET event_name = ? WHERE event_id = ?';
-    $changeNameEventStatement = connect()->prepare($SQLChangeNameEvent);
-    $changeNameEventStatement->execute([$newName, $id]);
+function successfullConnexionUserAccount(array $data) : bool { // renvoie true seulement si compte en BDD et mdp OK
+    $userAccountTargeted = getUserInfosFromEmail($data['connect_email']);
+    if(!$userAccountTargeted) {
+        return false; // si email introuvable en BDD
+    } else {
+        if($userAccountTargeted['user_password'] == $data['connect_password']) {
+            return true; // si mdp conforme
+        } else {
+            return false; // si mauvais mdp saisi
+        }
+    }
 }
 

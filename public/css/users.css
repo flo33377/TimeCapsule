@@ -70,7 +70,7 @@ form input[type="submit"] {
     margin-bottom: 20px;
 }
 
-#status_password_conformity, #existing_email {
+#status_password_conformity, #existing_email, #wrong_password {
     color: red;
     font-style: italic;
     font-size: small;

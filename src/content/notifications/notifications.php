@@ -4,7 +4,7 @@
 // rajouter dans le JS entrée tableau dont la clé == $_SESSION['bannerMessage']
 $bannerMessage = $_SESSION['bannerMessage'] ?? null;
 
-unset($_SESSION['bannerMessage'], $_SESSION['bannerType']);
+unset($_SESSION['bannerMessage']);
 ?>
 
 <div id="banner_infos" class="invisible_banner"
