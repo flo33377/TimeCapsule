@@ -1,4 +1,4 @@
-<?php include_once(__DIR__ . "/src/main.php") ?>
+<?php include_once(__DIR__ . "/src/users-main.php") ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -7,13 +7,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="./public/css/design-system.css">
-  <link rel="stylesheet" href="./public/css/custom-pages.css">
+  <link rel="stylesheet" href="./../public/css/design-system.css">
+  <link rel="stylesheet" href="./../public/css/custom-pages.css">
+  <link rel="stylesheet" href="./../public/css/users.css">
 
-  <script src="./public/js/event_functions.js" defer></script>
-  <script src="./public/js/memories_functions.js" defer></script>
-  <script src="./public/js/modales.js" defer></script>
-  <script src="./public/js/notifications.js" defer></script>
+  <script src="./../public/js/account_functions.js" defer></script>
+  <script src="./../public/js/notifications.js" defer></script>
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://fneto-prod.fr/timecapsule/img/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://fneto-prod.fr/timecapsule/img/favicon.png">
@@ -46,22 +45,13 @@
   </a>
   </header>
 
-  <main id='content'
-  <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['secondary_color']) && $_SESSION['secondary_color'] != null) : ?>
-    style="background-color: <?= $_SESSION['secondary_color'] ?>"
-  <?php endif ?>
-  >
-
-  <!-- espace connexion -->
-    <?php if(!isset($_SESSION['user_email']) || $_SESSION['user_email'] == null) : ?>
-      <a href="./users" class="login_button">Me connecter</a>
-    <?php endif ?>
+  <main id='content'>
 
   <!-- Content -->
     <?php include($content) ?>
 
   <!-- Notification system -->
-    <?php include_once(__DIR__ . "/src/content/notifications/notifications.php") ?>
+    <?php include_once(__DIR__ . "/../src/content/notifications/notifications.php") ?>
 
   </main>
 

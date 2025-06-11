@@ -1,0 +1,83 @@
+
+#content {
+    background-color: black;
+}
+
+#content_bloc {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    min-width: 330px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#connect_register_radio_bloc {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 2vh 0vw;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#connect_register_radio_bloc input {
+    display: none;
+    visibility: hidden;
+}
+
+#connect_register_radio_bloc label {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#connect_register_radio_bloc input:checked + label {
+    background-color: black;
+    color: white;
+    transition: 0.5s color ease-in-out;
+}
+
+#register_bloc, #connect_bloc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.subscription_notes {
+    font-size: small;
+    font-style: italic;
+    margin-top: 20px;
+    width: 90%;
+}
+
+.field_login, .field_register {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+#form_login .field_login p, #form_register .field_register p {
+    text-align: left;
+}
+
+form input[type="submit"] {
+    margin-bottom: 20px;
+}
+
+#status_password_conformity, #existing_email {
+    color: red;
+    font-style: italic;
+    font-size: small;
+    padding-bottom: 10px;
+}
+
+#forgotten_password {
+    text-decoration: underline;
+}
+

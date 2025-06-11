@@ -11,13 +11,10 @@ function createBannerStructureHTML(text) {
 let notificationBalise = document.getElementById('banner_infos');
 
 // set les variables de base
-let bannerType = null;
 let bannerMessage = null;
-let bannerText = null;
 
 // si template banner existe, récup les dataset
 if(notificationBalise) {
-    bannerType = notificationBalise.dataset.bannertype ?? null;
     bannerMessage = notificationBalise.dataset.bannermessage ?? null;
 }
 
@@ -49,12 +46,17 @@ const messages = {
         text: "L'évènement ciblé n'existe pas.",
         icon: "😕",
         colorClass: "error-banner"
+    },
+    errorCreationUser: {
+        text: "Une erreur s'est produite. Merci de ré-essayer plus tard.",
+        icon: "😕",
+        colorClass: "error-banner"
     }
 };
 
 
 // si le dataset est != de null et qu'il correspond à une key de messages, 
-// bannerText prend la valeur associée
+// va chercher valeur tableau dont la clé est bannerMessage
 if (bannerMessage && messages[bannerMessage]) {
     const { text, icon, colorClass } = messages[bannerMessage];
 

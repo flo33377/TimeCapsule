@@ -28,7 +28,7 @@ a:hover, a p:hover {
 }
 
 #content {
-  padding : 3rem 0rem;
+  padding : 1rem 0rem 3rem 0rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -173,7 +173,8 @@ dialog span {
 input[type='text'],
 input[type='file'],
 input[type='password'],
-input[type='datetime-local'] {
+input[type='datetime-local'],
+input[type='email'] {
   background-color: white;
   border: 1px solid #ccc;
   padding: 0.5em;

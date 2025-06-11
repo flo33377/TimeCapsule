@@ -131,8 +131,6 @@ function deleteEvent(int $id): void {
                 $filePath = $serverRoot . $relativePath;         // Ex: /home/fnetopm/www/timecapsule/src/content/memory_img/photo.jpg
             }
 
-            debug_log("Tentative suppression fichier : $filePath");
-
             if (file_exists($filePath)) { // si fichier existe bien
                 unlink($filePath); // supprime le fichier
             }
