@@ -18,19 +18,25 @@
         </h1>
 
     
-    <?php if (empty($event["event_password"]) || (isset($_SESSION['auth']) && $_SESSION['auth'] == $event["event_id"])) : ?>
+    <?php // n'affiche btn admin modale que si connecté et proprio event + mdp déjà saisi OU event sans mdp 
+    if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $event['user_admin_id'] && 
+    ((isset($_SESSION['auth']) && $_SESSION['auth'] == $event["event_id"]) || empty($event["event_password"]))) : ?>
         <div class="nav_right cta">
-        <a class='param_button' id='showModaleButton'>
-            <img src="https://fneto-prod.fr/ambition-hub/img/parameter_icon.png" 
-            alt="Bouton d'accès aux paramètres" >
-        </a>
-    </div>
+            <a class='param_button' id='showModaleButton'>
+                <img src="https://fneto-prod.fr/ambition-hub/img/parameter_icon.png" 
+                alt="Bouton d'accès aux paramètres" >
+            </a>
+        </div>
     <?php else : ?>
         <div>
         </div>
     <?php endif ?>
+
 </nav>
 
-<?php include_once(__DIR__ . "/admin_modale.php") ?>
+<?php if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $event['user_admin_id'] && 
+(isset($_SESSION['auth']) && $_SESSION['auth'] == $event["event_id"]) || empty($event["event_password"])) {
+include_once(__DIR__ . "/admin_modale.php");
+}; ?>
 
 

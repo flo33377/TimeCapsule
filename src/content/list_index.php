@@ -12,7 +12,11 @@
 
 <h2>Commencez par créer votre évènement :</h2>
 
-<button class="cta" id='showModaleButton'>Créer un évènement</button>
+<?php if(isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null ) : ?>
+  <button class="cta" id='showModaleButton'>Créer un évènement</button>
+<?php else : ?>
+  <button class="cta" id='register_redirection'>Créer un évènement</button>
+<?php endif ?>
 
 <br>
 
@@ -28,5 +32,7 @@
 
 
 <!-- creation list modal -->
-<?php include_once(__DIR__ . "/modules/dialog_event_creation.php") ?>
+<?php if(isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null ) : ?>
+  <?php include_once(__DIR__ . "/modules/dialog_event_creation.php") ?>
+<?php endif ?>
 

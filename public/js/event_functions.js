@@ -354,3 +354,18 @@ document.addEventListener('DOMContentLoaded', () => {
 }});
 
 
+/* Fonction qui renvoie vers la page de login avec form d'inscription ouvert */
+
+registerRedirectionButton = document.getElementById('register_redirection')
+if(registerRedirectionButton) {
+registerRedirectionButton.addEventListener('click', async (e) => {
+    e.preventDefault(); // évite un éventuel comportement par défaut du lien
+    try {
+        await fetch('./src/api/focus_register_login_page.php');
+        window.location.href = './users/'; // redirige vers la page de login
+    } catch (error) {
+        console.error("Erreur lors de la redirection :", error);
+    }
+});
+};
+

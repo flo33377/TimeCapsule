@@ -71,7 +71,10 @@ form input[type="submit"] {
     margin-bottom: 20px;
 }
 
-#status_password_conformity, #existing_email, #wrong_password {
+#status_password_conformity, 
+#existing_email, 
+#wrong_password,
+#signup_needed {
     color: red;
     font-style: italic;
     font-size: small;

@@ -2,17 +2,28 @@
 /* Toogle connect/registration blocs */
 
 let toogle_account_mode = document.getElementById('connect_register_radio_bloc');
-if(toogle_account_mode) {
-    document.querySelectorAll('#connect_register_radio_bloc input[type="radio"]').forEach(radio => {
-        radio.addEventListener('change', () => {
-            document.getElementById('connect_bloc').style.display = 
-                document.getElementById('connect_radio').checked ? 'flex' : 'none';
-            
-            document.getElementById('register_bloc').style.display = 
-                document.getElementById('register_radio').checked ? 'flex' : 'none';
-        });
+
+if (toogle_account_mode) {
+    const radios = document.querySelectorAll('#connect_register_radio_bloc input[type="radio"]');
+
+    // Fonction pour afficher le bon formulaire
+    function updateFormDisplay() {
+        document.getElementById('connect_bloc').style.display = 
+            document.getElementById('connect_radio').checked ? 'flex' : 'none';
+
+        document.getElementById('register_bloc').style.display = 
+            document.getElementById('register_radio').checked ? 'flex' : 'none';
+    }
+
+    // Attache les événements de changement
+    radios.forEach(radio => {
+        radio.addEventListener('change', updateFormDisplay);
     });
-};
+
+    // Appel initial pour mettre à jour au chargement
+    updateFormDisplay();
+}
+
 
 /* Check password conformity */
 

@@ -9,12 +9,27 @@
 ?>
 
 
+<?php // si arrivée avec la donnée de session 'open_signup',
+// set une variable pour ouvrir sur le form d'inscription
+// sinon ouvre par défaut sur le form de login
+$defaultForm = 'login';
+if (isset($_SESSION['open_signup'])) {
+    $defaultForm = 'signup';
+    unset($_SESSION['open_signup']); // on nettoie pour ne pas la garder
+} else {
+    $defaultForm = 'login';
+}
+?>
+
+
 <div id="content_bloc">
 
 <div id='connect_register_radio_bloc'>
-    <input type='radio' id='connect_radio' name='connect_register_toggle' value='connect' checked>
+    <input type='radio' id='connect_radio' name='connect_register_toggle' value='connect' 
+    <?= $defaultForm === 'login' ? 'checked' : '' ?> >
     <label for='connect_radio'>Connexion</label>
-    <input type='radio' id='register_radio' name='connect_register_toggle' value='register'>
+    <input type='radio' id='register_radio' name='connect_register_toggle' value='register'
+    <?= $defaultForm === 'signup' ? 'checked' : '' ?> >
     <label for='register_radio'>Inscription</label>
 </div>
 
@@ -63,6 +78,10 @@
 
 <div id="register_bloc" style="display: none;">
     <h1>Inscription</h1>
+
+    <?php if(isset($defaultForm) && $defaultForm == 'signup') : ?>
+        <p id="signup_needed">Vous devez être connecté pour créer un évènement</p>
+    <?php endif ?>
 
     <form action="#" method="POST" enctype="form-data" id="form_register">
     <input type='hidden' id='post_create_account' name='post_create_account' required />
