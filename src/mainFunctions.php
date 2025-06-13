@@ -45,9 +45,9 @@ function createNewEvent(array $data): bool {
     // SQL request and send
     $SQLCreateNewEvent = "INSERT INTO timecapsule_list 
     (event_name, event_password, creation_date, event_logo, main_color, secondary_color, 
-    font_color)
+    font_color, user_admin_id)
     VALUES (:event_name, :event_password, :creation_date, :event_logo, :main_color, 
-    :secondary_color, :font_color)";
+    :secondary_color, :font_color, :user_admin_id)";
     $CreateNewEventStatement = $mysqlClient->prepare($SQLCreateNewEvent);
     $CreateNewEventStatement->execute([
         'event_name' => $data['new_event_title'],
@@ -56,7 +56,8 @@ function createNewEvent(array $data): bool {
         'event_logo' => $urlLogo,
         'main_color' => $data['main_color'],
         'secondary_color' => $data['secondary_color'],
-        'font_color' => $data['font_color']
+        'font_color' => $data['font_color'],
+        'user_admin_id' => $data['user_id']
     ]);
 
     return true;

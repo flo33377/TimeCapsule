@@ -11,6 +11,7 @@ if(document.getElementById('eventContainer')) { // error management
 
     const start = page * itemsPerPage; // index of 1st event to display on this page
     const end = start + itemsPerPage; // index of last event to display
+    console.log(allLists);
     const visibleItems = allLists.slice(start, end);
 
     visibleItems.forEach((item, index) => {

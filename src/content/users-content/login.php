@@ -54,7 +54,8 @@
 
     </form>
 
-    <a id="forgotten_password" href="./users/?forgotten_password=true">Mot de passe oublié ?</a>
+    <a id="forgotten_password" href="" aria-describedby="infobulle">Mot de passe oublié ?<br>
+    (Bientôt disponible)</a>
 
 </div>
 

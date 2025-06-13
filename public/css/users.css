@@ -10,7 +10,8 @@
     align-items: center;
     width: 90%;
     min-width: 330px;
-    padding: 10px;
+    max-width: 500px;
+    padding: 20px;
     border-radius: 10px;
 }
 
@@ -81,3 +82,18 @@ form input[type="submit"] {
     text-decoration: underline;
 }
 
+/* USER PROFILE */
+
+#content_bloc nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.my_account_button {
+    margin-right: 0px;
+    margin-bottom: 0px;
+}

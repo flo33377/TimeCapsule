@@ -55,6 +55,8 @@
   <!-- espace connexion -->
     <?php if(!isset($_SESSION['user_email']) || $_SESSION['user_email'] == null) : ?>
       <a href="./users" class="login_button">Me connecter</a>
+    <?php else : ?>
+      <a href="./users" class="login_button">Mon compte</a>
     <?php endif ?>
 
   <!-- Content -->

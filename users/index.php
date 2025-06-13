@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="./../public/css/users.css">
 
   <script src="./../public/js/account_functions.js" defer></script>
+  <script src="./../public/js/event_functions.js" defer></script>
   <script src="./../public/js/notifications.js" defer></script>
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://fneto-prod.fr/timecapsule/img/favicon.png">

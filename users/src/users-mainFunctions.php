@@ -62,3 +62,13 @@ function successfullConnexionUserAccount(array $data) : bool { // renvoie true s
     }
 }
 
+function getEventsByUserId(int $id) : array {
+    $SQLGetEventsByUser = 'SELECT * FROM timecapsule_list WHERE user_admin_id = ? LIMIT 5';
+    $getEventsByUserStatement = connect()->prepare($SQLGetEventsByUser);
+    $getEventsByUserStatement->execute([$id]);
+
+    return $getEventsByUserStatement->fetchAll();
+}
+
+
+

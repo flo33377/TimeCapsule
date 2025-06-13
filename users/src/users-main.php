@@ -39,7 +39,7 @@ define("PROFILE_URL", __DIR__ . "/../../src/content/users-content/user-profile.p
 // Variables de pages
 $method = $_SERVER['REQUEST_METHOD'];
     // bellow, set all parameters by default
-$page = "login_page"; // Valeur par défaut
+$page = "display_login_page"; // Valeur par défaut
 $content = GENERAL_LOGIN_URL; // Par défaut, afficher la page de connexion
 
 // Routes
@@ -60,9 +60,10 @@ switch ($method) {
 // Pages
 // Logique à appliquer selon la page
 switch ($page) {
-    case "login_page": // afficher toutes les listes
+    case "display_login_page": // afficher toutes les listes
         if(isset($_SESSION['user_email']) && $_SESSION['user_email'] !== null) {
             $content = PROFILE_URL;
+            $lists = getEventsByUserId($_SESSION['user_id']) ?? null;
         } else {
             $content = GENERAL_LOGIN_URL;
         };
@@ -83,6 +84,13 @@ switch ($page) {
                 $content = PROFILE_URL;
                 $_SESSION['user_email'] = $userInfos['user_email'] ?? null;
                 $_SESSION['user_id'] = $userInfos['user_id'] ?? null;
+                if($_SERVER["SERVER_PORT"] === "5000") {
+                    header("Location: " . "/users");
+                    exit;
+                } else {
+                    header("Location: " . "/timecapsule/users");
+                    exit;
+                };
             } else { // si user pas trouvé (création échouée)
                 $content = GENERAL_LOGIN_URL;
                 $_SESSION['bannerMessage'] = 'ErrorCreationUser';
@@ -102,6 +110,13 @@ switch ($page) {
                 $user = getUserInfosFromEmail($_POST['connect_email']);
                 $_SESSION['user_email'] = $user['user_email'];
                 $_SESSION['user_id'] = $user['user_id'];
+                if($_SERVER["SERVER_PORT"] === "5000") {
+                    header("Location: " . "/users");
+                    exit;
+                } else {
+                    header("Location: " . "/timecapsule/users");
+                    exit;
+                };
             } else { // mot de passe NOK
                 $content = GENERAL_LOGIN_URL;
                 $attemptEmail = $_POST['connect_email'];
