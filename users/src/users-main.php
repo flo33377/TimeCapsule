@@ -84,6 +84,7 @@ switch ($page) {
                 $content = PROFILE_URL;
                 $_SESSION['user_email'] = $userInfos['user_email'] ?? null;
                 $_SESSION['user_id'] = $userInfos['user_id'] ?? null;
+                $_SESSION['nbr_events'] = 0;
                 if($_SERVER["SERVER_PORT"] === "5000") {
                     header("Location: " . "/users");
                     exit;
@@ -110,6 +111,8 @@ switch ($page) {
                 $user = getUserInfosFromEmail($_POST['connect_email']);
                 $_SESSION['user_email'] = $user['user_email'];
                 $_SESSION['user_id'] = $user['user_id'];
+                $eventsAssociated = getEventsByUserId($_SESSION['user_id']) ?? null;
+                $_SESSION['nbr_events'] = count($eventsAssociated);
                 if($_SERVER["SERVER_PORT"] === "5000") {
                     header("Location: " . "/users");
                     exit;

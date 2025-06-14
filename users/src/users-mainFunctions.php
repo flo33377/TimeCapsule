@@ -71,4 +71,3 @@ function getEventsByUserId(int $id) : array {
 }
 
 
-

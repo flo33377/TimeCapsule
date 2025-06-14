@@ -369,3 +369,20 @@ registerRedirectionButton.addEventListener('click', async (e) => {
 });
 };
 
+/* User avec 5 events essaie d'en créer un autre
+=> renvoie vers p. profil avec message d'avertissement */
+
+maxEventsReachedRedirectionButton = document.getElementById('max_events_redirection')
+if(maxEventsReachedRedirectionButton) {
+maxEventsReachedRedirectionButton.addEventListener('click', async (e) => {
+    e.preventDefault(); // évite un éventuel comportement par défaut du lien
+    try {
+        window.location.href = './users/'; // redirige vers la page de login
+    } catch (error) {
+        console.error("Erreur lors de la redirection :", error);
+    }
+});
+};
+
+
+

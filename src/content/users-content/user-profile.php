@@ -17,6 +17,12 @@
     <p>Vous n'avez pas encore créé d'évènement.</p>
     <a href='<?= BASE_URL ?>' class="cta" id='showModaleButton'>Créer un évènement</a>
 <?php else : ?>
+
+<?php if(isset($_SESSION['nbr_events']) && $_SESSION['nbr_events'] >= 5 ) : ?>
+    <P class="warning_message">Vous avez atteint le nombre max d'évènements.<br>
+    Supprimez-en pour pouvoir en créer de nouveaux.</P>
+<?php endif ?>
+
     <div id="whole_discovery_events_area">
         <img src="https://fneto-prod.fr/timecapsule/img/arrow-slider.png" alt="flèche navigation" id="nav_arrow_left">
         <div id="events_show_area">

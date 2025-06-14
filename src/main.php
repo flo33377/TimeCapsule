@@ -84,6 +84,7 @@ switch ($page) {
 
     case "post_create_event": // création de liste
         createNewEvent($_POST);
+        $_SESSION['nbr_events'] = $_SESSION['nbr_events'] + 1;
         $lists = getAllEvents(); // execute la requête SQL et return les listes
         $content = LIST_INDEX_URL;
         break;
@@ -131,6 +132,7 @@ switch ($page) {
         // ATTENTION /!\: ajouter la verif par mot de passe pour ça /!\
         $content = LIST_INDEX_URL;
         if ($_SESSION['event_id']) deleteEvent($_SESSION['event_id']);
+        $_SESSION['nbr_events'] = $_SESSION['nbr_events'] - 1;
         $lists = getAllEvents();
         break;
     

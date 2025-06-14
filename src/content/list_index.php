@@ -12,9 +12,18 @@
 
 <h2>Commencez par créer votre évènement :</h2>
 
-<?php if(isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null ) : ?>
+<?php if(isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null
+&& isset($_SESSION['nbr_events']) && $_SESSION['nbr_events'] < 5) : 
+// user connecté avec moins de 5 events ?>
   <button class="cta" id='showModaleButton'>Créer un évènement</button>
-<?php else : ?>
+
+<?php elseif(isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null
+&& isset($_SESSION['nbr_events']) && $_SESSION['nbr_events'] >= 5) : 
+// user connecté avec plus de 5 events ?>
+  <button class="cta" id='max_events_redirection'>Créer un évènement</button>
+
+<?php else : 
+// user non connecté ?>
   <button class="cta" id='register_redirection'>Créer un évènement</button>
 <?php endif ?>
 

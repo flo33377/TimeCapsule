@@ -74,7 +74,8 @@ form input[type="submit"] {
 #status_password_conformity, 
 #existing_email, 
 #wrong_password,
-#signup_needed {
+#signup_needed,
+.warning_message {
     color: red;
     font-style: italic;
     font-size: small;
