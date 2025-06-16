@@ -536,7 +536,7 @@ form {
   border: 1px solid black;
   border-radius: 50px;
   opacity: 0.5;
-  position: absolute;
+  position: relative;
   padding: 5px;
   cursor: pointer;
 }
@@ -553,10 +553,10 @@ form {
 /* case desktop */
 @media screen and (min-width: 1024px) { 
   #nav_arrow_left {
-  left: 60px;
+  left: 0;
 }
   #nav_arrow_right {
-    right: 60px;
+    right: 0;
 }}
 
 #nav_arrow_left:hover, #nav_arrow_right:hover {
@@ -627,6 +627,7 @@ form {
 
 .label_event p {
   text-decoration: none;
+  overflow: hidden;
   transform: translateY(0%);
   transition: transform 0.4s ease;
 }

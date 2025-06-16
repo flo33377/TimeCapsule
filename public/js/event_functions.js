@@ -71,9 +71,11 @@ if(document.getElementById('eventContainer')) { // error management
         }
 
         if(current === 0) {
-            controlsArrowLeft.style.display = "none";
+            controlsArrowLeft.style.visibility = "hidden";
+            controlsArrowLeft.style.pointerEvents = "none";
         } else {
-            controlsArrowLeft.style.display = 'flex';
+            controlsArrowLeft.style.visibility = 'visible';
+            controlsArrowLeft.style.pointerEvents = 'auto';
             controlsArrowLeft.addEventListener('click', () =>
                 renderPage(current - 1));
         }
@@ -82,9 +84,11 @@ if(document.getElementById('eventContainer')) { // error management
         // comme index commence à 0 et que length commence à 1 on retire -1
 
         if(current == lastPage) {
-            controlsArrowRight.style.display = "none";
+            controlsArrowRight.style.visibility = "hidden";
+            controlsArrowRight.style.pointerEvents = "none";
         } else {
-            controlsArrowRight.style.display = 'flex';
+            controlsArrowRight.style.visibility = 'visible';
+            controlsArrowRight.style.pointerEvents = 'auto';
             controlsArrowRight.addEventListener('click', () =>
                 renderPage(current + 1));
         }

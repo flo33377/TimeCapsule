@@ -10,7 +10,7 @@
     align-items: center;
     width: 90%;
     min-width: 330px;
-    max-width: 500px;
+    max-width: 550px;
     padding: 20px;
     border-radius: 10px;
 }
@@ -100,4 +100,9 @@ form input[type="submit"] {
 .my_account_button {
     margin-right: 0px;
     margin-bottom: 0px;
+}
+
+#eventContainer .bloc_event_listing {
+    height: 155px;
+    width: 103px;
 }
