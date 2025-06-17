@@ -20,7 +20,7 @@ function createNewEvent(array $data): bool {
     if ($_SERVER["SERVER_PORT"] === "5000") { // vaut true si en local
         $publicPath = __DIR__ . '/content/logo_events/';
     } else {
-        $publicPath = 'https://fneto-prod.fr/timecapsule/src/content/logo_events/';
+        $publicPath = 'https://fneto-prod.fr/timecapsule-admin/src/content/logo_events/';
     };
 
     $urlLogo = '';
@@ -115,8 +115,8 @@ function deleteEvent(int $id): void {
             $pathPrefix = __DIR__ . '/content/memory_img/';
         } else {
             // En prod, on reconstitue le chemin absolu sur le serveur
-            $baseUrl = 'https://fneto-prod.fr/timecapsule/'; //racine url publique
-            $serverRoot = '/home/fnetopm/www/timecapsule/';
+            $baseUrl = 'https://fneto-prod.fr/timecapsule-admin/'; //racine url publique
+            $serverRoot = '/home/fnetopm/www/timecapsule-admin/';
         }
 
         // 5. Supprimer les fichiers liés (en dehors de la transaction)
@@ -149,11 +149,11 @@ function changeNameEvent(int $id, string $newName) {
 
 function changeLogoOrColorsEvent(int $id, array $data) {
     if($_FILES["new_event_logo"]["tmp_name"] !== "") { // only if a new logo was uploaded
-        $TransferPathMemory = __DIR__ . '/content/memory_img/';
+        $TransferPathMemory = __DIR__ . '/content/logo_events/';
         if ($_SERVER["SERVER_PORT"] === "5000") { // vaut true si en local
-            $publicPath = __DIR__ . '/content/memory_img/';
+            $publicPath = __DIR__ . '/content/logo_events/';
         } else {
-            $publicPath = 'https://fneto-prod.fr/timecapsule/src/content/memory_img/';
+            $publicPath = 'https://fneto-prod.fr/timecapsule-admin/src/content/memory_img/';
         };
 
         $urlMemory = '';
@@ -198,7 +198,7 @@ function createNewMemory(array $data): bool {
     if ($_SERVER["SERVER_PORT"] === "5000") { // vaut true si en local
         $publicPath = __DIR__ . '/content/memory_img/';
     } else {
-        $publicPath = 'https://fneto-prod.fr/timecapsule/src/content/memory_img/';
+        $publicPath = 'https://fneto-prod.fr/timecapsule-admin/src/content/memory_img/';
     };
 
     $urlMemory = '';

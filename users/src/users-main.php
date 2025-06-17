@@ -29,7 +29,7 @@ include_once(__DIR__ . "/users-mainFunctions.php");
 
 // Constantes
     // base_url = lien vers la HP basé sur le serveur utilisé 
-define("BASE_URL", ($_SERVER["SERVER_PORT"] === "5000") ? "http://localhost:5000/" : "https://www.fneto-prod.fr/timecapsule/");
+define("BASE_URL", ($_SERVER["SERVER_PORT"] === "5000") ? "http://localhost:5000/" : "https://www.fneto-prod.fr/timecapsule-admin/");
     // general login url = page de connexion/inscription
 define("GENERAL_LOGIN_URL", __DIR__ . "/../../src/content/users-content/login.php");
     // profile url = p. profil de l'utilisateur connecté
@@ -89,7 +89,7 @@ switch ($page) {
                     header("Location: " . "/users");
                     exit;
                 } else {
-                    header("Location: " . "/timecapsule/users");
+                    header("Location: " . "/timecapsule-admin/users");
                     exit;
                 };
             } else { // si user pas trouvé (création échouée)
@@ -117,7 +117,7 @@ switch ($page) {
                     header("Location: " . "/users");
                     exit;
                 } else {
-                    header("Location: " . "/timecapsule/users");
+                    header("Location: " . "/timecapsule-admin/users");
                     exit;
                 };
             } else { // mot de passe NOK
@@ -136,7 +136,7 @@ switch ($page) {
             header("Location: " . "/users");
             exit;
         } else {
-            header("Location: " . "/timecapsule/users");
+            header("Location: " . "/timecapsule-admin/users");
             exit;
         };
         break;
