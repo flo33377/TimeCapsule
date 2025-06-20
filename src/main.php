@@ -30,7 +30,7 @@ include_once(__DIR__ . "/navFunctions.php");
 
 // Constantes
     // base_url = lien vers la HP basé sur le serveur utilisé 
-define("BASE_URL", ($_SERVER["SERVER_PORT"] === "5000") ? "http://localhost:5000/" : "https://www.fneto-prod.fr/timecapsule-admin/");
+define("BASE_URL", ($_SERVER["SERVER_PORT"] === "5000") ? "http://localhost:5000/" : "https://www.fneto-prod.fr/timecapsule/");
     // list_index_url = fichier qui affiche listing listes
 define("LIST_INDEX_URL", __DIR__ . "/content/list_index.php");
     // FOCUS_EVENT_url = fichier qui demande mdp ou affiche content list si pas de mdp ou mdp ok
@@ -103,7 +103,7 @@ switch ($page) {
                 if($_SERVER["SERVER_PORT"] === "5000") {
                     header("Location: " . "/?event=$targetEvent");
                 } else {
-                    header("Location: " . "/timecapsule-admin/?event=$targetEvent");
+                    header("Location: " . "/timecapsule/?event=$targetEvent");
                 };
             }
         }
@@ -151,7 +151,7 @@ switch ($page) {
             header("Location: " . "/?event=$targetEvent");
             exit;
         } else {
-            header("Location: " . "/timecapsule-admin/?event=$targetEvent");
+            header("Location: " . "/timecapsule/?event=$targetEvent");
             exit;
         };
         break;
@@ -172,7 +172,7 @@ switch ($page) {
             header("Location: " . "/?event=$targetEvent");
             exit;
         } else {
-            header("Location: " . "/timecapsule-admin/?event=$targetEvent");
+            header("Location: " . "/timecapsule/?event=$targetEvent");
             exit;
         };
         break;
@@ -201,7 +201,7 @@ switch ($page) {
             header("Location: " . "/?event=$targetEvent");
             exit;
         } else {
-            header("Location: " . "/timecapsule-admin/?event=$targetEvent");
+            header("Location: " . "/timecapsule/?event=$targetEvent");
             exit;
         };
         break;
