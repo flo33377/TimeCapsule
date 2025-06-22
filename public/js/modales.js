@@ -1,4 +1,6 @@
-// Open 1st modal of the page
+/* Fonctions qui permet d'afficher les modales de la page */
+
+// Ouvre la 1ère modale de la page
 
 let getDialogBox = document.getElementById('dialog1');
 let showModaleButton = document.getElementById('showModaleButton');
@@ -6,7 +8,6 @@ let closeModaleButton = document.getElementById('close_popup');
 
 if(showModaleButton) {
 showModaleButton.addEventListener('click', () => {
-    // avant de placer l'évent, vérifie que l'elem est sur la page pour éviter les erreurs console
     getDialogBox.showModal();
     //getDialogBox.style.top = `${(window.innerHeight - getDialogBox.offsetHeight) / 2}px`;
     getDialogBox.style.left = `${(window.innerWidth - getDialogBox.offsetWidth) / 2}px`
@@ -23,7 +24,8 @@ getDialogBox.addEventListener('click', (event) => {
 });
 };
 
-// If 2nd modal in the page - VOIR AVEC JULIEN S'IL A SOLUTION
+// Si 2e modale sur la page, ouvre la 2e modale
+// Meilleure solution à trouver
 
 let getDialogBox2 = document.getElementById('dialog2');
 let showModaleButton2 = document.getElementById('showModaleButton2');

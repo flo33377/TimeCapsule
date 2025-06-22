@@ -1,0 +1,27 @@
+# Ignorer le fichier SQLite spécifique
+src/db/db_timecapsule.db
+
+# Ou ignorer tous les fichiers de type .db dans ce dossier
+# src/db/*.db
+
+# Éviter d’inclure des fichiers temporaires ou sensibles
+*.log
+*.tmp
+*.bak
+
+# Ignorer les fichiers de config sensibles si présents
+config.php
+.env
+
+# Ignorer les dépendances (pour Composer plus tard)
+vendor/
+node_modules/
+
+# Dossiers de cache ou système
+.cache/
+.idea/
+.vscode/
+
+# Ignorer les fichiers système inutiles
+.DS_Store
+Thumbs.db

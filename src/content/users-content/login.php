@@ -41,7 +41,8 @@ if (isset($_SESSION['open_signup'])) {
     <form action="#" method="POST" enctype="form-data" id="form_login">
     <input type='hidden' id='post_connect_account' name='post_connect_account' required />
 
-    <?php if(isset($existingEmail) && $existingEmail !== null) : ?>
+    <?php if(isset($existingEmail) && $existingEmail !== null) : 
+        // si tentative création de compte avec email déjà en BDD ?>
         <p id="existing_email">Cet email est déjà utilisé.<br>Veuillez vous connecter.</p>
     <?php endif ?>
 
@@ -49,7 +50,7 @@ if (isset($_SESSION['open_signup'])) {
         <label for='connect_email'><p>Email</p></label>
         <input type='email' id='connect_email' name='connect_email' required
         <?php if(isset($attemptEmail) && $attemptEmail !== null) : 
-            // si email déjà enregistré en base, le pré-rempli dans l'itf de connexion ?>
+            // si tentative création de compte avec email déjà enregistré en base, le pré-rempli dans l'itf de connexion ?>
             value="<?= $attemptEmail ?>"
         <?php endif ?>
         >
@@ -59,7 +60,8 @@ if (isset($_SESSION['open_signup'])) {
         <label for='connect_password'><p>Mot de passe</p></label>
         <input type='password' id='connect_password' name='connect_password' required>
     </div>
-    <?php if(isset($statusPassword) && $statusPassword == false) : ?>
+    <?php if(isset($statusPassword) && $statusPassword == false) : 
+        // si tentative de connexion avec mauvais mot de passe ?>
         <p id="wrong_password">Le mot de passe entré est incorrect.</p>
     <?php endif ?>
 
@@ -79,7 +81,8 @@ if (isset($_SESSION['open_signup'])) {
 <div id="register_bloc" style="display: none;">
     <h1>Inscription</h1>
 
-    <?php if(isset($defaultForm) && $defaultForm == 'signup') : ?>
+    <?php if(isset($defaultForm) && $defaultForm == 'signup') : 
+        // si a tenté de créer un event sans être connecté ?>
         <p id="signup_needed">Vous devez être connecté pour créer un évènement</p>
     <?php endif ?>
 

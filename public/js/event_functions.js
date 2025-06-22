@@ -1,17 +1,20 @@
 
-/* Pagination listing events HP */
+// Fonctions liées aux évènements (HP + page de chaque event)
 
-if(document.getElementById('eventContainer')) { // error management
+/* Pagination du listing des events
+Utilisé pour la HP et pour le listing des events propriétaire de la page user */
+
+if(document.getElementById('eventContainer')) { // gestion des erreurs
     const itemsPerPage = 4; //nbr item par page
-    let currentPage = 0; // default setting
+    let currentPage = 0; // page affichée par défaut
 
-    function renderPage(page) { // MàJ les blocs events
+    // Fonction qui MàJ les events affichés
+    function renderPage(page) {
     const container = document.getElementById('eventContainer');
-    container.innerHTML = ''; // reset avant changement event affichés
+    container.innerHTML = ''; // reset initial
 
-    const start = page * itemsPerPage; // index of 1st event to display on this page
-    const end = start + itemsPerPage; // index of last event to display
-    console.log(allLists);
+    const start = page * itemsPerPage; // index de l'évènement juste avant le 1er à afficher
+    const end = start + itemsPerPage; // index du dernier évènement à afficher
     const visibleItems = allLists.slice(start, end);
 
     visibleItems.forEach((item, index) => {
@@ -20,7 +23,7 @@ if(document.getElementById('eventContainer')) { // error management
         div.style.backgroundColor = item.main_color;
         div.style.backgroundImage = `url('${item.event_logo}')`;
         const delay = index * 0.1;
-        div.style.animation= `slideIn 0.5s linear ${delay}s both`;
+        div.style.animation= `slideIn 0.5s linear ${delay}s both`; // décalage du slideIn de chaque évènement
         div.innerHTML = `
         <a class="list_available" href="./?event=${item.event_id}">
             <div class="label_event">
@@ -34,18 +37,20 @@ if(document.getElementById('eventContainer')) { // error management
     renderPagination(page);
     }
 
-    function renderPagination(current) { // MàJ la pagination
+    function renderPagination(current) {
+        // Fonction qui MàJ la pagination
         const totalPages = Math.ceil(allLists.length / itemsPerPage); // nbr total pages
         const controlsNbr = document.getElementById('paginationControls');
-        controlsNbr.innerHTML = ''; // reset avant changements
+        controlsNbr.innerHTML = ''; // reset initial
         const controlsArrowLeft = document.getElementById('nav_arrow_left');
         const controlsArrowRight = document.getElementById('nav_arrow_right');
       
         // Déterminer les indices des pages à afficher
-        let startPage = Math.max(current - 1, 0); // compare et prend le + grand pour
-        // ne pas prendre de nbr négatif
-        let endPage = Math.min(startPage + 2, totalPages - 1); // compare et prend le
-        // + petit pour ne pas dépasser le nbr max de pages
+
+        let startPage = Math.max(current - 1, 0);
+        // compare et prend le + grand pour ne pas prendre de nbr négatif
+        let endPage = Math.min(startPage + 2, totalPages - 1);
+        // compare et prend le + petit pour ne pas dépasser le nbr max de pages
       
         // Si écart trop petit c'est qu'on est à la fin donc on recule dans la pagination
         // mais s'assure de ne pas passer en négatif
@@ -56,7 +61,7 @@ if(document.getElementById('eventContainer')) { // error management
         // génère pour chaque chiffre son num + bouton
         for (let i = startPage; i <= endPage; i++) {
           const btn = document.createElement('button');
-          btn.textContent = i + 1;
+          btn.textContent = i + 1; // car index commence à 0
           if (i === current) {
             btn.disabled = true;
             btn.classList.add('active_pagination');
@@ -71,9 +76,11 @@ if(document.getElementById('eventContainer')) { // error management
         }
 
         if(current === 0) {
+            // si ne peut pas reculer, désactive la flèche de gauche
             controlsArrowLeft.style.visibility = "hidden";
             controlsArrowLeft.style.pointerEvents = "none";
         } else {
+            // sinon l'affiche
             controlsArrowLeft.style.visibility = 'visible';
             controlsArrowLeft.style.pointerEvents = 'auto';
             controlsArrowLeft.addEventListener('click', () =>
@@ -81,12 +88,14 @@ if(document.getElementById('eventContainer')) { // error management
         }
 
         const lastPage = (Math.ceil(allLists.length / itemsPerPage)) - 1; // num de la dernière page
-        // comme index commence à 0 et que length commence à 1 on retire -1
+        // comme index commence à 0 et que length commence à 1 on fait -1
 
         if(current == lastPage) {
+            // si on ne peut pas aller plus loin, désactive la flèche de droite
             controlsArrowRight.style.visibility = "hidden";
             controlsArrowRight.style.pointerEvents = "none";
         } else {
+            // sinon l'affiche
             controlsArrowRight.style.visibility = 'visible';
             controlsArrowRight.style.pointerEvents = 'auto';
             controlsArrowRight.addEventListener('click', () =>
@@ -100,7 +109,7 @@ if(document.getElementById('eventContainer')) { // error management
 };
 
 
-/* Système de preview color dans les color pickers */
+/* Système de color picker - Affiche couleur selectionnée dans un rond */
 
 document.addEventListener('DOMContentLoaded', () => {
     const colorPickers = document.querySelectorAll('.custom-color-picker');
@@ -109,24 +118,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const input = picker.querySelector('.real-color-input');
         const circle = picker.querySelector('.color-circle');
 
-        // Init couleur par défaut
+        // Set couleur par défaut
         circle.style.backgroundColor = input.value;
 
-        // Clique sur le cercle => déclenche l’input
+        // Déclenche l'input quand on clique sur le color picker
         circle.addEventListener('click', () => input.click());
 
-        // Mise à jour de la couleur du cercle quand l’utilisateur choisit une nouvelle couleur
+        // MàJ de la couleur du cercle en cas de changement de couleur
         input.addEventListener('input', () => {
             circle.style.backgroundColor = input.value;
         });
     });
 });
 
-// Fonction qui calcule si couleur est trop claire pour utiliser icone blanche
-// cf. nav buttons
+// Fonction qui calcule si couleur est trop claire pour utiliser icone blanche dans les nav buttons
 
 function isLightColor(hexColor) {
-    // Supprimer le # si présent
+    // Supprime le # si présent
     hexColor = hexColor.replace(/^#/, '');
 
     // Si format court (#fff), l'étendre à 6 caractères
@@ -147,48 +155,56 @@ function isLightColor(hexColor) {
 }
 
 
-/* Preview Event function */
+/* Système de preview du design des évènements lors de leur création/modification */
 
 let previewLogoEvent = document.getElementById('preview_logo');
-let logoAlreadyUploaded = document.getElementById('post_change_logo_colors'); // true only if we're on
-    // the change logo/colors admin modal, not the create event page
 
-if (previewLogoEvent) {
+let logoAlreadyUploaded = document.getElementById('post_change_logo_colors'); 
+// Ne veut true que si on est sur l'interface de modif d'un event, pas sur la page de création
+
+if (previewLogoEvent) { // gestion des erreurs
     let playRefreshPreviewEvent = document.getElementById('preview_event_btn_refresh');
+    // event sur le bouton refresh la preview
     playRefreshPreviewEvent.addEventListener('click', () => {
     const [logo] = document.getElementById("new_event_logo").files;
     if (logo) {
+        // si logo upload/nouveau logo upload, utilise un blob
         previewLogoEvent.src = URL.createObjectURL(logo);
     } else {
+        // sinon, se sert de celui déjà en BDD ou en set un par défaut
         if(!logoAlreadyUploaded) {
         previewLogoEvent.src = "https://fneto-prod.fr/timecapsule/img/timecapsule-logo.png";
     }};
 
     let newEventValueMainColor = document.getElementById('main_color');
     let newEventNavButtons = document.getElementsByClassName('preview_btn_each');
-    let newEventPreviewMainColor = newEventValueMainColor.value;
-    document.getElementById('preview_header').style.backgroundColor = newEventPreviewMainColor;
+    let newEventPreviewMainColor = newEventValueMainColor.value; // récupère la nouvelle couleur principale
+    document.getElementById('preview_header').style.backgroundColor = newEventPreviewMainColor; // MàJ le header avec cette couleur
     for(let i = 0; i < newEventNavButtons.length; i++) {
+        // MàJ toutes les icones de nav avec la nouvelle couleur
         newEventNavButtons[i]. style.backgroundColor = newEventPreviewMainColor;
         const picto = newEventNavButtons[i].querySelector('img');
         if(picto) {
-        picto.style.filter = isLightColor(newEventPreviewMainColor) ? 'invert(0)' : 'invert(1)';
+            // si cette couleur est claire, passe les picto en blanc
+            picto.style.filter = isLightColor(newEventPreviewMainColor) ? 'invert(0)' : 'invert(1)';
         }
     }
 
     let newEventValueSecondaryColor = document.getElementById('secondary_color');
     let newEventPreviewSecondaryColor = newEventValueSecondaryColor.value;
     document.getElementById('preview_whole').style.backgroundColor = newEventPreviewSecondaryColor;
+    // récup la couleur secondaire et MàJ le background avec
 
     let newEventValueFontColor = document.getElementById('font_color');
     let newEventPreviewFontColor = newEventValueFontColor.value;
     document.getElementById('preview_title').style.color = newEventPreviewFontColor;
+    // récup la couleur de font et MàJ les textes avec
 
     });
 
 };
 
-// Preview event fonction - avertissement de couleur trop claire => picto en blanc
+/* Preview event fonction - avertissement de couleur trop claire => picto en blanc */
 
 let warningMainColorNotLightHTML = `<p id='warning_main_color_light'>
 Attention : la couleur principale sélectionnée étant claire, les icones de navigation 
@@ -196,16 +212,19 @@ seront en noir.<br>(cf. Prévisualisation)</p>`;
 
 let newEventMainColorPicker = document.getElementById('main_color');
 
-if (newEventMainColorPicker) {
+if (newEventMainColorPicker) { // gestion des erreurs
     newEventWarningBloc = document.getElementById('new_event_main_color_comment');
     newEventMainColorPicker.addEventListener('change', () => {
+        // en cas de changement de couleur
         let currentMainColor = newEventMainColorPicker.value;
         let warningMessageDisplayed = document.getElementById('warning_main_color_light');
         if(isLightColor(currentMainColor)) {
+            // check si la couleur est claire, si oui affiche le message
             if(!warningMessageDisplayed) {
                 newEventWarningBloc.innerHTML = warningMainColorNotLightHTML;
             };
         } else {
+            // sinon l'enlève s'il est déjà affiché 
             if(warningMessageDisplayed) {
                 warningMessageDisplayed.remove();
             }
@@ -215,46 +234,48 @@ if (newEventMainColorPicker) {
 
 
 
-/* Fonction de like des memories */
-
-// AJAX request to update DB when checkbox updated
+/* Fonction de like des memories - via requête AJAX */
 
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".like-checkbox").forEach(checkbox => {
         checkbox.addEventListener("change", function () {
-            let memoryId = this.dataset.id; // get from the id
-            let currentNbrLikesImport = this.dataset.nbrlikes;
+            // Ajoute un event change à chaque checkbox de like
+            let memoryId = this.dataset.id; // récup l'id du souvenir
+            let currentNbrLikesImport = this.dataset.nbrlikes; // récup le nbr de likes sur le souvenir au chargement de la page
 
             let newNbrOfLikes = parseInt(currentNbrLikesImport);
-            newNbrOfLikes++;
+            newNbrOfLikes++; // fait +1 sur le nbr de likes
 
             const formdata = new FormData();
+            // fait un form data avec les infos à renvoyer en BDD
             formdata.append("memoryId", memoryId);
             formdata.append("newNbrOfLikes", newNbrOfLikes);
 
             fetch("./src/updateLikesNbr.php", {
+                // déclenche la fonction de MàJ de BDD
                 method: "POST",
                 body: formdata
             })
             .then(response => { let reponse = response.text(); console.log(reponse) })
 
-            // disabled une fois cliquée
+            // désactive le multi-like une fois cliquée
             this.disabled = true;
 
-            // update le nombre de likes à +1
+            // update le nombre de likes à +1 dans le texte affiché
             let likesBloc = this.closest(".likes_bloc");
             let spanLikes = likesBloc.querySelector(".nbr_likes");
             if (spanLikes) {
                 spanLikes.textContent = newNbrOfLikes;
             };
 
-            // remplace par la nouvelle image
+            // remplace par la nouvelle image (qui veut dire que désactivé)
             let imgIcon = this.parentElement.querySelector("img");
             if (imgIcon) {
                 imgIcon.src = "https://fneto-prod.fr/timecapsule/img/heart_icon_full.png";
             }
 
             imgIcon.classList.add("animate-heart");
+            // ajoute la class qui set l'animation
 
             // supprimer la classe après timeout
             setTimeout(() => {
@@ -268,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".like-checkbox").forEach(checkbox => { 
         if(checkbox.checked) {
-            // remplace par la nouvelle image
+            // au chargement, remplace l'icone par celle qui indique que déjà liké
             let imgIcon = checkbox.parentElement.querySelector("img");
             if (imgIcon) {
                 imgIcon.src = "https://fneto-prod.fr/timecapsule/img/heart_icon_full.png";
@@ -278,16 +299,18 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-/* Sharing function for nav button */
+/* Nav button - fonction de partage */
 
 document.addEventListener('DOMContentLoaded', () => {
     const shareBtn = document.getElementById('shareBtn');
     if (shareBtn) {
+        // récupère les infos pour le bon fonctionnement
         const fallbackUrl = shareBtn.dataset.href;
         const eventName = shareBtn.dataset.name;
         const passwordEvent = shareBtn.dataset.password;
 
         if (navigator.share) {
+            // si Web Share API est dispo, la déclenche
             shareBtn.addEventListener('click', async (e) => {
                 // async permet d'utiliser await dans la fonction et d'indiquer qu'on est sur une manip 
                 // qui va débuter puis se terminer (ex : appel API, partage via navigator.share)
@@ -296,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     if(passwordEvent) {
                         await navigator.share({
+                            // si event avec mot de passe, texte avec mot de passe
                             title: document.title,
                             text: `J'ai créé un site pour l'événement : ${eventName}. 
                             Viens-y déposer tes photos toi aussi ! Voici le mot de passe pour y accéder : ${passwordEvent}`,
@@ -303,12 +327,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         });    
                     } else {
                         await navigator.share({
+                            // sinon texte sans mot de passe
                             title: document.title,
                             text: `J'ai créé un site pour l'événement : ${eventName}. Viens-y déposer tes photos toi aussi !`,
                             url: window.location.href
                         });
                     }
-                    // avec await, on mettrait ici l'action à effectuer après partage ok (console.log)
+                    // avec await, on mettrait ici l'action à effectuer après partage ok (ex : console.log)
                 } catch (err) {
                     if(err.name != 'AbortError') {
                     console.error("Erreur lors du partage :", err);
@@ -317,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }}
             });
         } else {
-            // Si Web Share API non disponible
+            // Si Web Share API non disponible, envoie sur la page de partage
             shareBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.location.href = fallbackUrl;
@@ -327,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-/* COPY FUNCTION FOR SHARING TEXT*/
+/* Fonction de copie de texte pour partage sans Web Share API */
 
 document.addEventListener('DOMContentLoaded', () => {
     const copyBtn = document.getElementById('CopyTextShareBtn');
@@ -337,9 +362,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if(copyBtn) {
     copyBtn.addEventListener('click', async () => {
         try {
+            // copie le texte dans le presse papier
             await navigator.clipboard.writeText(textArea.value);
 
-            // Slide in (depuis le bas)
+            // Affichage de la notif de copie - Slide in (depuis le bas)
             messageConfirmCopyOK.style.opacity = '1';
             messageConfirmCopyOK.style.transform = 'translateX(-50%) translateY(-30px)';
             messageConfirmCopyOK.style.bottom = '40px';
@@ -358,7 +384,8 @@ document.addEventListener('DOMContentLoaded', () => {
 }});
 
 
-/* Fonction qui renvoie vers la page de login avec form d'inscription ouvert */
+/* Fonction qui renvoie vers la page de login avec form d'inscription ouvert
+Déclenché si qlq'un veut créer event sans être connecté */
 
 registerRedirectionButton = document.getElementById('register_redirection')
 if(registerRedirectionButton) {

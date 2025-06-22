@@ -4,7 +4,9 @@
 
 <!-- page content -->
 
-<?php if (!empty($event["event_password"]) && (!isset($_SESSION['auth']) || $_SESSION['auth'] != $event["event_id"])) : ?>
+<!-- Password check -->
+<?php // si liste protégée et mdp pas encore entré et validé, demande le mdp
+if (!empty($event["event_password"]) && (!isset($_SESSION['auth']) || $_SESSION['auth'] != $event["event_id"])) : ?>
     <div id="password_bloc">
         <h2>L'accès à cet évènement est protégé.<br>Merci de saisir le mot de passe :</h2>
         <form action='#' method='POST'>
@@ -17,11 +19,7 @@
     </div>
 
 
-<?php else : ?>
-
-<?php //echo '<pre>';
-//print_r($_SESSION);
-//echo '<pre>'; ?>
+<?php else : // sinon affiche le dispositif de partage ?>
 
 <div>
 <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['font_color']) && $_SESSION['font_color'] != null) : ?>

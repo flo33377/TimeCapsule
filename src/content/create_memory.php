@@ -6,7 +6,8 @@
 <!-- page content -->
 
 <!-- Password check -->
-<?php if (!empty($event["event_password"]) && (!isset($_SESSION['auth']) || $_SESSION['auth'] != $event["event_id"])) : ?>
+<?php // si liste protégée et mdp pas encore entré et validé, demande le mdp
+if (!empty($event["event_password"]) && (!isset($_SESSION['auth']) || $_SESSION['auth'] != $event["event_id"])) : ?>
     <div id="password_bloc">
         <h2>L'accès à cet évènement est protégé.<br>Merci de saisir le mot de passe :</h2>
         <form action='#' method='POST'>
@@ -18,7 +19,7 @@
         </form>
     </div>
 
-<?php else : ?>
+<?php else : // sinon affiche le form de création de memory pour cet event ?>
 
 
 <h2 id="title_page_new_memory" 
@@ -117,6 +118,7 @@
 
 </div>
 
+<!-- bloc de preview du souvenir -->
 
 <div id="preview_memory_buttons">
     <input type='button' class="button cta cta_modal" id='memory_preview_btn_refresh' value='Prévisualiser'>
@@ -142,4 +144,4 @@
 
 
 
-        <?php endif ?>
+<?php endif ?>

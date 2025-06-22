@@ -1,8 +1,9 @@
 <?php
 
+/* Fichier contenant les fonctions propres à la partie users du site (connexion, inscription, etc.) */
 
 
-function connect(): PDO {
+function connect(): PDO { // connexion à la base de données
     $dbpath = __DIR__ . "/../../src/db/db_timecapsule.db";
     try {
         $mysqlClient = new PDO("sqlite:{$dbpath}");
@@ -26,7 +27,7 @@ function isRegistered(string $email): bool { // renvoie true si email déjà uti
     // sinon $userFound = false (car vide) donc false = false (pas diff) => donc renvoie false
 }
 
-function createnewUser(array $data) { // créé user
+function createnewUser(array $data) { // création d'un nouveau compte utilisateur
     $SQLCreateNewUser = "INSERT INTO timecapsule_users (user_email, user_password)
     VALUES (:user_email, :user_password)";
     $CreateNewUserStatement = connect()->prepare($SQLCreateNewUser);
@@ -36,7 +37,7 @@ function createnewUser(array $data) { // créé user
     ]);
 }
 
-function getUserInfosFromEmail(string $email) { // get infos liées à l'user
+function getUserInfosFromEmail(string $email) { // return infos liées à l'user à partir de son email (en argument)
     $SQLGetUserInfos = 'SELECT * FROM timecapsule_users WHERE user_email = ?';
     $getUserInfosStatement = connect()->prepare($SQLGetUserInfos);
     $getUserInfosStatement->execute([$email]);
@@ -50,6 +51,7 @@ function getUserInfosFromEmail(string $email) { // get infos liées à l'user
 }
 
 function successfullConnexionUserAccount(array $data) : bool { // renvoie true seulement si compte en BDD et mdp OK
+    // Argument = $_POST['connect_email'] (email saisi) + $_POST['connect_password'] (mot de passe saisi)
     $userAccountTargeted = getUserInfosFromEmail($data['connect_email']);
     if(!$userAccountTargeted) {
         return false; // si email introuvable en BDD
@@ -62,7 +64,7 @@ function successfullConnexionUserAccount(array $data) : bool { // renvoie true s
     }
 }
 
-function getEventsByUserId(int $id) : array {
+function getEventsByUserId(int $id) : array { // return events dont l'utilisateur est propriétaire (argument : id du user)
     $SQLGetEventsByUser = 'SELECT * FROM timecapsule_list WHERE user_admin_id = ? LIMIT 5';
     $getEventsByUserStatement = connect()->prepare($SQLGetEventsByUser);
     $getEventsByUserStatement->execute([$id]);

@@ -3,9 +3,9 @@
 session_start();
 
 /* 
-//fonction de débug - need fichier debug_log.txt
+//fonction de débug - besoin du fichier debug_log.txt
 function debug_log($message) {
-    $file = __DIR__ . '/debug_log.txt'; // Le fichier log sera dans le même dossier que ton script
+    $file = __DIR__ . '/debug_log.txt';
     $date = date('Y-m-d H:i:s');
     $log = "[$date] $message\n";
     file_put_contents($file, $log, FILE_APPEND);
@@ -20,32 +20,37 @@ debug_log("-----------");
 // fin du debogger */
 
 
-
-ini_set('display_errors', '1');
+/* ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
+*/
 
 include_once(__DIR__ . "/mainFunctions.php");
 include_once(__DIR__ . "/navFunctions.php");
 
 // Constantes
+
     // base_url = lien vers la HP basé sur le serveur utilisé 
 define("BASE_URL", ($_SERVER["SERVER_PORT"] === "5000") ? "http://localhost:5000/" : "https://www.fneto-prod.fr/timecapsule/");
+
     // list_index_url = fichier qui affiche listing listes
 define("LIST_INDEX_URL", __DIR__ . "/content/list_index.php");
-    // FOCUS_EVENT_url = fichier qui demande mdp ou affiche content list si pas de mdp ou mdp ok
+
+    // FOCUS_EVENT_url = fichier qui demande mdp ou affiche content list si pas de mdp ou mdp déjà saisi et validé
 define("FOCUS_EVENT_URL", __DIR__ . "/content/list_show.php");
+
     // CREATE_MEMORY_URL = fichier sur lequel est le form pour ajouter memory
 define("CREATE_MEMORY_URL", __DIR__ . "/content/create_memory.php");
-    // SHARE_EVENT_URL = fichier pour share l'event (desktop mainly)
+
+    // SHARE_EVENT_URL = fichier avec le contenu pour partager l'event (quand web share API non dispo)
 define("SHARE_EVENT_URL", __DIR__ . "/content/share_page.php");
 
 
 // Variables de pages
 $method = $_SERVER['REQUEST_METHOD'];
-    // bellow, set all parameters by default
-$page = "get_all_events"; // Valeur par défaut
-$content = LIST_INDEX_URL; // Par défaut, afficher la liste des listes
+    // setting des param par défaut
+$page = "get_all_events"; // par défaut => cas HP
+$content = LIST_INDEX_URL; // Par défaut, utilise le fichier qui affiche les listes
 $list = null; // créé la variable en prévision
 $lists = null; // créé la variable en prévision
 
@@ -68,7 +73,7 @@ switch ($method) {
         break;
 
     case "GET":
-        if (!empty($_GET["event"]) && !isset($_GET['create_mode'])) $page = "get_show_event"; // le get est généré sous forme de param d'URL
+        if (!empty($_GET["event"]) && !isset($_GET['create_mode'])) $page = "get_show_event"; // focus sur un event en particulier (lien sur les icones)
         if (!empty($_GET["event"]) && !empty($_GET['create_mode']) && $_GET['create_mode'] == 'true') $page = "go_create_memory"; // basé sur l'input caché create_memory
         if (!empty($_GET["event"]) && !empty($_GET['share']) && $_GET['share'] == 'true') $page = "go_share_page"; // basé sur l'input caché create_memory
         break;
@@ -77,19 +82,19 @@ switch ($method) {
 // Pages
 // Logique à appliquer selon la page
 switch ($page) {
-    case "get_all_events": // afficher toutes les listes
+    case "get_all_events": // afficher tous les events
         $lists = getAllEvents();
         $content = LIST_INDEX_URL;
         break;
 
-    case "post_create_event": // création de liste
+    case "post_create_event": // créer un nouvel event
         createNewEvent($_POST);
         $_SESSION['nbr_events'] = $_SESSION['nbr_events'] + 1;
         $lists = getAllEvents(); // execute la requête SQL et return les listes
         $content = LIST_INDEX_URL;
         break;
 
-    case "post_authenticate": // vérifier authentification
+    case "post_authenticate": // vérifier authentification à un event protégé par mot de passe
         $userPswd = $_POST["password"] ?? null;
         $targetEvent = $_POST["targetEvent"] ?? null;
 
@@ -109,7 +114,7 @@ switch ($page) {
         }
         break;
 
-    case "get_show_event": // afficher une liste et enregistre event_id dans SESSION
+    case "get_show_event": // afficher un event et enregistre event_id dans SESSION
         $eventId = $_GET["event"] ?? null;
         if ($eventId) $event = getEventById($eventId);
         if (!$event) { // cas event non existant
@@ -129,7 +134,6 @@ switch ($page) {
         break;
     
     case "post_erase_event": // supprime un event
-        // ATTENTION /!\: ajouter la verif par mot de passe pour ça /!\
         $content = LIST_INDEX_URL;
         if ($_SESSION['event_id']) deleteEvent($_SESSION['event_id']);
         $_SESSION['nbr_events'] = $_SESSION['nbr_events'] - 1;
@@ -193,7 +197,7 @@ switch ($page) {
         if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
         if ($eventId) $event = getEventById($eventId);
         if ($eventId) createNewMemory($_POST);
-        $memoriesData = getMemoriesByEventId($event['event_id']); // get all memories
+        $memoriesData = getMemoriesByEventId($event['event_id']);
 
         session_write_close();
 
@@ -206,7 +210,7 @@ switch ($page) {
         };
         break;
     
-    case "go_share_page" : // va sur la page de partage
+    case "go_share_page" : // va sur la page de partage (web share API non dispo)
         $content = SHARE_EVENT_URL;
         $eventId = $_GET["event"] ?? null;
         if ($eventId) $event = getEventById($eventId);

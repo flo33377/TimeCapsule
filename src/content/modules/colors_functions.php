@@ -1,10 +1,14 @@
 <?php
 
+/* fonctions liées aux couleurs/décoration de l'évènement et des memories :
+- Impression de select avec des couleurs ou des paterns selon le besoin ;
+- Impression de select avec les options de personnalisation des memories
+- Fonction permettant de savoir si couleur clair => icones passent en noir plutôt que blanc (par défaut)
+*/
+
         // fonction qui imprime les select à partir d'un tableau commun
 
-// 2 param : patern ou non, echo selected ou non
-
-$colors = [ // key is the name to display, value is the coding name
+$colors = [ // clé = nom à afficher & valeur = terme côté code
     'Noir' => 'black',
     'Blanc' => 'white',
     'Gris' => 'LightSlateGray',
@@ -36,7 +40,8 @@ $paterns = [
     'Motif parchemin' => 'https://fneto-prod.fr/timecapsule/img/paterns/oldparchmentpatern.jpg'
 ];
 
-
+// Param : présence de "transparent" ou non, couleurs ou non, patern ou non, présence d'une valeur par défaut ou non
+// + tableau couleur, tableau patern, valeur par défaut
 function generateSelectDesigns(bool $displayTransparent, bool $displayColors, bool $displayPaterns, bool $defaultValueSelected, array $colors, array $paterns, $selectedColor = null) {
     // Partie transparent
     if($displayTransparent) {

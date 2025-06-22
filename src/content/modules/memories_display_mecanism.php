@@ -1,8 +1,5 @@
-<?php foreach ($memoriesData as $listingMemories) : ?>
-
-
-<?php if (!$listingMemories['cancel'] == 'true' ) : 
-    // display only if cancel != false ?>
+<?php // mécanisme d'affichage des souvenirs d'un event
+foreach ($memoriesData as $listingMemories) : ?>
 
 <div class="whole_memory">
 
@@ -61,6 +58,5 @@
 
 </div>
 
-<?php endif ?>
 <?php endforeach ?>
 

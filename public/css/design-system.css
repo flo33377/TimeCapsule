@@ -1,3 +1,7 @@
+/*
+Contient les styles par défaut des éléments + des éléments réutilisés à plusieurs endroits sur le site
+*/
+
 /* GLOBAL */
 
 * {
@@ -98,13 +102,18 @@ dialog div {
   border: 0px solid white;
   border-radius: 50%;
   position: relative;
-  /* top: 5%; */ /* right: 5%; */
   cursor: pointer;
 }
 
 .title_popup {
   text-transform: uppercase;
   margin-bottom: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 dialog form p {
@@ -176,7 +185,7 @@ input[type='email'] {
   padding: 0.5em;
   font-size: 1rem;
   border-radius: 8px;
-  color: black; /* texte visible */
+  color: black;
   width: 100%;
   font-family: Arial, Helvetica, sans-serif;
 }

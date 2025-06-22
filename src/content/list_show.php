@@ -6,7 +6,8 @@
 <!-- page content -->
 
 <!-- Password check -->
-<?php if (!empty($event["event_password"]) && (!isset($_SESSION['auth']) || $_SESSION['auth'] != $event["event_id"])) : ?>
+<?php // si liste protégée et mdp pas encore entré et validé, demande le mdp
+if (!empty($event["event_password"]) && (!isset($_SESSION['auth']) || $_SESSION['auth'] != $event["event_id"])) : ?>
     <div id="password_bloc">
         <h2>L'accès à cet évènement est protégé.<br>Merci de saisir le mot de passe :</h2>
         <form action='#' method='POST'>
@@ -19,7 +20,7 @@
     </div>
 
 
-<?php else : ?>
+<?php else : // sinon affiche les memories de l'event ?>
 <!-- Memories -->
 
 <div class='memories_global'>
@@ -29,29 +30,27 @@
 </div>
 
 
-<?php //echo '<pre>';
-//print_r($_SESSION);
-//echo '<pre>'; ?>
-
-
 <!-- Nav buttons -->
 
-<?php // gère l'API de partage RS du lien VS l'envoi vers la page dédiée
+<?php // set les données pour savoir si on passe par la web share API ou non
 $isMobile = isMobile();
 $shareLink = './?event=' . $_SESSION['event_id'] . '&share=true';
 ?>
 
 <div id='nav_buttons'>
+
 <a 
     <?= $isMobile ? 'id="shareBtn" data-href="' . htmlspecialchars($shareLink) . '" data-name="' . $event["event_name"] . '"' : 'href="' . htmlspecialchars($shareLink) . '"'
     //si sur mobile, met l'ID ShareBtn pour déclencher API Share en JS et ajoute le lien desktop en data pour éventuel fallback en JS si API non-fonctionnelle
     // sinon met direct le lien en href 
     ?>
 
-    <?php if(isset($event["event_password"]) && $event["event_password"] != null) : ?>
+    <?php if(isset($event["event_password"]) && $event["event_password"] != null) : 
+        // si event avec mdp, le passe dans le HTML pour que le JS le reprenne pour le texte de partages ?>
         data-password="<?= $event['event_password'] ?>"
     <?php endif ?>
 
+    
     <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['main_color']) && $_SESSION['main_color'] != null) : ?>
         style="background-color: <?= $_SESSION['main_color'] ?>;"
     <?php endif ?>

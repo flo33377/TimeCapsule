@@ -1,5 +1,7 @@
 
-// fonction qui templatiser le HTML à implémenter à la banner mais en prenant en compte le texte choisi
+/* Système de notification post-chargement de page */
+
+// fonction qui templatise le HTML de banner à ajouter à la page
 function createBannerStructureHTML(text) {
     return `<div class="banner-content">
     ${text}
@@ -10,10 +12,10 @@ function createBannerStructureHTML(text) {
 // va chercher le template de banner
 let notificationBalise = document.getElementById('banner_infos');
 
-// set les variables de base
+// set une variable par défaut
 let bannerMessage = null;
 
-// si template banner existe, récup les dataset
+// si PHP injecte une demande de banner, la récup
 if(notificationBalise) {
     bannerMessage = notificationBalise.dataset.bannermessage ?? null;
 }
@@ -65,7 +67,7 @@ const messages = {
 if (bannerMessage && messages[bannerMessage]) {
     const { text, icon, colorClass } = messages[bannerMessage];
 
-    // on l'injecte les données dans la structure
+    // on l'injecte les données dans le template de banner
     notificationBalise.innerHTML = `
         <div class="banner-content">
             <span class="banner-icon">${icon}</span>
@@ -74,12 +76,12 @@ if (bannerMessage && messages[bannerMessage]) {
         </div>
     `;
 
-    // On affiche la banner
+    // On affiche la banner via une fonction
     displayNotification(notificationBalise, colorClass, 'invisible_banner');
 }
 
 
-// fonction qui affiche les banners
+// fonction d'affichage de la banner
 function displayNotification(banner, classNameToAdd, classNameToRemove) {
     notificationBalise.classList.remove(classNameToRemove);
     notificationBalise.classList.add(classNameToAdd);

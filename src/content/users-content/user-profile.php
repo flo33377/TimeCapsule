@@ -1,5 +1,6 @@
 <script>
   const allLists = <?php echo json_encode($lists); ?>;
+  // encodage json des events dont le user est propriétaire pour affichage dynamique en JS
 </script>
 
 <div id="content_bloc">
@@ -18,7 +19,8 @@
     <a href='<?= BASE_URL ?>' class="cta" id='showModaleButton'>Créer un évènement</a>
 <?php else : ?>
 
-<?php if(isset($_SESSION['nbr_events']) && $_SESSION['nbr_events'] >= 5 ) : ?>
+<?php if(isset($_SESSION['nbr_events']) && $_SESSION['nbr_events'] >= 5 ) : 
+    // si user a tenté de créer un event alors qu'il est à son max ?>
     <P class="warning_message">Vous avez atteint le nombre max d'évènements.<br>
     Supprimez-en pour pouvoir en créer de nouveaux.</P>
 <?php endif ?>
@@ -33,12 +35,6 @@
     </div>
 <?php endif ?>
 
-
-<?php 
-//echo '<pre>';
-//print_r($_SESSION);
-//echo '<pre>'; 
-?>
 
 </div>
 

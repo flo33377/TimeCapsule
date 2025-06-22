@@ -1,3 +1,10 @@
+<?php 
+// Template de toutes les pages (sauf pages de la partie users)
+// Liaisons fichiers externes + param pages
+// + header + accès partie users + système de notification
+// contenu généré depuis $content
+?>
+
 <?php include_once(__DIR__ . "/src/main.php") ?>
 
 <!DOCTYPE html>
@@ -20,7 +27,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="https://fneto-prod.fr/timecapsule/img/favicon.png">
 
   <title
-  <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($event["event_name"]) && $event["event_name"] != null) : ?>
+  <?php // si event défini, ajout du nom de l'event dans le title
+  if(isset($_GET['event']) && $_GET['event'] != null && isset($event["event_name"]) && $event["event_name"] != null) : ?>
     ><?= $event["event_name"] ?> - Time Capsule
     <?php else : ?>
   >Time Capsule
@@ -30,7 +38,8 @@
 
 <body>
 
-  <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['main_color']) && $_SESSION['main_color'] != null) : ?>
+  <?php // si event défini, couleurs de l'UX basées sur les couleurs de l'event
+  if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['main_color']) && $_SESSION['main_color'] != null) : ?>
     <header style="background-color: <?= $_SESSION['main_color'] ?>" >
   <?php else : ?>
     <header>
@@ -47,16 +56,18 @@
   </header>
 
   <main id='content'
-  <?php if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['secondary_color']) && $_SESSION['secondary_color'] != null) : ?>
+  <?php // si event défini, couleurs de l'UX basées sur les couleurs de l'event
+  if(isset($_GET['event']) && $_GET['event'] != null && isset($_SESSION['secondary_color']) && $_SESSION['secondary_color'] != null) : ?>
     style="background-color: <?= $_SESSION['secondary_color'] ?>"
   <?php endif ?>
   >
 
-  <!-- espace connexion -->
-    <?php if(!isset($_SESSION['user_email']) || $_SESSION['user_email'] == null) : ?>
-      <a href="./users" class="login_button">Me connecter</a>
-    <?php else : ?>
-      <a href="./users" class="login_button">Mon compte</a>
+  <!-- accès à l'espace users -->
+  <a href="./users" class="login_button">  
+  <?php if(!isset($_SESSION['user_email']) || $_SESSION['user_email'] == null) : ?>
+    Me connecter</a>
+  <?php else : ?>
+    Mon compte</a>
     <?php endif ?>
 
   <!-- Content -->

@@ -1,3 +1,5 @@
+<?php // modale permettant à un user de modifier un event dont il est propriétaire => changement de nom-logo-couleurs + suppression ?>
+
 <?php include_once(__DIR__ . "/colors_functions.php") ?>
 
 <?php if (empty($event["event_password"]) || (isset($_SESSION['auth']) && $_SESSION['auth'] == $event["event_id"])) : ?>
@@ -118,6 +120,7 @@
 
                 </div>
 
+        <!-- preview de l'event après modification -->
         <div id="modal_submit_button_bloc" class="preview_double_buttons">
             <input type='button' class="button cta cta_modal" id='preview_event_btn_refresh' value='Prévisualiser le rendu'>
             <input id="modal_submit_button" class="main_cta" type="submit" value="Modifier" />

@@ -1,4 +1,10 @@
 
+
+/*
+Contient les styles des éléments de la partie users
+Fichier appelé uniquement sur la partie users
+*/
+
 #content {
     background-color: black;
 }

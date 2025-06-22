@@ -1,8 +1,9 @@
 <?php
 
+/* Fichier contenant les fonctions PHP nécessaires au fonction de la partie events et HP */
 
 
-function connect(): PDO {
+function connect(): PDO { // connexion à la BDD
     $dbpath = __DIR__ . "/db/db_timecapsule.db";
     try {
         $mysqlClient = new PDO("sqlite:{$dbpath}");
@@ -14,7 +15,7 @@ function connect(): PDO {
 }
 
 
-function createNewEvent(array $data): bool {
+function createNewEvent(array $data): bool { // créé un nouvel évènement en BDD et confirme sa création
 
     $TransferPathLogo = __DIR__ . '/content/logo_events/';
     if ($_SERVER["SERVER_PORT"] === "5000") { // vaut true si en local
@@ -64,8 +65,7 @@ function createNewEvent(array $data): bool {
 }
 
 
-function getAllEvents(): array {
-    // Get existing lists to display it on HP
+function getAllEvents(): array { // récup tous les events en BDD
     $SQLGetAllEvents = 'SELECT event_id, event_name, event_logo, main_color, secondary_color, font_color FROM timecapsule_list';
     $getAllEventsStatement = connect()->prepare($SQLGetAllEvents);
     $getAllEventsStatement->execute();
@@ -74,15 +74,15 @@ function getAllEvents(): array {
 }
 
 
-function getEventById(int $id) {
+function getEventById(int $id) { // récup les infos d'un event en particulier (argument = id)
     $SQLGetEventInfos = 'SELECT * FROM timecapsule_list WHERE event_id = ?';
-    $checkPasswordStatement = connect()->prepare($SQLGetEventInfos);
-    $checkPasswordStatement->execute([$id]);
+    $getEventByIdStatement = connect()->prepare($SQLGetEventInfos);
+    $getEventByIdStatement->execute([$id]);
 
-    return $checkPasswordStatement->fetch();
+    return $getEventByIdStatement->fetch();
 }
 
-function deleteEvent(int $id): void {
+function deleteEvent(int $id): void { // supprime un event + ses souvenirs + les photos de ses souvenirs (argument = id)
     $pdo = connect();
 
     try {
@@ -141,16 +141,16 @@ function deleteEvent(int $id): void {
     }
 }
 
-function changeNameEvent(int $id, string $newName) {
+function changeNameEvent(int $id, string $newName) { // change le nom d'un event (argument = id + nouveau nom)
     $SQLChangeNameEvent = 'UPDATE timecapsule_list SET event_name = ? WHERE event_id = ?';
     $changeNameEventStatement = connect()->prepare($SQLChangeNameEvent);
     $changeNameEventStatement->execute([$newName, $id]);
 }
 
-function changeLogoOrColorsEvent(int $id, array $data) {
-    if($_FILES["new_event_logo"]["tmp_name"] !== "") { // only if a new logo was uploaded
+function changeLogoOrColorsEvent(int $id, array $data) { //change les couleurs d'un event et sa photo si renseignée (argument = id + $_POST)
+    if($_FILES["new_event_logo"]["tmp_name"] !== "") { // seulement si nouveau logo uploadé
         $TransferPathMemory = __DIR__ . '/content/logo_events/';
-        if ($_SERVER["SERVER_PORT"] === "5000") { // vaut true si en local
+        if ($_SERVER["SERVER_PORT"] === "5000") {
             $publicPath = __DIR__ . '/content/logo_events/';
         } else {
             $publicPath = 'https://fneto-prod.fr/timecapsule/src/content/memory_img/';
@@ -158,6 +158,7 @@ function changeLogoOrColorsEvent(int $id, array $data) {
 
         $urlMemory = '';
 
+        // retire caractères spéciaux pour éviter pb d'url
         $searchEncodedCharacters  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ');
         $replaceEncodedCharacters = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y');
         $memoryNameEncoded = str_replace($searchEncodedCharacters, $replaceEncodedCharacters, $data['post_event_name']);
@@ -167,13 +168,14 @@ function changeLogoOrColorsEvent(int $id, array $data) {
 
         $urlMemory = $publicPath . date("F-j-Y_H-i-s") . $memoryNameEncoded . "." . strtolower(pathinfo($_FILES['new_event_logo']['name'], PATHINFO_EXTENSION));
 
+        // si photo upload => requête SQL pour update BDD avec couleurs + photo
         $SQLChangeLogoAndColorsEvent = 'UPDATE timecapsule_list SET event_logo = ?, main_color = ?, 
         secondary_color = ?, font_color = ? WHERE event_id = ?';
         $changeLogoColorsEventStatement = connect()->prepare($SQLChangeLogoAndColorsEvent);
         $changeLogoColorsEventStatement->execute([$urlMemory, $_POST['main_color'], $_POST['secondary_color'], $_POST['font_color'], $id]);
 
         return true;
-    } else {
+    } else { // si pas de photo upload => juste update BDD avec changement couleurs
         $SQLChangeOnlyColorsEvent = 'UPDATE timecapsule_list SET main_color = ?, 
         secondary_color = ?, font_color = ? WHERE event_id = ?';
         $changeOnlyColorsEventStatement = connect()->prepare($SQLChangeOnlyColorsEvent);
@@ -181,7 +183,7 @@ function changeLogoOrColorsEvent(int $id, array $data) {
     }
 }
 
-function getMemoriesByEventId(int $id): array {
+function getMemoriesByEventId(int $id): array { // récup les souvenirs d'un event en particulier
     $SQLGetMemoriesById = 'SELECT * FROM timecapsule_memories WHERE event_id = ? ORDER BY memory_date DESC';
     $getMemoriesStatement = connect()->prepare($SQLGetMemoriesById);
     $getMemoriesStatement->execute([$id]);
@@ -190,12 +192,12 @@ function getMemoriesByEventId(int $id): array {
 }
 
 
-function createNewMemory(array $data): bool {
+function createNewMemory(array $data): bool { // créé un nouveau souvenir
     $mysqlClient = connect();
 
-    // part about file naming and stocking
+    // partie sur la photo du souvenir
     $TransferPathMemory = __DIR__ . '/content/memory_img/';
-    if ($_SERVER["SERVER_PORT"] === "5000") { // vaut true si en local
+    if ($_SERVER["SERVER_PORT"] === "5000") {
         $publicPath = __DIR__ . '/content/memory_img/';
     } else {
         $publicPath = 'https://fneto-prod.fr/timecapsule/src/content/memory_img/';
@@ -204,7 +206,7 @@ function createNewMemory(array $data): bool {
     $urlMemory = '';
 
     if ($_FILES["photo_memory"]["tmp_name"] !== "") {
-        // --> remplace les caractères spéciaux pour ne pas créer de conflit de génération d'URL (cas de Chloë)
+        // --> remplace les caractères spéciaux pour ne pas créer de conflit de génération d'URL
         $searchEncodedCharacters  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', "'", '"');
         $replaceEncodedCharacters = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', '', '');
         $memoryNameEncoded = str_replace($searchEncodedCharacters, $replaceEncodedCharacters, $_POST['title']);
@@ -218,7 +220,7 @@ function createNewMemory(array $data): bool {
     }
     
 
-    // Part to select color or patern
+    // Partie sur la couleur/patern img du souvenir
     $decoration = '';
     if($data['backg_value'] == 'color') {
         $decoration = $data['color_memory'];
@@ -250,7 +252,7 @@ function createNewMemory(array $data): bool {
     return true;
 }
 
-function likesMemory(array $data): bool {
+function likesMemory(array $data): bool { // update la BDD pour rajouter un like au nombre total de like d'un souvenir
 
     $SQLIncreaseNbrLikes = "UPDATE timecapsule_memories 
     SET memory_likes_count = :memory_likes_count WHERE memory_id = :memory_id";

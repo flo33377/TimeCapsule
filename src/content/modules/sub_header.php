@@ -1,3 +1,5 @@
+<?php // sub-header affichant le bouton retour + si user = propriétaire de l'event sur lequel il est, l'accès à l'admin modale ?>
+
 <nav id='nav_bar'>
     <div>
         <a class="back_button cta nav_left" 

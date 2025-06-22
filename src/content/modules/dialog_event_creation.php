@@ -1,4 +1,5 @@
 
+<?php // modale de création de nouvel évènement ?>
 <dialog id='dialog1' class="">
 
     <button class="close_popup" id="close_popup">X</button>
@@ -83,7 +84,7 @@
     </form>
 
     
-
+<!-- preview de l'event en cours de création -->
     <div id='preview_module'>
         <p class="title_popup bold">Prévisualiser votre rendu</p>
 

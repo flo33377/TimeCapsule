@@ -1,5 +1,8 @@
 
-/* preview color create new memory */
+// Fonction liées aux memories de chaque event
+
+/* Color picker preview du formulaire de création de new memory 
+Affiche aussi les paterns image */
 
 let decorationChoice = document.getElementById('patern_memory');
 
@@ -20,7 +23,7 @@ if (decorationChoice) {
     });
 }
 
-// function to display optionnal fields
+// Fonction pour afficher les champs supplémentaires du form
 
 function toggleDetails(fieldId, triggerEl) {
     const content = document.getElementById(fieldId);
@@ -49,8 +52,9 @@ function toggleDetails(fieldId, triggerEl) {
   }  
 
 
-/* Preview Memory function */
+/* Fonction de preview de création de memory */
 
+// éléments de design supp
 let pinHTML = '<img src="https://fneto-prod.fr/timecapsule/img/pin.png" class="pin_memory" alt="Epingle">';
 let starStickerHTML = '<img src="https://fneto-prod.fr/timecapsule/img/starsticker.png" class="starsticker_memory" alt="Sticker étoile">';
 let scotchHTML = '<img src="https://fneto-prod.fr/timecapsule/img/scotchtape.png" class="scotch_memory_left" alt="Scotch">'+
@@ -63,19 +67,20 @@ if (previewMemoryPhoto) { // on est sur la page create memory
     let backgChoiceRadio = document.getElementsByName('backg_value');
     let memoryCreationColorBlock = document.getElementById('memory_color_content');
     let memoryCreationPaternBlock = document.getElementById('memory_patern_content');
+    // get tous les éléments modifiables sur la preview
 
-    // fonction qui va chercher l'état du radio
+    // fonction qui renvoie ce qui est sélectionné dans le radio (couleur ou patern img)
     function getSelectedBackgOption(radioOptionsBackg) {
         for (i = 0; i < radioOptionsBackg.length; i++) {
             if (radioOptionsBackg[i].checked) {
-            return backgOptionChosen = radioOptionsBackg[i].value; //renvoie la valur sélectionnée
+            return backgOptionChosen = radioOptionsBackg[i].value; //renvoie la valeur sélectionnée
             break;
             }
         }
         return null; //renvoie null par défaut si radio vide 
     }
 
-    // fonction afficher le bloc couleur ou patern
+    // fonction afficher le bloc couleur ou patern en fonction de ce qui est sélectionné dans le radio
     function memoryBackgDisplay(radioOptionsBackg) {
         let selectedOption = getSelectedBackgOption(radioOptionsBackg);
     
@@ -150,6 +155,7 @@ if (previewMemoryPhoto) { // on est sur la page create memory
     .forEach(el => el.remove());
 
         if (decorationChosenMemory === 'pin') {
+            // si c'est pin sélectionné, affiche le pin
             const pin = document.createElement('img');
             pin.src = "https://fneto-prod.fr/timecapsule/img/pin.png";
             pin.alt = "Epingle";
@@ -160,6 +166,7 @@ if (previewMemoryPhoto) { // on est sur la page create memory
         }
         
         else if (decorationChosenMemory === 'starsticker') {
+            // si c'est starsticker, l'affiche
             const sticker = document.createElement('img');
             sticker.src = "https://fneto-prod.fr/timecapsule/img/starsticker.png";
             sticker.alt = "Sticker étoile";

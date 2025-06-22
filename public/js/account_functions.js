@@ -1,5 +1,9 @@
 
-/* Toogle connect/registration blocs */
+// Fonctions propres à la partie users du site
+// Fichier appelé uniquement sur la partie users
+
+
+/* Toogle pour passer du form connect au form register */
 
 let toogle_account_mode = document.getElementById('connect_register_radio_bloc');
 
@@ -15,17 +19,17 @@ if (toogle_account_mode) {
             document.getElementById('register_radio').checked ? 'flex' : 'none';
     }
 
-    // Attache les événements de changement
+    // Event sur chaque radio qui déclenche la fonction
     radios.forEach(radio => {
         radio.addEventListener('change', updateFormDisplay);
     });
 
-    // Appel initial pour mettre à jour au chargement
+    // Appel initial de la fonction au chargement de la page
     updateFormDisplay();
 }
 
 
-/* Check password conformity */
+/* Inscription - Check que les deux mots de passes rentrées sont les mêmes */
 
 let status_password_conformity = document.getElementById('status_password_conformity');
 let send_form_button = document.getElementById('submit_register_button');
