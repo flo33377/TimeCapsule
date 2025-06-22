@@ -30,6 +30,7 @@ Les capsules permettent de stocker et de partager les souvenirs à la manière d
 
 ## 📦 Structure du projet
 
+```
 timecapsule/
 ├── img/                         # Images statiques (logo, icônes...)
 │
@@ -54,7 +55,7 @@ timecapsule/
 ├── index.php                    # Point d’entrée principal du site
 ├── .gitignore
 └── README.md
-
+```
 
 ## 🚀 Tester le projet
 
