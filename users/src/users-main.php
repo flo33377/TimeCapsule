@@ -3,6 +3,7 @@
 /* Fichier qui le changement de contenu de la page et les actions de l'utilisateur */
 
 session_start();
+require __DIR__ . '/../../vendor/autoload.php';
 
 
 /* ini_set('display_errors', '1');
@@ -20,8 +21,17 @@ define("BASE_URL", ($_SERVER["SERVER_PORT"] === "5000") ? "http://localhost:5000
     // general login url = page de connexion/inscription
 define("GENERAL_LOGIN_URL", __DIR__ . "/../../src/content/users-content/login.php");
 
+    // reset pwd start = formulaire de réinitialisation de mot de passe
+define("RESET_PWD_START", __DIR__ . "/../../src/content/users-content/pwd_reset_start.php");
+
+    // reset pwd sent = formulaire de réinitialisation de mot de passe
+define("RESET_PWD_SENT", __DIR__ . "/../../src/content/users-content/pwd_reset_sent.php");
+
     // profile url = p. profil de l'utilisateur connecté
 define("PROFILE_URL", __DIR__ . "/../../src/content/users-content/user-profile.php");
+
+    // reset pwd form = formulaire de reset de pwd accessible depuis l'email avec le lien
+define("RESET_PWD_FORM", __DIR__ . "/../../src/content/users-content/pwd_change_form.php");
 
 
 // Variables de pages
@@ -37,11 +47,15 @@ switch ($method) {
         if (!empty($_POST)) {
             if (isset($_POST["post_create_account"])) $page = "post_create_user"; // basé sur l'input caché post_create_account
             if (isset($_POST['post_connect_account'])) $page = "attempt_connexion_user"; // input caché post_connect_account
+            if (isset($_POST['post_pwd_reset'])) $page = "post_pwd_reset_start"; // input caché post_pwd_reset
+            if (isset($_POST['post_pwd_reset_email'])) $page = "post_pwd_reset_email"; // input caché post_pwd_reset_email
         }
         break;
 
     case "GET":
         if (!empty($_GET["disconnect"]) && $_GET['disconnect'] == true) $page = "disconnect"; // déconnexion du compte user
+        if (!empty($_GET['password_reset']) && $_GET['password_reset'] == true && (!isset($_GET['email']))) $page = "go_form_pwd_reset"; // renvoi mdp par email
+        if (!empty($_GET['pwd_reset_email']) && !empty($_GET['token'])) $page = "form_new_pwd";
         break;
 }
 
@@ -133,5 +147,55 @@ switch ($page) {
             header("Location: " . "/timecapsule/users");
             exit;
         };
+        break;
+
+    case "go_form_pwd_reset" : // affichage du form password reset
+        $content = RESET_PWD_START;
+        break;
+    
+    case "post_pwd_reset_start" : // demande d'envoi de lien reset mdp par email
+        $isRegistered = isRegistered($_POST['reset_pwd_email']);
+        if (filter_var($_POST['reset_pwd_email'], FILTER_VALIDATE_EMAIL) && $isRegistered) { // la donnée saisie est bien un email et il est en BDD
+            $token = generateAndSaveResetToken($_POST['reset_pwd_email']);
+            /* $email = $_POST['reset_pwd_email'];
+            if($_SERVER["SERVER_PORT"] === "5000") {
+                $link = 'http://localhost:5000/users/?pwd_reset_email=' . $_POST['reset_pwd_email'] . '&token=' . $token;
+            } else {
+                $link = 'https://fneto-prod.fr/timecapsule/users/?pwd_reset_email=' . $_POST['reset_pwd_email'] . '&token=' . $token;
+            }
+            
+            // $link = "google.com"; // pour test si MailJet refuse "localhost" en lien envoyé
+
+            if (sendResetEmail($email, $link)) {
+                echo "E-mail envoyé !"; // débug
+            } else {
+                echo "Échec de l envoi."; // débug
+            } */
+        };
+        $content = RESET_PWD_SENT;
+
+        break;
+
+    case "form_new_pwd" : // affiche le form pour changer son mot de passe
+        $content = RESET_PWD_FORM;
+        $email = $_GET['pwd_reset_email'];
+        break;
+
+    case "post_pwd_reset_email" : // form envoyé pour changer le mdp depuis lien email
+        $content = GENERAL_LOGIN_URL;
+        if(empty($_POST['token_associated'])) { // si le token est vide ou null
+            $_SESSION['bannerMessage'] = 'ErrorTokenResetPassword';
+        } else {
+            $tokenStatus = isTokenOk($_POST);
+            if($tokenStatus == 'invalid') {
+                $_SESSION['bannerMessage'] = 'ErrorTokenResetPassword';
+            } elseif($tokenStatus == 'expired') {
+                $_SESSION['bannerMessage'] = 'ExpiredTokenResetPassword';
+            } elseif($tokenStatus == 'valid') {
+                changePasswordFromEmail($_POST);
+                $_SESSION['bannerMessage'] = 'ResetPasswordSuccess';
+            }
+        }
+        // checker avant fonction que token n'est pas égal à null ou vide
         break;
 }

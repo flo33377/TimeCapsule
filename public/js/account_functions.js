@@ -36,8 +36,8 @@ let send_form_button = document.getElementById('submit_register_button');
 non_conform_message = 'Les deux mots de passe doivent être identiques';
 
 if (status_password_conformity) {
-    let first_password_field = document.getElementById('create_account_password');
-    let second_password_field = document.getElementById('create_account_password_validation');
+    let first_password_field = document.getElementById('account_password');
+    let second_password_field = document.getElementById('account_password_validation');
     
     function checkPasswordMatch() {
         if(first_password_field.value !== second_password_field.value) {

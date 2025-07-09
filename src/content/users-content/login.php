@@ -71,7 +71,7 @@ if (isset($_SESSION['open_signup'])) {
 
     </form>
 
-    <a id="forgotten_password" href="" aria-describedby="infobulle">Mot de passe oublié ?<br>
+    <a id="forgotten_password" href='./users/?password_reset=true'>Mot de passe oublié ?<br>
     (Bientôt disponible)</a>
 
 </div>
@@ -95,13 +95,13 @@ if (isset($_SESSION['open_signup'])) {
     </div>
 
     <div class="field_register">
-        <label for='create_account_password'><p>Mot de passe</p></label>
-        <input type='password' id='create_account_password' name='create_account_password' required>
+        <label for='account_password'><p>Mot de passe</p></label>
+        <input type='password' id='account_password' name='account_password' required>
     </div>
 
     <div class="field_register">
-        <label for='create_account_password_validation'><p>Confirmer votre mot de passe</p></label>
-        <input type='password' id='create_account_password_validation' name='create_account_password_validation' required>
+        <label for='account_password_validation'><p>Confirmer votre mot de passe</p></label>
+        <input type='password' id='account_password_validation' name='account_password_validation' required>
     </div>
 
     <p id="status_password_conformity"></p>

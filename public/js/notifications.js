@@ -58,6 +58,21 @@ const messages = {
         text: "Aucun compte ne semble associé à cet email. Merci de vous créer un compte.",
         icon: "❌",
         colorClass: "error-banner"
+    },
+    ErrorTokenResetPassword: {
+        text: "Une erreur s'est produite. Merci de ré-essayer plus tard",
+        icon: "❌",
+        colorClass: "error-banner"
+    },
+    ExpiredTokenResetPassword: {
+        text: "Le lien n'est plus valide. Merci de faire une nouvelle demande de réinitialisation.",
+        icon: "⌛",
+        colorClass: "error-banner"
+    },
+    ResetPasswordSuccess: {
+        text: "Votre mot de passe a été modifié. Vous pouvez vous connecter.",
+        icon: "🤖",
+        colorClass: "success-banner"
     }
 };
 

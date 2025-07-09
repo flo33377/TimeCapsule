@@ -34,7 +34,8 @@
   >Time Capsule
 <?php endif ?>
 </title>
-</head>
+</head> 
+
 
 <body>
 

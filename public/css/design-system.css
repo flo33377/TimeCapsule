@@ -510,6 +510,8 @@ details form {
   transition: transform 0.5s ease, opacity 0.5s ease;
   z-index: 9999;
   overflow: hidden;
+  width: 70%;
+  max-width: fit-content;
 }
 
 .success-banner.show {
@@ -533,6 +535,8 @@ details form {
   transition: transform 0.5s ease, opacity 0.5s ease;
   z-index: 9999;
   overflow: hidden;
+  width: 70%;
+  max-width: fit-content;
 }
 
 .error-banner.show {

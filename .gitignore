@@ -12,8 +12,9 @@ src/db/db_timecapsule.db
 # Ignorer les fichiers de config sensibles si présents
 config.php
 .env
+config_mailjet.php
 
-# Ignorer les dépendances (pour Composer plus tard)
+# Ignorer les dépendances
 vendor/
 node_modules/
 

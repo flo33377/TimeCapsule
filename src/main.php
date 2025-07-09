@@ -1,6 +1,8 @@
 <?php
 
 session_start();
+require __DIR__ . '/../vendor/autoload.php';
+
 
 /* 
 //fonction de débug - besoin du fichier debug_log.txt
