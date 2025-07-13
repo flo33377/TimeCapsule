@@ -70,8 +70,8 @@ if (!empty($event["event_password"]) && (!isset($_SESSION['auth']) || $_SESSION[
     <div class="custom-color-picker" id="memory_color_content">
         <label for="color_memory">Couleur du polaroid :</label>
         <div>
-            <input type="color" name='color_memory' id='color_memory' class='form_field real-color-input' value="#ffe4c4">
-            <div class="color-circle" style="background-color: #ffe4c4" ></div>
+            <div class="pickr-container" data-color-id="color_memory"></div>
+            <input type="hidden" id="color_memory" name="color_memory" value="#ffe4c4">
         </div>
     </div>
 
@@ -91,14 +91,16 @@ if (!empty($event["event_password"]) && (!isset($_SESSION['auth']) || $_SESSION[
     <p><span class="chevron">&#9654;</span> <span class="underline">Voir plus d'options de personnalisation</span></p>
 </div>
 
+
 <div class="new_memory_options_field" id="new_memory_options_field">
+    <!-- new version -->
     <div class="color_content" id="new_memory_font_color">
         <div class="color_choosing">
             <label for='text_memory_color'><p>Couleur des textes :</p></label>
         </div>
         <div class="custom-color-picker">
-            <input type="color" id='text_memory_color' name='text_memory_color' class='form_field real-color-input' value="#041009" required>
-            <div class="color-circle" style="background-color: #041009;"></div>
+            <div class="pickr-container" data-color-id="text_memory_color"></div>
+            <input type="hidden" id="text_memory_color" name="text_memory_color" value="#041009">
         </div>
     </div>
 

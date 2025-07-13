@@ -140,6 +140,7 @@ switch ($page) {
         // suppr les valeurs de session
         unset($_SESSION['user_email']);
         unset($_SESSION['user_id']);
+        /* session_unset(); */
         if($_SERVER["SERVER_PORT"] === "5000") {
             header("Location: " . "/users");
             exit;

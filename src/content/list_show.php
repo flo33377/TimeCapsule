@@ -1,4 +1,10 @@
 
+<?php
+/* echo '<pre>';
+print_r($_SESSION);
+echo '<pre>'; */
+?>
+
 <!-- navigation bar & admin modale -->
 
 <?php include_once(__DIR__ . "/modules/sub_header.php") ?>

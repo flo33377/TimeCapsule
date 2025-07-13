@@ -1,7 +1,5 @@
 <?php // modale permettant à un user de modifier un event dont il est propriétaire => changement de nom-logo-couleurs + suppression ?>
 
-<?php include_once(__DIR__ . "/colors_functions.php") ?>
-
 <?php if (empty($event["event_password"]) || (isset($_SESSION['auth']) && $_SESSION['auth'] == $event["event_id"])) : ?>
 <dialog id='dialog1'>
 

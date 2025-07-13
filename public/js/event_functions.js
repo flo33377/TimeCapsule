@@ -108,7 +108,7 @@ if(document.getElementById('eventContainer')) { // gestion des erreurs
 
 };
 
-
+// A SUPPR
 /* Système de color picker - Affiche couleur selectionnée dans un rond */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -130,29 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
-// Fonction qui calcule si couleur est trop claire pour utiliser icone blanche dans les nav buttons
-
-function isLightColor(hexColor) {
-    // Supprime le # si présent
-    hexColor = hexColor.replace(/^#/, '');
-
-    // Si format court (#fff), l'étendre à 6 caractères
-    if (hexColor.length === 3) {
-        hexColor = hexColor.split('').map(c => c + c).join('');
-    }
-
-    // Convertir les composants hexadécimaux en décimal
-    const r = parseInt(hexColor.substring(0, 2), 16);
-    const g = parseInt(hexColor.substring(2, 4), 16);
-    const b = parseInt(hexColor.substring(4, 6), 16);
-
-    // Calcul de luminance
-    const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
-
-    // Retourne true si la couleur est claire
-    return luminance > 186;
-}
 
 
 /* Système de preview du design des évènements lors de leur création/modification */
@@ -203,35 +180,6 @@ if (previewLogoEvent) { // gestion des erreurs
     });
 
 };
-
-/* Preview event fonction - avertissement de couleur trop claire => picto en blanc */
-
-let warningMainColorNotLightHTML = `<p id='warning_main_color_light'>
-Attention : la couleur principale sélectionnée étant claire, les icones de navigation 
-seront en noir.<br>(cf. Prévisualisation)</p>`;
-
-let newEventMainColorPicker = document.getElementById('main_color');
-
-if (newEventMainColorPicker) { // gestion des erreurs
-    newEventWarningBloc = document.getElementById('new_event_main_color_comment');
-    newEventMainColorPicker.addEventListener('change', () => {
-        // en cas de changement de couleur
-        let currentMainColor = newEventMainColorPicker.value;
-        let warningMessageDisplayed = document.getElementById('warning_main_color_light');
-        if(isLightColor(currentMainColor)) {
-            // check si la couleur est claire, si oui affiche le message
-            if(!warningMessageDisplayed) {
-                newEventWarningBloc.innerHTML = warningMainColorNotLightHTML;
-            };
-        } else {
-            // sinon l'enlève s'il est déjà affiché 
-            if(warningMessageDisplayed) {
-                warningMessageDisplayed.remove();
-            }
-        };
-    })
-}
-
 
 
 /* Fonction de like des memories - via requête AJAX */

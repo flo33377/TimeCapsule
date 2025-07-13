@@ -121,7 +121,6 @@ switch ($page) {
         if ($eventId) $event = getEventById($eventId);
         if (!$event) { // cas event non existant
             $lists = getAllEvents();
-            $_SESSION['bannerType'] = "ErrorBanner";
             $_SESSION['bannerMessage'] = "UnknownEvent";
             $content = LIST_INDEX_URL;
         } else { // cas event existe
@@ -148,7 +147,6 @@ switch ($page) {
         if ($_SESSION['event_id']) changeNameEvent($_SESSION['event_id'], $_POST['new_name_event']);
         /* $_SESSION["auth"] = $targetEvent; */
         
-        $_SESSION['bannerType'] = "SuccessBanner";
         $_SESSION['bannerMessage'] = "ChangeName";
 
         session_write_close(); // permet de bien dire d'enregistrer les var de session avant le header location
@@ -165,7 +163,6 @@ switch ($page) {
     case "post_change_logo_colors" : // change les couleurs et éventuellement le logo de l'event
         $content = FOCUS_EVENT_URL;
 
-        $_SESSION['bannerType'] = "SuccessBanner";
         $_SESSION['bannerMessage'] = "ChangeColorLogo";
 
         if ($_SESSION['event_id']) $targetEvent = $_SESSION['event_id'];
@@ -192,7 +189,6 @@ switch ($page) {
     case "post_create_memory": // créé un memory
         $content = FOCUS_EVENT_URL;
 
-        $_SESSION['bannerType'] = "SuccessBanner";
         $_SESSION['bannerMessage'] = "MemoryCreated";
 
         $eventId = $_SESSION["event_id"] ?? null;
