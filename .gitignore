@@ -12,7 +12,7 @@ src/db/db_timecapsule.db
 # Ignorer les fichiers de config sensibles si présents
 config.php
 .env
-config_mailjet.php
+config_brevo.php
 
 # Ignorer les dépendances
 vendor/

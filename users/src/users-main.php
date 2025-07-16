@@ -158,16 +158,14 @@ switch ($page) {
         $isRegistered = isRegistered($_POST['reset_pwd_email']);
         if (filter_var($_POST['reset_pwd_email'], FILTER_VALIDATE_EMAIL) && $isRegistered) { // la donnée saisie est bien un email et il est en BDD
             $token = generateAndSaveResetToken($_POST['reset_pwd_email']);
-            /* $email = $_POST['reset_pwd_email'];
+            $email = $_POST['reset_pwd_email'];
             if($_SERVER["SERVER_PORT"] === "5000") {
                 $link = 'http://localhost:5000/users/?pwd_reset_email=' . $_POST['reset_pwd_email'] . '&token=' . $token;
             } else {
                 $link = 'https://fneto-prod.fr/timecapsule/users/?pwd_reset_email=' . $_POST['reset_pwd_email'] . '&token=' . $token;
             }
-            
-            // $link = "google.com"; // pour test si MailJet refuse "localhost" en lien envoyé
 
-            if (sendResetEmail($email, $link)) {
+            /* if (sendResetEmail($email, $link)) {
                 echo "E-mail envoyé !"; // débug
             } else {
                 echo "Échec de l envoi."; // débug

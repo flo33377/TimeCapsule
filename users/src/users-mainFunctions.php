@@ -3,7 +3,8 @@
 /* Fichier contenant les fonctions propres à la partie users du site (connexion, inscription, etc.) */
 
 require '../vendor/autoload.php'; // connexion SDK
-require '../config_mailjet.php'; // connexion SDK
+require '../config_brevo.php'; // connexion SDK
+require '../src/content/emails_content/emails_content.php'; // contenu des emails à envoyer
 
 
 function connect(): PDO { // connexion à la base de données
@@ -99,18 +100,19 @@ use PHPMailer\PHPMailer\Exception;
 
 function sendResetEmail($userEmail, $resetLink) {
     $mail = new PHPMailer(true);
+    $contentEmail = returnHTMLEmailResetPassword($resetLink);
     
-$mail->SMTPDebug = 2;
-$mail->Debugoutput = 'html';
+/* $mail->SMTPDebug = 2;
+$mail->Debugoutput = 'html'; */
 
     try {
         // Paramètres serveur
         $mail->isSMTP();
-        $mail->Host = 'in-v3.mailjet.com';
+        $mail->Host = 'smtp-relay.brevo.com';
         $mail->SMTPAuth = true;
-        $mail->Username = MJ_API_KEY_PUBLIC;
-        $mail->Password = MJ_API_KEY_PRIVATE;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // ou ENCRYPTION_SMTPS si port 465
+        $mail->Username = BREVO_API_KEY_PUBLIC;
+        $mail->Password = BREVO_API_KEY_PRIVATE;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Expéditeur et destinataire
@@ -121,18 +123,13 @@ $mail->Debugoutput = 'html';
         $mail->isHTML(true);
         $mail->Subject = 'Réinitialisation de votre mot de passe';
         $mail->CharSet = 'UTF-8';
-        $mail->Body    = "
-            <p>Bonjour,</p>
-            <p>Vous avez demandé à réinitialiser votre mot de passe.</p>
-            <p><a href='$resetLink'>Cliquez ici pour le faire</a> (valable 1 heure)</p>
-            <p>Si ce n'était pas vous, ignorez ce message.</p>
-        ";
+        $mail->Body    = $contentEmail;
 
         $mail->send();
         return true;
     } catch (Exception $e) {
         // Log ou debug ici si besoin
-        echo "Erreur d'envoi du mail : " . $mail->ErrorInfo;
+        // echo "Erreur d'envoi du mail : " . $mail->ErrorInfo;
         return false;
     }
 }
