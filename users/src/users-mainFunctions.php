@@ -128,8 +128,8 @@ $mail->Debugoutput = 'html'; */
         $mail->send();
         return true;
     } catch (Exception $e) {
-        // Log ou debug ici si besoin
-        // echo "Erreur d'envoi du mail : " . $mail->ErrorInfo;
+        /* // Log ou debug ici si besoin
+        echo "Erreur d'envoi du mail : " . $mail->ErrorInfo; */
         return false;
     }
 }

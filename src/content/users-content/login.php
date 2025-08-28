@@ -38,7 +38,7 @@ if (isset($_SESSION['open_signup'])) {
 <div id="connect_bloc">
     <h1>Connexion</h1>
 
-    <form action="#" method="POST" enctype="form-data" id="form_login">
+    <form action="" method="POST" enctype="form-data" id="form_login">
     <input type='hidden' id='post_connect_account' name='post_connect_account' required />
 
     <?php if(isset($existingEmail) && $existingEmail !== null) : 
@@ -71,8 +71,7 @@ if (isset($_SESSION['open_signup'])) {
 
     </form>
 
-    <a id="forgotten_password" href='./users/?password_reset=true'>Mot de passe oublié ?<br>
-    (Bientôt disponible)</a>
+    <a id="forgotten_password" href='<?= BASE_URL ?>users/?password_reset=true'>Mot de passe oublié ?</a>
 
 </div>
 
@@ -86,7 +85,7 @@ if (isset($_SESSION['open_signup'])) {
         <p id="signup_needed">Vous devez être connecté pour créer un évènement</p>
     <?php endif ?>
 
-    <form action="#" method="POST" enctype="form-data" id="form_register">
+    <form action="" method="POST" enctype="form-data" id="form_register">
     <input type='hidden' id='post_create_account' name='post_create_account' required />
 
     <div class="field_register">

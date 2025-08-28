@@ -17,7 +17,7 @@
 
     <p class="informations_notes">Saisissez votre email pour recevoir un lien de réinitialisation de votre mot de passe.</p>
 
-    <form action="#" method="POST" enctype="form-data" id="form_login">
+    <form action="" method="POST" enctype="form-data" id="form_login">
     <input type='hidden' id='post_pwd_reset' name='post_pwd_reset' required />
 
     <div class="field_login">

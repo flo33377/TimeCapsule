@@ -8,8 +8,8 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 /* ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-*/
+error_reporting(E_ALL); */
+
 
 include_once(__DIR__ . "/users-mainFunctions.php"); 
 // fichier avec les fonctions
@@ -90,13 +90,7 @@ switch ($page) {
                 $_SESSION['user_email'] = $userInfos['user_email'] ?? null;
                 $_SESSION['user_id'] = $userInfos['user_id'] ?? null;
                 $_SESSION['nbr_events'] = 0;
-                if($_SERVER["SERVER_PORT"] === "5000") {
-                    header("Location: " . "/users");
-                    exit;
-                } else {
-                    header("Location: " . "/timecapsule/users");
-                    exit;
-                };
+                
             } else { // si user pas trouvé (création échouée)
                 $content = GENERAL_LOGIN_URL;
                 $_SESSION['bannerMessage'] = 'ErrorCreationUser';
@@ -165,11 +159,11 @@ switch ($page) {
                 $link = 'https://fneto-prod.fr/timecapsule/users/?pwd_reset_email=' . $_POST['reset_pwd_email'] . '&token=' . $token;
             }
 
-            /* if (sendResetEmail($email, $link)) {
-                echo "E-mail envoyé !"; // débug
+            if (sendResetEmail($email, $link)) {
+                /* echo "E-mail envoyé !"; // débug */
             } else {
-                echo "Échec de l envoi."; // débug
-            } */
+                /* echo "Échec de l envoi."; // débug */
+            }
         };
         $content = RESET_PWD_SENT;
 
