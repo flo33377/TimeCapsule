@@ -1,8 +1,5 @@
-# Ignorer le fichier SQLite spécifique
-src/db/db_timecapsule.db
-
-# Ou ignorer tous les fichiers de type .db dans ce dossier
-# src/db/*.db
+# Ignorer tous les fichiers de type .db dans le dossier
+src/db/*.db
 
 # Éviter d’inclure des fichiers temporaires ou sensibles
 *.log
