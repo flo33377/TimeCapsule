@@ -5,7 +5,10 @@
 // contenu généré depuis $content
 ?>
 
-<?php include_once(__DIR__ . "/src/main.php") ?>
+<?php // dépendances
+include_once(__DIR__ . "/src/main.php");
+include_once(__DIR__ . "/src/recorder/analytics_recorder.php") 
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
