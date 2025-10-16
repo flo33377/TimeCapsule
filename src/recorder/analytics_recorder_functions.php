@@ -52,8 +52,8 @@ function getCurrentDateInfos(string $currentDate) : array { // récup les infos 
     /* MAJ DE LA DB */
 
 function hasAlreadyVisitedToday(string $currentDate) : bool { // renvoie true si user déjà venu aujourd'hui
-    return isset($_SESSION['visited_today'], $_SESSION['last_visit_date']) 
-    && $_SESSION['visited_today'] === true && ($_SESSION['last_visit_date'] == $currentDate) === true;
+    return isset($_SESSION['visited_timecapsule_today'], $_SESSION['last_visit_date']) 
+    && $_SESSION['visited_timecapsule_today'] === true && ($_SESSION['last_visit_date'] == $currentDate) === true;
     // si tout est ok true = true => renvoie true, sinon false != true => renvoie false
 }
 
