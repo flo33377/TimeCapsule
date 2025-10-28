@@ -35,7 +35,15 @@ function addCurrentDateInDB(string $currentDate) { //Ajoute la date courante en 
     $Statement->execute([
         'date_recorded' => $currentDate,
         'impressions' => 1,
-        'unique_visitors' => 1
+        'unique_visitors' => 1,
+        'desktop' => 0,
+        'tablet' => 0,
+        'mobile' => 0,
+        'chrome' => 0,
+        'firefox' => 0,
+        'safari' => 0,
+        'edge' => 0,
+        'other_browser' => 0
     ]);
 }
 
@@ -52,8 +60,8 @@ function getCurrentDateInfos(string $currentDate) : array { // récup les infos 
     /* MAJ DE LA DB */
 
 function hasAlreadyVisitedToday(string $currentDate) : bool { // renvoie true si user déjà venu aujourd'hui
-    return isset($_SESSION['visited_timecapsule_today'], $_SESSION['last_visit_date']) 
-    && $_SESSION['visited_timecapsule_today'] === true && ($_SESSION['last_visit_date'] == $currentDate) === true;
+    return isset($_SESSION['visited_timecapsule_today'], $_SESSION['last_visit_date_timecapsule']) 
+    && $_SESSION['visited_timecapsule_today'] === true && ($_SESSION['last_visit_date_timecapsule'] == $currentDate) === true;
     // si tout est ok true = true => renvoie true, sinon false != true => renvoie false
 }
 

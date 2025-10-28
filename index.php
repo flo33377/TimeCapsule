@@ -24,6 +24,7 @@ include_once(__DIR__ . "/src/recorder/analytics_recorder.php")
   <script src="./public/js/memories_functions.js" defer></script>
   <script src="./public/js/modales.js" defer></script>
   <script src="./public/js/notifications.js" defer></script>
+  <script src="./public/js/device_browser_recorder.js" defer></script>
   <!-- CSS du module Pickr - thème nano -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css" />
   <!-- Script de Pickr -->

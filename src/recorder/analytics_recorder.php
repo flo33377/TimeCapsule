@@ -60,7 +60,7 @@ if(!$isCurrentDateRecorded){
     addCurrentDateInDB($currentDate);
     // et indique en session qu'il est venu aujourd'hui
     $_SESSION['visited_timecapsule_today'] = true;
-    $_SESSION['last_visit_date'] = $currentDate;
+    $_SESSION['last_visit_date_timecapsule'] = $currentDate;
 
 } else {
     // pars du principe que ce n'est pas un nouveau visiteur
@@ -69,7 +69,7 @@ if(!$isCurrentDateRecorded){
     if(!hasAlreadyVisitedToday($currentDate)) { // check s'il est bien déjà venu
         // si c'est bien un nouveau, config sa session et passe newVisitor à true
         $_SESSION['visited_timecapsule_today'] = true;
-        $_SESSION['last_visit_date'] = $currentDate;
+        $_SESSION['last_visit_date_timecapsule'] = $currentDate;
         $newVisitor = true;
     };
 
