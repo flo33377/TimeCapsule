@@ -3,26 +3,28 @@
 session_start();
 include_once(__DIR__ . "/analytics_recorder_functions.php");
 
-// Domaine autorisé
-$allowedHost = 'www.fneto-prod.fr';
-$allowedLocal = 'localhost:5000';
+// Domaines autorisés (avec et sans www)
+$allowedHosts = ['fneto-prod.fr', 'www.fneto-prod.fr', 'localhost:5000'];
 
-// Vérifie l'origine
+// Vérifie l'origine si elle existe
 if (isset($_SERVER['HTTP_ORIGIN'])) {
     $parsedOrigin = parse_url($_SERVER['HTTP_ORIGIN']);
     $originHost = $parsedOrigin['host'] ?? '';
     $originPort = isset($parsedOrigin['port']) ? ':' . $parsedOrigin['port'] : '';
-    $origin = $originHost . $originPort;
+    $originFull = $originHost . $originPort;
 
-    if ($origin !== $allowedHost && $origin !== $allowedLocal) {
+    if (!in_array($originFull, $allowedHosts, true)) {
         echo "⛔ Accès interdit depuis une origine non autorisée. ⛔";
         exit;
     }
 
-    // Si origine autorisée, on renvoie les bons headers CORS
+    // Origine autorisée → on envoie les bons headers CORS
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     header("Access-Control-Allow-Methods: POST, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type");
+} else {
+    // Aucun header Origin → probablement un fetch interne, donc autorisé
+    // Pas besoin d'envoyer de headers CORS dans ce cas
 }
 
 // Gestion de la requête OPTIONS (préflight)
@@ -52,7 +54,7 @@ if (!isCurrentDateRecorded($currentDate)) {
 // N'update les données que si c'est un nouveau visiteur
 $currentDate = (new DateTime())->format('Y-m-d');
 
-if(!isset($_SESSION['last_visit_date_timecapsule']) || (isset($_SESSION['last_visit_date_timecapsule']) && ($_SESSION['last_visit_date_timecapsule'] != $currentDate))) {
+if(!isset($_SESSION['timecapsule_device_browser_last_record']) || (isset($_SESSION['timecapsule_device_browser_last_record']) && ($_SESSION['timecapsule_device_browser_last_record'] != $currentDate))) {
     // Mets à jour les colonnes correspondantes
     $SQL = "UPDATE timecapsule_analytics
             SET $device = $device + 1,
@@ -61,6 +63,8 @@ if(!isset($_SESSION['last_visit_date_timecapsule']) || (isset($_SESSION['last_vi
 
     $Statement = connectAnalytics()->prepare($SQL);
     $Statement->execute(['date_recorded' => $currentDate]);
+
+    $_SESSION['timecapsule_device_browser_last_record'] = $currentDate;
 }
 
 ?>

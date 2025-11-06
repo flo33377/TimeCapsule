@@ -29,8 +29,9 @@ function isCurrentDateRecorded(string $currentDate) : bool { //renvoie sur date 
 
 function addCurrentDateInDB(string $currentDate) { //Ajoute la date courante en DB
     $currentDate = (new DateTime())->format('Y-m-d');
-    $SQL = 'INSERT INTO timecapsule_analytics (date_recorded, impressions, unique_visitors)
-    VALUES (:date_recorded, :impressions, :unique_visitors)';
+    $SQL = 'INSERT INTO timecapsule_analytics (date_recorded, impressions, unique_visitors, desktop, tablet, mobile, chrome, firefox, safari, edge, other_browser)
+    VALUES (:date_recorded, :impressions, :unique_visitors, :desktop, :tablet, :mobile, 
+    :chrome, :firefox, :safari, :edge, :other_browser)';
     $Statement = connectAnalytics()->prepare($SQL);
     $Statement->execute([
         'date_recorded' => $currentDate,

@@ -14,8 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   else if (ua.includes("Edg")) browser = "edge";
 
   // Envoi vers le script PHP
-  fetch("../../src/recorder/analytics_device_browser.php", {
+  fetch("src/recorder/analytics_device_browser.php", {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: `device=${deviceType}&browser=${browser}`
   });
